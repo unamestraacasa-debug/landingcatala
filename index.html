@@ -19,6 +19,7 @@
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
+svg{display:block}
 body{font-family:var(--round);color:var(--ink);overflow-x:hidden;
   background:
     radial-gradient(120% 60% at 85% -5%, rgba(169,139,255,.40), transparent 55%),
@@ -65,11 +66,11 @@ a{color:inherit;text-decoration:none}
 .top .ava{width:34px;height:34px;border-radius:50%}
 .top .lvl{font-weight:800;font-size:15px}
 .pill{margin-left:auto;font:800 11px/1 var(--mono);background:rgba(127,233,225,.85);color:#0E1424;padding:5px 9px;border-radius:999px}
-.pillt{font-size:14px;background:linear-gradient(120deg,var(--amber),var(--rose));width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#241a1f}
+.pillt{background:linear-gradient(120deg,var(--amber),var(--rose));width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#241a1f}
 .bar{height:14px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-bottom:14px;position:relative}
 .bar>span{position:absolute;inset:0;width:62%;background:linear-gradient(90deg,#7FE9E1,#93A9FF)}
 .node{display:flex;align-items:center;gap:11px;margin:9px 0}
-.node .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:#0E1424;font-size:16px;flex:0 0 auto;
+.node .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:#0E1424;flex:0 0 auto;
   box-shadow:0 6px 14px -8px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.35)}
 .g1{background:linear-gradient(135deg,#7FE9E1,#93A9FF)} .g2{background:linear-gradient(135deg,#FFB27A,#FF6E9C)}
 .g3{background:linear-gradient(135deg,#A98BFF,#FF6E9C)}
@@ -91,15 +92,19 @@ a{color:inherit;text-decoration:none}
 .psec{display:flex;align-items:center;gap:6px;margin:10px 0 6px}
 .psec b{font-size:14px;font-weight:800} .psec .n{font:800 9px/1 var(--mono);background:rgba(127,233,225,.85);color:#0E1424;padding:2px 6px;border-radius:999px}
 .arow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:13px;margin:6px 0}
-.arow .t{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:16px;color:#0E1424;flex:0 0 auto}
+.arow .t{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;color:#0E1424;flex:0 0 auto}
 .arow .ti{font-size:11.5px;font-weight:700;line-height:1.2} .arow .mt{font:700 8.5px/1 var(--mono);color:#2fa0a8;margin-top:3px}
 section{padding:56px 0}
 .h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;text-align:center}
 .sub{color:var(--muted);text-align:center;max-width:52ch;margin:12px auto 0;line-height:1.55}
 .feats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
 .feat{background:var(--card);border:1px solid var(--stroke);border-radius:20px;padding:22px}
-.feat .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;margin-bottom:14px;
-  background:linear-gradient(135deg,rgba(127,233,225,.25),rgba(169,139,255,.25));border:1px solid var(--stroke)}
+.feat .ico{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;margin-bottom:14px;color:#0E1424;
+  border:1px solid rgba(255,255,255,.4);box-shadow:0 8px 18px -10px rgba(0,0,0,.6)}
+.i-glacier{background:linear-gradient(135deg,#7FE9E1,#93A9FF)}
+.i-alpen{background:linear-gradient(135deg,#FFB27A,#FF6E9C)}
+.i-violet{background:linear-gradient(135deg,#A98BFF,#FF6E9C)}
+.i-teal{background:linear-gradient(135deg,#7FE9E1,#5fc7c0)}
 .feat h3{font-size:16px;font-weight:800;margin-bottom:7px} .feat p{color:var(--muted);font-size:13.5px;line-height:1.5}
 .shots{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:44px}
 .shot{display:flex;flex-direction:column;align-items:center;gap:12px}
@@ -137,18 +142,18 @@ section{padding:56px 0}
           <button class="btn" type="submit">Avisa'm</button>
         </form>
       </div>
-      <div class="note">🍏 Disponible aviat a l'App Store · Apunta't i t'avisem quan surti.</div>
+      <div class="note">Disponible aviat a l'App Store · Apunta't i t'avisem quan surti.</div>
     </div>
     <div class="heroart">
       <div class="phone">
         <div class="notch"></div>
         <div class="screen dark">
-          <div class="top"><img class="ava" src="assets/avatar-41.png" alt=""/><span class="lvl">Bàsic</span><span class="pillt">🏆</span><span class="pill">1240 XP</span></div>
+          <div class="top"><img class="ava" src="assets/avatar-41.png" alt=""/><span class="lvl">Bàsic</span><span class="pillt"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></span><span class="pill">1240 XP</span></div>
           <div class="bar"><span></span></div>
-          <div class="node"><span class="ic g1">🗻</span><div><b>Salutacions i presentacions</b><small>Unitat 1.1</small></div></div>
-          <div class="node"><span class="ic g2">💬</span><div><b>Les activitats del dia</b><small>Unitat 1.3</small></div></div>
-          <div class="node"><span class="ic g3">🏔️</span><div><b>Posa't a prova!</b><small>Cim del bloc · Tutor IA</small></div></div>
-          <div class="node"><span class="ic g1">✅</span><div><b>Com ho porto?</b><small>Autoavaluació del bloc</small></div></div>
+          <div class="node"><span class="ic g1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><div><b>Salutacions i presentacions</b><small>Unitat 1.1</small></div></div>
+          <div class="node"><span class="ic g2"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span><div><b>Les activitats del dia</b><small>Unitat 1.3</small></div></div>
+          <div class="node"><span class="ic g3"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 20 6-12 4 7 3-4 5 9z"/></svg></span><div><b>Posa't a prova!</b><small>Cim del bloc · Tutor IA</small></div></div>
+          <div class="node"><span class="ic g1"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></svg></span><div><b>Com ho porto?</b><small>Autoavaluació del bloc</small></div></div>
         </div>
       </div>
     </div>
@@ -158,10 +163,10 @@ section{padding:56px 0}
     <h2 class="h2">Tot el que necessites per parlar català</h2>
     <p class="sub">Un curs complet, amb un tutor que t'acompanya i eines per no deixar-ho mai.</p>
     <div class="feats">
-      <div class="feat"><div class="ico">🧠</div><h3>Tutor d'IA</h3><p>Corregeix les teves respostes i t'explica el perquè, en el teu idioma.</p></div>
-      <div class="feat"><div class="ico">🏔️</div><h3>Curs per blocs</h3><p>Lliçons, còmics, avaluació oral i autoavaluació per saber què repassar.</p></div>
-      <div class="feat"><div class="ico">🏆</div><h3>Motivació</h3><p>Rànquing, punts i avatars perquè practicar cada dia enganxi.</p></div>
-      <div class="feat"><div class="ico">📅</div><h3>Fet a Andorra</h3><p>Agenda cultural de les set parròquies, sempre actualitzada.</p></div>
+      <div class="feat"><div class="ico i-glacier"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 3 12.6 9.4 19 11l-6.4 1.6L11 19l-1.6-6.4L3 11l6.4-1.6z"/><path d="M18.5 3.5 19 5.5 21 6l-2 .5-.5 2-.5-2L16 6l2-.5z"/></svg></div><h3>Tutor d'IA</h3><p>Corregeix les teves respostes i t'explica el perquè, en el teu idioma.</p></div>
+      <div class="feat"><div class="ico i-violet"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 20 6-12 4 7 3-4 5 9z"/></svg></div><h3>Curs per blocs</h3><p>Lliçons, còmics, avaluació oral i autoavaluació per saber què repassar.</p></div>
+      <div class="feat"><div class="ico i-alpen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg></div><h3>Motivació</h3><p>Rànquing, punts i avatars perquè practicar cada dia enganxi.</p></div>
+      <div class="feat"><div class="ico i-teal"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg></div><h3>Fet a Andorra</h3><p>Agenda cultural de les set parròquies, sempre actualitzada.</p></div>
     </div>
   </section>
 
@@ -194,10 +199,10 @@ section{padding:56px 0}
         <div class="phone"><div class="notch"></div><div class="screen">
           <div class="s-eye">42.5&deg; N &middot; 1.5&deg; E</div><div class="s-h1">Què es cou a Andorra</div>
           <div class="psec"><b>Andorra la Vella</b><span class="n">6</span></div>
-          <div class="arow gcard"><span class="t g2">🎵</span><div><div class="ti">Festival de Música Antiga</div><div class="mt">25/07 · Sta. Coloma</div></div></div>
-          <div class="arow gcard"><span class="t g1">🎭</span><div><div class="ti">Visita teatralitzada</div><div class="mt">27/07 · Centre Històric</div></div></div>
+          <div class="arow gcard"><span class="t g2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><div><div class="ti">Festival de Música Antiga</div><div class="mt">25/07 · Sta. Coloma</div></div></div>
+          <div class="arow gcard"><span class="t g1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 11v2"/><path d="M13 17v2"/></svg></span><div><div class="ti">Visita teatralitzada</div><div class="mt">27/07 · Centre Històric</div></div></div>
           <div class="psec"><b>Encamp</b><span class="n">4</span></div>
-          <div class="arow gcard"><span class="t g3">✨</span><div><div class="ti">Vespres d'estiu</div><div class="mt">Cada dijous · Sant Miquel</div></div></div>
+          <div class="arow gcard"><span class="t g3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span><div><div class="ti">Vespres d'estiu</div><div class="mt">Cada dijous · Sant Miquel</div></div></div>
         </div></div>
         <span>Agenda</span>
       </div>
