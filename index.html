@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ACat — Aprèn català a Andorra amb un tutor d'IA</title>
+<meta name="description" content="ACat és l'app per aprendre català d'Andorra amb un tutor d'intel·ligència artificial que et corregeix i t'anima cada dia. Apunta't a la llista d'espera."/>
+<meta property="og:title" content="ACat — Aprèn català a Andorra"/>
+<meta property="og:description" content="Aprèn català pas a pas amb un tutor d'IA. Disponible aviat."/>
+<meta property="og:type" content="website"/>
+<link rel="icon" href="assets/logo.png"/>
+<style>
+:root{
+  --ink:#EEF2FB; --muted:#AEB9D6; --faint:#8592b3;
+  --amber:#FFB27A; --rose:#FF6E9C; --glacier:#7FE9E1; --peri:#93A9FF; --violet:#A98BFF;
+  --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
+  --round:-apple-system,"SF Pro Rounded",system-ui,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--round);color:var(--ink);overflow-x:hidden;
+  background:
+    radial-gradient(120% 60% at 85% -5%, rgba(169,139,255,.40), transparent 55%),
+    radial-gradient(90% 55% at -10% 20%, rgba(47,160,168,.35), transparent 55%),
+    radial-gradient(80% 50% at 50% 108%, rgba(255,110,156,.20), transparent 60%),
+    linear-gradient(180deg,#241f52,#20305f 45%,#1c5560 100%);
+  background-attachment:fixed;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+a{color:inherit;text-decoration:none}
+.eyebrow{font:700 11px/1 var(--mono);letter-spacing:.24em;text-transform:uppercase;color:var(--glacier)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:#241a1f;
+  background:linear-gradient(120deg,var(--amber),var(--rose));padding:14px 22px;border-radius:999px;
+  box-shadow:0 14px 30px -12px rgba(255,110,156,.7);border:none;cursor:pointer}
+.btn.ghost{background:var(--card);color:var(--ink);border:1px solid var(--stroke);box-shadow:none}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:19px;letter-spacing:-.01em}
+.brand img{width:40px;height:40px;border-radius:12px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:center;padding:34px 0 20px}
+.hero h1{font-size:clamp(34px,5.2vw,56px);font-weight:800;letter-spacing:-.02em;line-height:1.02;margin:14px 0 14px}
+.hero h1 .g{background:linear-gradient(120deg,var(--amber),var(--rose),var(--peri),var(--glacier));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{color:var(--muted);font-size:17px;line-height:1.55;max-width:34ch}
+.cta{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.waitlist{display:flex;gap:8px;background:var(--card);border:1px solid var(--stroke);padding:6px;border-radius:999px}
+.waitlist input{background:transparent;border:none;outline:none;color:var(--ink);padding:10px 14px;font-size:14px;min-width:180px}
+.waitlist input::placeholder{color:var(--faint)}
+.note{color:var(--faint);font-size:12.5px;margin-top:12px}
+.heroart{display:flex;justify-content:center}
+.phone{width:270px;border-radius:38px;padding:12px;background:linear-gradient(180deg,#0e1430,#0b1024);
+  border:1px solid rgba(255,255,255,.12);box-shadow:0 40px 80px -28px rgba(0,0,0,.8);position:relative;flex:0 0 auto}
+.phone .notch{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:96px;height:22px;border-radius:12px;background:#05070f;z-index:3}
+.screen{border-radius:28px;overflow:hidden;height:540px;position:relative;
+  background:radial-gradient(90% 60% at 85% -5%,rgba(169,139,255,.35),transparent 55%),
+             radial-gradient(80% 60% at -5% 105%,rgba(47,160,168,.32),transparent 60%),
+             linear-gradient(180deg,#e9eefb,#eef1fb 60%,#e6eef8);color:#0E1424;padding:40px 14px 16px}
+.screen.dark{background:radial-gradient(90% 60% at 85% -5%,rgba(169,139,255,.5),transparent 55%),
+             radial-gradient(80% 60% at -5% 105%,rgba(47,160,168,.45),transparent 60%),
+             linear-gradient(180deg,#1a1740,#182a55 55%,#164e57);color:#EEF2FB}
+.s-eye{font:700 8px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#2fa0a8}
+.s-h1{font-size:19px;font-weight:800;margin:5px 0 12px}
+.gcard{background:rgba(255,255,255,.6);border:1px solid rgba(255,255,255,.7);border-radius:16px;padding:11px;box-shadow:0 6px 16px -10px rgba(0,0,0,.4)}
+.dark .gcard{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.16)}
+.top{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.top .ava{width:34px;height:34px;border-radius:50%}
+.top .lvl{font-weight:800;font-size:15px}
+.pill{margin-left:auto;font:800 11px/1 var(--mono);background:rgba(127,233,225,.85);color:#0E1424;padding:5px 9px;border-radius:999px}
+.pillt{font-size:14px;background:linear-gradient(120deg,var(--amber),var(--rose));width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#241a1f}
+.bar{height:14px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin-bottom:14px;position:relative}
+.bar>span{position:absolute;inset:0;width:62%;background:linear-gradient(90deg,#7FE9E1,#93A9FF)}
+.node{display:flex;align-items:center;gap:11px;margin:9px 0}
+.node .ic{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;color:#0E1424;font-size:16px;flex:0 0 auto;
+  box-shadow:0 6px 14px -8px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.35)}
+.g1{background:linear-gradient(135deg,#7FE9E1,#93A9FF)} .g2{background:linear-gradient(135deg,#FFB27A,#FF6E9C)}
+.g3{background:linear-gradient(135deg,#A98BFF,#FF6E9C)}
+.node b{font-size:13px;font-weight:700} .node small{display:block;font:700 8px/1.3 var(--mono);color:#2fa0a8;letter-spacing:.1em;text-transform:uppercase}
+.podium{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end;gap:8px;margin:6px 0 12px}
+.col{display:flex;flex-direction:column;align-items:center;gap:5px}
+.col img{width:44px;height:44px;border-radius:50%} .col.first img{width:56px;height:56px}
+.plinth{width:100%;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#12173a;font-weight:900}
+.plinth .p{font-size:18px} .plinth .x{font:800 9px/1 var(--mono);opacity:.8}
+.c1 .plinth{height:60px;background:linear-gradient(180deg,#FFB27A,#F0997B)}
+.c2 .plinth{height:46px;background:linear-gradient(180deg,#7FE9E1,#5fc7c0)}
+.c3 .plinth{height:38px;background:linear-gradient(180deg,#FF6E9C,#e0577f)}
+.lrow{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:13px;margin:6px 0}
+.lrow img{width:28px;height:28px;border-radius:50%} .lrow b{font-size:12px;font-weight:700}
+.lrow .xp{margin-left:auto;font:800 11px/1 var(--mono);color:#2fa0a8}
+.lrow.me{background:linear-gradient(120deg,rgba(127,233,225,.3),rgba(147,169,255,.22));border:2px solid rgba(127,233,225,.8)}
+.avgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px}
+.avgrid img{width:100%;border-radius:50%;border:2px solid rgba(255,255,255,.5)}
+.psec{display:flex;align-items:center;gap:6px;margin:10px 0 6px}
+.psec b{font-size:14px;font-weight:800} .psec .n{font:800 9px/1 var(--mono);background:rgba(127,233,225,.85);color:#0E1424;padding:2px 6px;border-radius:999px}
+.arow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:13px;margin:6px 0}
+.arow .t{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:16px;color:#0E1424;flex:0 0 auto}
+.arow .ti{font-size:11.5px;font-weight:700;line-height:1.2} .arow .mt{font:700 8.5px/1 var(--mono);color:#2fa0a8;margin-top:3px}
+section{padding:56px 0}
+.h2{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;text-align:center}
+.sub{color:var(--muted);text-align:center;max-width:52ch;margin:12px auto 0;line-height:1.55}
+.feats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.feat{background:var(--card);border:1px solid var(--stroke);border-radius:20px;padding:22px}
+.feat .ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;font-size:22px;margin-bottom:14px;
+  background:linear-gradient(135deg,rgba(127,233,225,.25),rgba(169,139,255,.25));border:1px solid var(--stroke)}
+.feat h3{font-size:16px;font-weight:800;margin-bottom:7px} .feat p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.shots{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:44px}
+.shot{display:flex;flex-direction:column;align-items:center;gap:12px}
+.shot span{color:var(--muted);font-size:13px;font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.step{text-align:center;padding:10px}
+.step .num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;font-weight:900;
+  background:linear-gradient(120deg,var(--amber),var(--rose));color:#241a1f}
+.step h3{font-size:16px;font-weight:800;margin-bottom:6px} .step p{color:var(--muted);font-size:13.5px}
+.finalcta{text-align:center;background:var(--card);border:1px solid var(--stroke);border-radius:28px;padding:48px 24px;margin-top:20px}
+.foot{border-top:1px solid var(--stroke);padding:26px 0 46px;color:var(--faint);font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+@media(max-width:820px){
+  .hero{grid-template-columns:1fr;text-align:center} .hero p.lead{margin:0 auto} .cta{justify-content:center}
+  .feats{grid-template-columns:repeat(2,1fr)} .steps{grid-template-columns:1fr}
+}
+@media(max-width:520px){ .feats{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <nav class="nav">
+    <div class="brand"><img src="assets/logo.png" alt="ACat"/> ACat</div>
+    <a class="btn ghost" href="#waitlist">Llista d'espera</a>
+  </nav>
+
+  <header class="hero">
+    <div>
+      <div class="eyebrow">Català · Andorra · Tutor d'IA</div>
+      <h1>Aprèn <span class="g">català</span>, pas a pas.</h1>
+      <p class="lead">L'app per dominar el català d'Andorra amb un tutor d'intel·ligència artificial que et corregeix, t'explica el perquè i t'anima cada dia.</p>
+      <div class="cta" id="waitlist">
+        <form class="waitlist" onsubmit="return false;">
+          <input type="email" placeholder="El teu correu" aria-label="Correu electrònic"/>
+          <button class="btn" type="submit">Avisa'm</button>
+        </form>
+      </div>
+      <div class="note">🍏 Disponible aviat a l'App Store · Apunta't i t'avisem quan surti.</div>
+    </div>
+    <div class="heroart">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="screen dark">
+          <div class="top"><img class="ava" src="assets/avatar-41.png" alt=""/><span class="lvl">Bàsic</span><span class="pillt">🏆</span><span class="pill">1240 XP</span></div>
+          <div class="bar"><span></span></div>
+          <div class="node"><span class="ic g1">🗻</span><div><b>Salutacions i presentacions</b><small>Unitat 1.1</small></div></div>
+          <div class="node"><span class="ic g2">💬</span><div><b>Les activitats del dia</b><small>Unitat 1.3</small></div></div>
+          <div class="node"><span class="ic g3">🏔️</span><div><b>Posa't a prova!</b><small>Cim del bloc · Tutor IA</small></div></div>
+          <div class="node"><span class="ic g1">✅</span><div><b>Com ho porto?</b><small>Autoavaluació del bloc</small></div></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="h2">Tot el que necessites per parlar català</h2>
+    <p class="sub">Un curs complet, amb un tutor que t'acompanya i eines per no deixar-ho mai.</p>
+    <div class="feats">
+      <div class="feat"><div class="ico">🧠</div><h3>Tutor d'IA</h3><p>Corregeix les teves respostes i t'explica el perquè, en el teu idioma.</p></div>
+      <div class="feat"><div class="ico">🏔️</div><h3>Curs per blocs</h3><p>Lliçons, còmics, avaluació oral i autoavaluació per saber què repassar.</p></div>
+      <div class="feat"><div class="ico">🏆</div><h3>Motivació</h3><p>Rànquing, punts i avatars perquè practicar cada dia enganxi.</p></div>
+      <div class="feat"><div class="ico">📅</div><h3>Fet a Andorra</h3><p>Agenda cultural de les set parròquies, sempre actualitzada.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h2">Mira com és per dins</h2>
+    <p class="sub">Disseny cuidat, amb l'esperit dels Pirineus.</p>
+    <div class="shots">
+      <div class="shot">
+        <div class="phone"><div class="notch"></div><div class="screen">
+          <div class="s-eye">Lliga · XP total</div><div class="s-h1">Classificació</div>
+          <div class="podium">
+            <div class="col c2"><img src="assets/avatar-2.png" alt=""/><div class="plinth"><span class="p">2</span><span class="x">980 XP</span></div></div>
+            <div class="col c1 first"><img src="assets/avatar-12.png" alt=""/><div class="plinth"><span class="p">1</span><span class="x">1240</span></div></div>
+            <div class="col c3"><img src="assets/avatar-46.png" alt=""/><div class="plinth"><span class="p">3</span><span class="x">870</span></div></div>
+          </div>
+          <div class="lrow gcard"><img src="assets/avatar-5.png" alt=""/><b>Gina</b><span class="xp">760 XP</span></div>
+          <div class="lrow me"><img src="assets/avatar-41.png" alt=""/><b>Tu</b><span class="xp">690 XP</span></div>
+          <div class="lrow gcard"><img src="assets/avatar-17.png" alt=""/><b>Josefine</b><span class="xp">540 XP</span></div>
+        </div></div>
+        <span>Rànquing</span>
+      </div>
+      <div class="shot">
+        <div class="phone"><div class="notch"></div><div class="screen">
+          <div class="s-eye">Perfil · avatars</div><div class="s-h1">Tria el teu avatar</div>
+          <div class="avgrid"><img src="assets/avatar-1.png" alt="avatar" loading="lazy"/><img src="assets/avatar-2.png" alt="avatar" loading="lazy"/><img src="assets/avatar-5.png" alt="avatar" loading="lazy"/><img src="assets/avatar-12.png" alt="avatar" loading="lazy"/><img src="assets/avatar-17.png" alt="avatar" loading="lazy"/><img src="assets/avatar-22.png" alt="avatar" loading="lazy"/><img src="assets/avatar-41.png" alt="avatar" loading="lazy"/><img src="assets/avatar-46.png" alt="avatar" loading="lazy"/><img src="assets/avatar-53.png" alt="avatar" loading="lazy"/></div>
+        </div></div>
+        <span>Avatars</span>
+      </div>
+      <div class="shot">
+        <div class="phone"><div class="notch"></div><div class="screen">
+          <div class="s-eye">42.5&deg; N &middot; 1.5&deg; E</div><div class="s-h1">Què es cou a Andorra</div>
+          <div class="psec"><b>Andorra la Vella</b><span class="n">6</span></div>
+          <div class="arow gcard"><span class="t g2">🎵</span><div><div class="ti">Festival de Música Antiga</div><div class="mt">25/07 · Sta. Coloma</div></div></div>
+          <div class="arow gcard"><span class="t g1">🎭</span><div><div class="ti">Visita teatralitzada</div><div class="mt">27/07 · Centre Històric</div></div></div>
+          <div class="psec"><b>Encamp</b><span class="n">4</span></div>
+          <div class="arow gcard"><span class="t g3">✨</span><div><div class="ti">Vespres d'estiu</div><div class="mt">Cada dijous · Sant Miquel</div></div></div>
+        </div></div>
+        <span>Agenda</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="h2">Com funciona</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Tria el teu nivell</h3><p>Un test curt et col·loca a l'inici, bàsic, elemental o intermedi.</p></div>
+      <div class="step"><div class="num">2</div><h3>Practica cada dia</h3><p>Lliçons curtes amb còmics, jocs i converses reals.</p></div>
+      <div class="step"><div class="num">3</div><h3>El tutor et corregeix</h3><p>T'explica els errors i et diu exactament què repassar.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="finalcta">
+      <img src="assets/logo.png" alt="ACat" style="width:78px;height:78px;border-radius:22px;margin-bottom:16px"/>
+      <h2 class="h2" style="font-size:30px">Comença a parlar català</h2>
+      <p class="sub">Apunta't a la llista d'espera i t'avisem el dia que surti.</p>
+      <div style="margin-top:22px;display:flex;justify-content:center">
+        <form class="waitlist" onsubmit="return false;"><input type="email" placeholder="El teu correu" aria-label="Correu electrònic"/><button class="btn" type="submit">Avisa'm</button></form>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <div>© 2026 ACat · Aprèn català a Andorra</div>
+    <div>Contacte · Privacitat</div>
+  </div>
+</div>
+
+</body>
+</html>
