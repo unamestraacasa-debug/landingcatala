@@ -9,18 +9,24 @@
 <meta property="og:description" content="Aprèn català pas a pas amb un tutor d'IA. Disponible aviat."/>
 <meta property="og:type" content="website"/>
 <link rel="icon" href="assets/logo.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --ink:#EEF2FB; --muted:#AEB9D6; --faint:#8592b3;
   --amber:#FFB27A; --rose:#FF6E9C; --glacier:#7FE9E1; --peri:#93A9FF; --violet:#A98BFF;
   --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
-  --round:-apple-system,"SF Pro Rounded",system-ui,"Segoe UI",Roboto,sans-serif;
+  --body:'Nunito Sans',-apple-system,system-ui,"Segoe UI",Roboto,sans-serif;
+  --display:'Fredoka','SF Pro Rounded',system-ui,sans-serif;
+  --round:var(--body);
   --mono:ui-monospace,"SF Mono",Menlo,monospace;
 }
 *{box-sizing:border-box;margin:0}
 html{scroll-behavior:smooth}
 svg{display:block}
-body{font-family:var(--round);color:var(--ink);overflow-x:hidden;
+h1,h2,.h2,.hero h1,.brand,.feat h3,.step h3,.s-h1,.node b,.lrow b,.psec b,.plinth{font-family:var(--display)}
+body{font-family:var(--body);color:var(--ink);overflow-x:hidden;
   background:
     radial-gradient(120% 60% at 85% -5%, rgba(169,139,255,.40), transparent 55%),
     radial-gradient(90% 55% at -10% 20%, rgba(47,160,168,.35), transparent 55%),
