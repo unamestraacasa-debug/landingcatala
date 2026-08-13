@@ -124,7 +124,10 @@ section{padding:56px 0}
 @media(min-width:521px) and (max-width:820px){ .funcs{grid-template-columns:repeat(2,1fr)} }
 .shots{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-top:44px}
 .shot{display:flex;flex-direction:column;align-items:center;gap:12px}
-.shot span{color:var(--muted);font-size:13px;font-weight:700}
+.shot span{color:var(--glacier);font:700 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+.shot .frame{width:208px;border-radius:30px;overflow:hidden;border:1px solid var(--stroke);box-shadow:0 22px 54px rgba(0,0,0,.5);background:#0b1120}
+.shot .frame img{width:100%;display:block}
+@media(max-width:520px){.shot .frame{width:170px}}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
 .step{text-align:center;padding:10px}
 .step .num{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;margin:0 auto 14px;font-weight:900;
@@ -214,38 +217,13 @@ section{padding:56px 0}
     <h2 class="h2" data-i18n="inside_title">Mira com és per dins</h2>
     <p class="sub" data-i18n="inside_sub">Disseny cuidat, amb l'esperit dels Pirineus.</p>
     <div class="shots">
-      <div class="shot">
-        <div class="phone"><div class="notch"></div><div class="screen">
-          <div class="s-eye">Lliga · XP total</div><div class="s-h1">Classificació</div>
-          <div class="podium">
-            <div class="col c2"><img src="assets/avatar-2.png" alt=""/><div class="plinth"><span class="p">2</span><span class="x">980 XP</span></div></div>
-            <div class="col c1 first"><img src="assets/avatar-12.png" alt=""/><div class="plinth"><span class="p">1</span><span class="x">1240</span></div></div>
-            <div class="col c3"><img src="assets/avatar-46.png" alt=""/><div class="plinth"><span class="p">3</span><span class="x">870</span></div></div>
-          </div>
-          <div class="lrow gcard"><img src="assets/avatar-5.png" alt=""/><b>Gina</b><span class="xp">760 XP</span></div>
-          <div class="lrow me"><img src="assets/avatar-41.png" alt=""/><b>Tu</b><span class="xp">690 XP</span></div>
-          <div class="lrow gcard"><img src="assets/avatar-17.png" alt=""/><b>Josefine</b><span class="xp">540 XP</span></div>
-        </div></div>
-        <span data-i18n="shot_rank">Rànquing</span>
-      </div>
-      <div class="shot">
-        <div class="phone"><div class="notch"></div><div class="screen">
-          <div class="s-eye">Perfil · avatars</div><div class="s-h1">Tria el teu avatar</div>
-          <div class="avgrid"><img src="assets/avatar-1.png" alt="avatar" loading="lazy"/><img src="assets/avatar-2.png" alt="avatar" loading="lazy"/><img src="assets/avatar-5.png" alt="avatar" loading="lazy"/><img src="assets/avatar-12.png" alt="avatar" loading="lazy"/><img src="assets/avatar-17.png" alt="avatar" loading="lazy"/><img src="assets/avatar-22.png" alt="avatar" loading="lazy"/><img src="assets/avatar-41.png" alt="avatar" loading="lazy"/><img src="assets/avatar-46.png" alt="avatar" loading="lazy"/><img src="assets/avatar-53.png" alt="avatar" loading="lazy"/></div>
-        </div></div>
-        <span data-i18n="shot_ava">Avatars</span>
-      </div>
-      <div class="shot">
-        <div class="phone"><div class="notch"></div><div class="screen">
-          <div class="s-eye">42.5&deg; N &middot; 1.5&deg; E</div><div class="s-h1">Què es cou a Andorra</div>
-          <div class="psec"><b>Andorra la Vella</b><span class="n">6</span></div>
-          <div class="arow gcard"><span class="t g2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><div><div class="ti">Festival de Música Antiga</div><div class="mt">25/07 · Sta. Coloma</div></div></div>
-          <div class="arow gcard"><span class="t g1"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 11v2"/><path d="M13 17v2"/></svg></span><div><div class="ti">Visita teatralitzada</div><div class="mt">27/07 · Centre Històric</div></div></div>
-          <div class="psec"><b>Encamp</b><span class="n">4</span></div>
-          <div class="arow gcard"><span class="t g3"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span><div><div class="ti">Vespres d'estiu</div><div class="mt">Cada dijous · Sant Miquel</div></div></div>
-        </div></div>
-        <span data-i18n="shot_agenda">Agenda</span>
-      </div>
+      <div class="shot"><div class="frame"><img src="assets/shot-curs.png" loading="lazy" alt="El cami del curs"/></div><span>El curs</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-comic.png" loading="lazy" alt="Comic i teoria"/></div><span>Comic i teoria</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-exercici.png" loading="lazy" alt="Exercicis"/></div><span>Exercicis</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-activitat.png" loading="lazy" alt="Agenda amb mapa"/></div><span>Agenda amb mapa</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-avatars.png" loading="lazy" alt="Avatars"/></div><span>Avatars</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-perfil.png" loading="lazy" alt="Perfil"/></div><span>Perfil</span></div>
+      <div class="shot"><div class="frame"><img src="assets/shot-test.png" loading="lazy" alt="Test de nivell"/></div><span>Test de nivell</span></div>
     </div>
   </section>
 
