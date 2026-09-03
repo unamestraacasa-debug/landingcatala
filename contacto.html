@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacto — ACat</title>
+<meta name="description" content="Datos de contacto y datos identificativos de THE HYPE CENTER, S.L., empresa responsable de ACat, la app para aprender catalán en Andorra.">
+<style>
+  :root{
+    --ink:#EEF2FB; --muted:#AEB9D6; --faint:#8592b3;
+    --amber:#FFB27A; --rose:#FF6E9C; --glacier:#7FE9E1; --peri:#93A9FF; --violet:#A98BFF;
+    --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
+    --round:-apple-system,"SF Pro Rounded",system-ui,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark; background-color:#20305F}
+  body{
+    margin:0; min-height:100vh; color:var(--ink); font-family:var(--round);
+    font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(120% 60% at 85% -5%, rgba(169,139,255,.40), rgba(0,0,0,0) 55%),
+      radial-gradient(90% 55% at -10% 20%, rgba(47,160,168,.35), rgba(0,0,0,0) 55%),
+      radial-gradient(80% 50% at 50% 108%, rgba(255,110,156,.20), rgba(0,0,0,0) 60%),
+      linear-gradient(#241F52, #20305F 45%, #1C5560 100%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:28px 22px 80px}
+
+  header.top{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:6px 0 40px}
+  .brand{display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:800; font-size:1.15rem}
+  .mark{
+    width:34px; height:34px; border-radius:11px; display:grid; place-items:center;
+    background:linear-gradient(140deg,var(--violet),var(--peri)); color:#151230;
+    font-size:.72rem; font-weight:800; letter-spacing:.02em;
+  }
+  .back{
+    text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem;
+    padding:9px 18px; border-radius:999px; border:1px solid var(--stroke); background:var(--card);
+  }
+  .back:hover{background:rgba(255,255,255,.12)}
+
+  .eyebrow{
+    font-family:var(--mono); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--glacier); margin:0 0 12px;
+  }
+  h1{margin:0 0 14px; font-size:clamp(2.2rem,6vw,3rem); font-weight:800; line-height:1.05; letter-spacing:-.02em; text-wrap:balance}
+  .lede{margin:0 0 40px; color:var(--muted); font-size:1.08rem; max-width:56ch}
+
+  .cards{display:grid; gap:16px; grid-template-columns:1fr}
+  @media (min-width:640px){ .cards{grid-template-columns:1fr 1fr} }
+
+  .card{
+    background:var(--card); border:1px solid var(--stroke); border-radius:22px;
+    padding:22px 22px 24px; display:flex; flex-direction:column; gap:8px;
+  }
+  .card h2{margin:0; font-size:1.06rem; font-weight:700}
+  .card p{margin:0; color:var(--muted); font-size:.97rem}
+  .card a{color:var(--amber); text-decoration:none; font-weight:600; word-break:break-word}
+  .card a:hover{text-decoration:underline}
+  .big{font-size:1.12rem; font-weight:700; color:var(--ink)}
+
+  .company{margin-top:16px}
+  .company dl{margin:6px 0 0; display:grid; grid-template-columns:auto 1fr; gap:8px 20px; font-size:.97rem}
+  @media (max-width:520px){ .company dl{grid-template-columns:1fr; gap:2px} .company dd{margin-bottom:10px} }
+  .company dt{color:var(--faint)}
+  .company dd{margin:0; color:var(--ink)}
+
+  .about{margin-top:44px; padding-top:32px; border-top:1px solid var(--stroke)}
+  .about h2{margin:0 0 12px; font-size:1.3rem; font-weight:700}
+  .about p{margin:0 0 14px; color:var(--muted); max-width:64ch}
+
+  footer{margin-top:56px; padding-top:24px; border-top:1px solid var(--stroke); color:var(--faint); font-size:.88rem; display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center}
+  footer a{color:var(--muted); text-decoration:none}
+  footer a:hover{color:var(--ink)}
+
+  a:focus-visible,.back:focus-visible{outline:2px solid var(--glacier); outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="/"><span class="mark">ACat</span> ACat</a>
+    <a class="back" href="/">← Inicio</a>
+  </header>
+
+  <p class="eyebrow">Contacto</p>
+  <h1>Hablemos</h1>
+  <p class="lede">Escríbenos para cualquier cosa: dudas sobre la app, colaboraciones con centros y escuelas, prensa o el ejercicio de tus derechos sobre tus datos.</p>
+
+  <div class="cards">
+    <div class="card">
+      <h2>Correo electrónico</h2>
+      <p class="big"><a href="mailto:hola@aprencat.com">hola@aprencat.com</a></p>
+      <p>Respondemos en un plazo máximo de 5 días laborables.</p>
+    </div>
+
+    <div class="card">
+      <h2>Privacidad y datos</h2>
+      <p>Para ejercer tus derechos de acceso, rectificación o supresión, escríbenos al mismo correo indicando «Protección de datos» en el asunto.</p>
+      <p><a href="/privacidad">Ver la política de privacidad →</a></p>
+    </div>
+  </div>
+
+  <div class="card company">
+    <h2>Datos de la empresa</h2>
+    <dl>
+      <dt>Denominación social</dt>
+      <dd>THE HYPE CENTER, S.L.</dd>
+      <dt>NRT</dt>
+      <dd>L-715737-E</dd>
+      <dt>Domicilio social</dt>
+      <dd>Ctra. Coll d'Ordino, Ed. Cap dels Camps, Bloc A, 1r 1a<br>AD300 Ordino, Principat d'Andorra</dd>
+      <dt>Correo</dt>
+      <dd><a href="mailto:hola@aprencat.com">hola@aprencat.com</a></dd>
+      <dt>Sitio web</dt>
+      <dd><a href="https://aprencat.com">aprencat.com</a></dd>
+    </dl>
+  </div>
+
+  <section class="about">
+    <h2>Sobre ACat</h2>
+    <p><strong>THE HYPE CENTER, S.L.</strong> es la empresa responsable de <strong>ACat</strong>, una aplicación para aprender catalán con un tutor de inteligencia artificial, pensada especialmente para quien vive o se muda a Andorra.</p>
+    <p>La app ofrece un curso por bloques con cómics y lecciones, ejercicios corregidos por IA, evaluación oral, modelos de examen oficiales de los niveles A1 a B2 y una agenda cultural de las siete parroquias. El contenido está elaborado por catalanohablantes nativos siguiendo la normativa del Institut d'Estudis Catalans.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 THE HYPE CENTER, S.L.</span>
+    <a href="/">Inicio</a>
+    <a href="/privacidad">Privacidad</a>
+    <a href="mailto:hola@aprencat.com">hola@aprencat.com</a>
+  </footer>
+
+</div>
+</body>
+</html>

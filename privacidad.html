@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Política de privacidad — ACat</title>
+<meta name="description" content="Cómo trata THE HYPE CENTER, S.L. los datos personales de quienes visitan aprencat.com y se apuntan a la lista de espera de ACat.">
+<style>
+  :root{
+    --ink:#EEF2FB; --muted:#AEB9D6; --faint:#8592b3;
+    --amber:#FFB27A; --rose:#FF6E9C; --glacier:#7FE9E1; --peri:#93A9FF; --violet:#A98BFF;
+    --card:rgba(255,255,255,.07); --stroke:rgba(255,255,255,.14);
+    --round:-apple-system,"SF Pro Rounded",system-ui,"Segoe UI",Roboto,sans-serif;
+    --mono:ui-monospace,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark; background-color:#20305F}
+  body{
+    margin:0; min-height:100vh; color:var(--ink); font-family:var(--round);
+    font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(120% 60% at 85% -5%, rgba(169,139,255,.40), rgba(0,0,0,0) 55%),
+      radial-gradient(90% 55% at -10% 20%, rgba(47,160,168,.35), rgba(0,0,0,0) 55%),
+      radial-gradient(80% 50% at 50% 108%, rgba(255,110,156,.20), rgba(0,0,0,0) 60%),
+      linear-gradient(#241F52, #20305F 45%, #1C5560 100%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:760px; margin:0 auto; padding:28px 22px 80px}
+
+  header.top{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:6px 0 40px}
+  .brand{display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink); font-weight:800; font-size:1.15rem}
+  .mark{
+    width:34px; height:34px; border-radius:11px; display:grid; place-items:center;
+    background:linear-gradient(140deg,var(--violet),var(--peri)); color:#151230;
+    font-size:.72rem; font-weight:800; letter-spacing:.02em;
+  }
+  .back{
+    text-decoration:none; color:var(--ink); font-weight:600; font-size:.94rem;
+    padding:9px 18px; border-radius:999px; border:1px solid var(--stroke); background:var(--card);
+  }
+  .back:hover{background:rgba(255,255,255,.12)}
+
+  .eyebrow{font-family:var(--mono); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--glacier); margin:0 0 12px}
+  h1{margin:0 0 12px; font-size:clamp(2rem,5.5vw,2.7rem); font-weight:800; line-height:1.08; letter-spacing:-.02em; text-wrap:balance}
+  .updated{margin:0 0 36px; color:var(--faint); font-family:var(--mono); font-size:.82rem}
+
+  .intro{
+    background:var(--card); border:1px solid var(--stroke); border-radius:22px;
+    padding:20px 22px; margin:0 0 44px; color:var(--muted); font-size:1rem;
+  }
+  .intro p{margin:0}
+
+  section{margin:0 0 38px; max-width:68ch}
+  h2{
+    margin:0 0 12px; font-size:1.22rem; font-weight:700; letter-spacing:-.01em;
+    display:flex; gap:12px; align-items:baseline;
+  }
+  h2 .n{font-family:var(--mono); font-size:.8rem; color:var(--glacier); font-weight:400}
+  p{margin:0 0 12px; color:var(--muted)}
+  strong{color:var(--ink); font-weight:700}
+  a{color:var(--amber); text-decoration:none; font-weight:600; word-break:break-word}
+  a:hover{text-decoration:underline}
+
+  ul{margin:0 0 12px; padding-left:20px; color:var(--muted)}
+  li{margin:0 0 8px}
+  li::marker{color:var(--peri)}
+
+  .box{background:var(--card); border:1px solid var(--stroke); border-radius:18px; padding:18px 20px; margin:0 0 12px}
+  .box dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:8px 20px; font-size:.96rem}
+  @media (max-width:520px){ .box dl{grid-template-columns:1fr; gap:2px} .box dd{margin-bottom:10px} }
+  .box dt{color:var(--faint)}
+  .box dd{margin:0; color:var(--ink)}
+
+  table{width:100%; border-collapse:collapse; font-size:.95rem; margin:0 0 12px}
+  th,td{text-align:left; padding:10px 12px; border-bottom:1px solid var(--stroke); vertical-align:top}
+  th{color:var(--faint); font-weight:600; font-size:.82rem; text-transform:uppercase; letter-spacing:.06em}
+  td{color:var(--muted)}
+  td:first-child{color:var(--ink); font-weight:600}
+  .scroller{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+  footer{margin-top:56px; padding-top:24px; border-top:1px solid var(--stroke); color:var(--faint); font-size:.88rem; display:flex; flex-wrap:wrap; gap:8px 18px; align-items:center}
+  footer a{color:var(--muted); font-weight:400}
+  footer a:hover{color:var(--ink)}
+
+  a:focus-visible,.back:focus-visible{outline:2px solid var(--glacier); outline-offset:3px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="brand" href="/"><span class="mark">ACat</span> ACat</a>
+    <a class="back" href="/">← Inicio</a>
+  </header>
+
+  <p class="eyebrow">Legal</p>
+  <h1>Política de privacidad</h1>
+  <p class="updated">Última actualización: 3 de septiembre de 2026</p>
+
+  <div class="intro">
+    <p>Resumen honesto: de momento este sitio solo recoge <strong>tu dirección de correo</strong> si te apuntas a la lista de espera, y la usamos únicamente para avisarte cuando la app salga. No usamos cookies, no hacemos perfiles y no vendemos ni cedemos tus datos a nadie.</p>
+  </div>
+
+  <section>
+    <h2><span class="n">01</span> Quién es responsable de tus datos</h2>
+    <div class="box">
+      <dl>
+        <dt>Responsable</dt><dd>THE HYPE CENTER, S.L.</dd>
+        <dt>NRT</dt><dd>L-715737-E</dd>
+        <dt>Domicilio</dt><dd>Ctra. Coll d'Ordino, Ed. Cap dels Camps, Bloc A, 1r 1a<br>AD300 Ordino, Principat d'Andorra</dd>
+        <dt>Contacto</dt><dd><a href="mailto:hola@aprencat.com">hola@aprencat.com</a></dd>
+      </dl>
+    </div>
+    <p>Esta política se aplica al sitio web <strong>aprencat.com</strong>. Cuando la aplicación ACat se publique en la App Store tendrá su propia política de privacidad, que informará de los tratamientos propios de la app.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">02</span> Qué datos tratamos y por qué</h2>
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr><th>Dato</th><th>Para qué</th><th>Base jurídica</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dirección de correo electrónico</td>
+            <td>Avisarte cuando la app esté disponible y, ocasionalmente, informarte de novedades relacionadas con el lanzamiento.</td>
+            <td>Tu consentimiento, que das al enviar el formulario.</td>
+          </tr>
+          <tr>
+            <td>Datos de navegación agregados</td>
+            <td>Saber cuánta gente visita el sitio y desde qué tipo de dispositivo, para mejorarlo.</td>
+            <td>Interés legítimo en medir y mantener el sitio.</td>
+          </tr>
+          <tr>
+            <td>Datos técnicos de conexión</td>
+            <td>Seguridad del sitio y prevención de abusos y ataques.</td>
+            <td>Interés legítimo en proteger el servicio.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>No te pedimos ningún otro dato. No recogemos nombre, teléfono, datos de pago ni información sobre tu forma de aprender mientras la app no esté publicada.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">03</span> Cookies y almacenamiento en tu navegador</h2>
+    <p><strong>Este sitio no utiliza cookies</strong> ni de terceros ni propias, por lo que no verás ningún aviso de cookies.</p>
+    <p>Para la analítica usamos <strong>Cloudflare Web Analytics</strong>, que mide las visitas sin cookies y sin recopilar datos que permitan identificarte ni seguirte por otros sitios web.</p>
+    <p>Lo único que guardamos en tu navegador es <strong>el idioma que eliges</strong> para ver la web (una entrada llamada <code>acat_lang</code> en el almacenamiento local). Se queda en tu dispositivo, no se envía a nuestros servidores y puedes borrarla vaciando los datos del sitio desde tu navegador.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span> Cuánto tiempo conservamos tu correo</h2>
+    <p>Conservamos tu dirección de correo hasta que la app se lance y te lo comuniquemos, y como máximo <strong>24 meses</strong> desde que te apuntaste.</p>
+    <p>Si te das de baja antes, la eliminamos de inmediato. Puedes hacerlo escribiéndonos a <a href="mailto:hola@aprencat.com">hola@aprencat.com</a> o desde el enlace de baja de cualquier correo que te enviemos.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">05</span> Con quién compartimos los datos</h2>
+    <p>No vendemos, alquilamos ni cedemos tus datos personales a terceros con fines comerciales. Solo los tratan los proveedores que necesitamos para que el servicio funcione, siempre con contrato de encargo de tratamiento y con la obligación de tratarlos únicamente siguiendo nuestras instrucciones:</p>
+    <ul>
+      <li><strong>Cloudflare, Inc.</strong> — alojamiento del sitio web, seguridad y analítica sin cookies.</li>
+      <li><strong>Zoho Corporation</strong> — servicio de correo electrónico corporativo con el que gestionamos los mensajes que nos envías.</li>
+    </ul>
+    <p>También podríamos comunicar datos a las autoridades competentes cuando exista una obligación legal.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">06</span> Transferencias internacionales</h2>
+    <p>Algunos de nuestros proveedores tienen su sede fuera del Principado de Andorra. En esos casos, la transferencia se ampara en decisiones de adecuación o en cláusulas contractuales tipo que garantizan un nivel de protección equivalente al exigido por la normativa andorrana de protección de datos.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">07</span> Tus derechos</h2>
+    <p>Puedes ejercer en cualquier momento los siguientes derechos sobre tus datos:</p>
+    <ul>
+      <li><strong>Acceso</strong> — saber qué datos tuyos tenemos.</li>
+      <li><strong>Rectificación</strong> — corregir los que sean inexactos.</li>
+      <li><strong>Supresión</strong> — pedir que los borremos.</li>
+      <li><strong>Limitación</strong> — pedir que dejemos de tratarlos temporalmente.</li>
+      <li><strong>Oposición</strong> — oponerte a un tratamiento basado en nuestro interés legítimo.</li>
+      <li><strong>Portabilidad</strong> — recibir tus datos en un formato reutilizable.</li>
+      <li><strong>Retirar el consentimiento</strong> — en cualquier momento, sin que ello afecte a la licitud del tratamiento anterior.</li>
+    </ul>
+    <p>Para ejercerlos, escríbenos a <a href="mailto:hola@aprencat.com">hola@aprencat.com</a> indicando «Protección de datos» en el asunto. Te responderemos en el plazo previsto por la ley y podremos pedirte que acredites tu identidad.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">08</span> Reclamaciones</h2>
+    <p>Si consideras que no hemos atendido correctamente tus derechos, puedes presentar una reclamación ante la <strong>Agència Andorrana de Protecció de Dades (APDA)</strong>, autoridad de control competente: <a href="https://www.apda.ad" target="_blank" rel="noopener">www.apda.ad</a>.</p>
+    <p>Antes, te agradeceremos que nos lo cuentes a nosotros: casi siempre se resuelve con un correo.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">09</span> Menores de edad</h2>
+    <p>Este sitio no está dirigido a menores de 14 años y no recogemos conscientemente sus datos. Si detectamos que una dirección de correo pertenece a un menor de esa edad sin autorización de quien ejerza su tutela, la eliminaremos. Si eres madre, padre o tutor y crees que ha ocurrido, escríbenos a <a href="mailto:hola@aprencat.com">hola@aprencat.com</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span> Seguridad</h2>
+    <p>Aplicamos medidas técnicas y organizativas razonables para proteger tus datos: cifrado del tráfico mediante HTTPS, acceso restringido a las personas que lo necesitan y proveedores con estándares de seguridad reconocidos.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span> Normativa aplicable</h2>
+    <p>Tratamos tus datos conforme a la <strong>Llei 29/2021, del 28 d'octubre, qualificada de protecció de dades personals</strong> del Principado de Andorra y su reglamento de desarrollo.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span> Cambios en esta política</h2>
+    <p>Si modificamos esta política, publicaremos la nueva versión en esta misma página y actualizaremos la fecha del encabezado. Si el cambio afecta de forma significativa a cómo tratamos tus datos, te avisaremos por correo.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 THE HYPE CENTER, S.L.</span>
+    <a href="/">Inicio</a>
+    <a href="/contacto">Contacto</a>
+    <a href="mailto:hola@aprencat.com">hola@aprencat.com</a>
+  </footer>
+
+</div>
+</body>
+</html>
