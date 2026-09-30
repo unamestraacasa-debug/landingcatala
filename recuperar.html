@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Recuperar contrasenya · AprènCat</title>
+<style>
+  :root{
+    --blau:#0B2D6B; --blau-clar:#A7B6E8; --groc:#F6C86B; --coral:#F28B6B;
+    --ink:#141A2E; --muted:#5B6684; --ok:#2FA36B; --err:#D4574B; --border:#E2E3EC;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:var(--blau); padding:20px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+    color:var(--ink);
+  }
+  .card{
+    width:100%; max-width:420px; background:#fff; border-radius:24px; padding:28px 24px;
+    box-shadow:0 18px 50px rgba(0,0,0,.25);
+  }
+  .brand{text-align:center; margin-bottom:8px}
+  .brand h1{margin:0; color:var(--blau); font-size:30px; letter-spacing:-.5px}
+  .brand p{margin:4px 0 0; color:var(--muted); font-size:14px}
+  h2{font-size:19px; margin:22px 0 4px; color:var(--ink)}
+  .sub{color:var(--muted); font-size:14px; line-height:1.5; margin:0 0 16px}
+  label{display:block; font-size:13px; font-weight:700; color:var(--muted); margin:14px 0 6px}
+  input[type=password]{
+    width:100%; padding:14px 14px; font-size:16px; border:1.5px solid var(--border);
+    border-radius:14px; outline:none; color:var(--ink);
+  }
+  input:focus{border-color:var(--blau)}
+  button{
+    width:100%; margin-top:20px; padding:15px; font-size:16px; font-weight:700; color:#fff;
+    background:var(--blau); border:none; border-radius:16px; cursor:pointer;
+  }
+  button:disabled{opacity:.5; cursor:default}
+  .msg{margin-top:16px; font-size:14px; line-height:1.5; padding:12px 14px; border-radius:12px; display:none}
+  .msg.ok{display:block; background:rgba(47,163,107,.12); color:var(--ok)}
+  .msg.err{display:block; background:rgba(212,87,75,.12); color:var(--err)}
+  .hint{color:var(--muted); font-size:12px; margin-top:10px; text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="brand">
+    <h1>AprènCat</h1>
+    <p>Aprèn català. Viu a Andorra.</p>
+  </div>
+
+  <div id="form-wrap">
+    <h2>Nova contrasenya</h2>
+    <p class="sub">Escriu la teva contrasenya nova per a l'aplicació. Després torna a l'app i inicia sessió amb ella.</p>
+    <label for="p1">Nova contrasenya (mínim 6 caràcters)</label>
+    <input type="password" id="p1" autocomplete="new-password" placeholder="••••••••">
+    <label for="p2">Repeteix la contrasenya</label>
+    <input type="password" id="p2" autocomplete="new-password" placeholder="••••••••">
+    <button id="btn" type="button">Desa la contrasenya</button>
+    <div class="hint">Un cop desada, obre l'app AprènCat i inicia sessió.</div>
+  </div>
+
+  <div id="msg" class="msg"></div>
+</div>
+
+<script>
+  var SUPA_URL = "https://notbhjukenkbafdwuvqn.supabase.co";
+  var ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vdGJoanVrZW5rYmFmZHd1dnFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTY1MzQsImV4cCI6MjA5ODM5MjUzNH0.KK4tVdbXoP86Zuf0GBXfTPE26qp4FgiLs-uu5UoWVCI";
+
+  var msg = document.getElementById("msg");
+  var formWrap = document.getElementById("form-wrap");
+  var btn = document.getElementById("btn");
+
+  function show(kind, text){ msg.className = "msg " + kind; msg.textContent = text; }
+
+  // Els tokens arriben al fragment (#) després que Supabase validi l'enllaç del correu.
+  function readToken(){
+    var h = (window.location.hash || "").replace(/^#/, "");
+    var p = new URLSearchParams(h);
+    // Alguns enllaços caducats porten error a la querystring o al hash.
+    var err = p.get("error_description") || p.get("error") ||
+              new URLSearchParams(window.location.search).get("error_description");
+    return { token: p.get("access_token"), type: p.get("type"), error: err };
+  }
+
+  var info = readToken();
+
+  if (info.error) {
+    formWrap.style.display = "none";
+    show("err", "Aquest enllaç no és vàlid o ha caducat. Torna a l'app, prem \"Has oblidat la contrasenya?\" i demana'n un de nou.");
+  } else if (!info.token) {
+    formWrap.style.display = "none";
+    show("err", "Obre aquesta pàgina des de l'enllaç que t'ha arribat per correu. Si l'enllaç ha caducat, demana'n un de nou des de l'app.");
+  } else {
+    btn.addEventListener("click", function(){
+      var p1 = document.getElementById("p1").value;
+      var p2 = document.getElementById("p2").value;
+      msg.className = "msg";
+      if (p1.length < 6){ show("err", "La contrasenya ha de tenir com a mínim 6 caràcters."); return; }
+      if (p1 !== p2){ show("err", "Les dues contrasenyes no coincideixen."); return; }
+      btn.disabled = true; btn.textContent = "Desant…";
+      fetch(SUPA_URL + "/auth/v1/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": ANON,
+          "Authorization": "Bearer " + info.token
+        },
+        body: JSON.stringify({ password: p1 })
+      }).then(function(r){
+        return r.json().then(function(j){ return { ok: r.ok, j: j }; });
+      }).then(function(res){
+        if (res.ok){
+          formWrap.style.display = "none";
+          show("ok", "Contrasenya canviada correctament. 🎉 Ja pots tornar a l'app AprènCat i iniciar sessió amb la contrasenya nova.");
+        } else {
+          btn.disabled = false; btn.textContent = "Desa la contrasenya";
+          var m = (res.j && (res.j.msg || res.j.error_description || res.j.error)) || "No s'ha pogut desar. L'enllaç pot haver caducat; demana'n un de nou des de l'app.";
+          show("err", m);
+        }
+      }).catch(function(){
+        btn.disabled = false; btn.textContent = "Desa la contrasenya";
+        show("err", "Error de connexió. Torna-ho a provar.");
+      });
+    });
+  }
+</script>
+</body>
+</html>
