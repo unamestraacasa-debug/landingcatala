@@ -319,7 +319,7 @@
   const els = [...document.querySelectorAll(SEL)].map(e => [e, e.innerHTML.trim()]);
   let lang = "es";
   function setLang(l) {
-    lang = I18N[l] ? l : "es";
+    lang = ["ca","es","en","fr","pt","ru","zh"].includes(l) ? l : "es";
     const table = I18N[lang];
     els.forEach(([e, src]) => { const i = I18N.keys.indexOf(src); if (i >= 0 && table[i]) e.innerHTML = table[i]; });
     document.querySelectorAll('img[data-cap]').forEach(i => { const c = i.dataset.cap; i.src = CAPS[lang + '/' + c] || CAPS[c]; });
