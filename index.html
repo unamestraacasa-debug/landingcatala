@@ -140,7 +140,9 @@
 
   ol.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; text-align: left; }
   ol.steps li { counter-increment: s; background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
-  ol.steps li::before { content: counter(s); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #EDF1FA; color: var(--navy); font-weight: 800; font-size: 15px; margin-bottom: 12px; }
+  ol.steps li::before { content: counter(s); display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: color-mix(in srgb, var(--groc) 65%, transparent); color: var(--navy); font-weight: 800; font-size: 15px; margin-bottom: 12px; }
+  ol.steps li:nth-child(2)::before { background: color-mix(in srgb, var(--corall) 65%, transparent); }
+  ol.steps li:nth-child(3)::before { background: color-mix(in srgb, var(--lavanda) 65%, transparent); }
   ol.steps b { display: block; font-size: 17px; margin-bottom: 4px; color: var(--navy); }
   ol.steps span { color: var(--muted); font-size: 15px; }
 
