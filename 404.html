@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0B2D6B">
+<meta name="robots" content="noindex">
+<title>Página no encontrada · AprènCat</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&display=swap">
+<style>
+:root{--navy:#0B2D6B;--groc:#F6C86B;--corall:#F28B6B;--crema:#FFF6E7;--text:#14203B;--muted:#5A6580}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;font-family:"Figtree",-apple-system,system-ui,sans-serif;background:var(--crema);color:var(--text);display:grid;place-items:center;padding:24px max(18px,env(safe-area-inset-left)) 24px max(18px,env(safe-area-inset-right));overflow-x:hidden}
+.blob{position:fixed;border-radius:50%;z-index:0}
+.b1{width:360px;height:360px;background:var(--groc);right:-120px;top:-140px}
+.b2{width:200px;height:100px;border-radius:100px;background:var(--corall);left:-40px;bottom:60px}
+main{position:relative;z-index:1;max-width:520px;text-align:center;display:grid;gap:18px;justify-items:center}
+.logo{width:160px;height:auto}
+.code{font-weight:800;font-size:88px;line-height:1;color:var(--navy);letter-spacing:-.04em;margin:6px 0 0}
+h1{font-weight:800;font-size:clamp(26px,5vw,34px);line-height:1.15;margin:0;color:var(--navy);text-wrap:balance}
+p{margin:0;font-size:18px;line-height:1.55;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:6px}
+a.btn{display:inline-flex;align-items:center;min-height:48px;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:17px}
+a.primary{background:var(--navy);color:#fff}
+a.secondary{background:#fff;color:var(--navy);border:2px solid var(--navy)}
+a.btn:focus-visible{outline:3px solid var(--corall);outline-offset:3px}
+small{color:var(--muted);font-size:15px}
+small a{color:var(--navy);font-weight:600}
+</style>
+</head>
+<body>
+<div class="blob b1" aria-hidden="true"></div>
+<div class="blob b2" aria-hidden="true"></div>
+<main>
+  <img class="logo" src="/assets/acat-wordmark.png" alt="AprènCat" width="900" height="252">
+  <p class="code" aria-hidden="true">404</p>
+  <h1 id="t">Esta página no existe</h1>
+  <p id="d">Puede que el enlace esté mal escrito o que la página se haya movido.</p>
+  <div class="actions">
+    <a class="btn primary" id="home" href="/">Ir al inicio</a>
+    <a class="btn secondary" id="app" href="https://app.aprencat.com/">Entrar en AprènCat</a>
+  </div>
+  <small id="h">¿Necesitas ayuda? Escríbenos a <a href="mailto:hola@aprencat.com">hola@aprencat.com</a></small>
+</main>
+<script>
+(function () {
+  var T = {
+    ca: ["Pàgina no trobada", "Aquesta pàgina no existeix", "Potser l’enllaç està mal escrit o la pàgina s’ha mogut.", "Ves a l’inici", "Entra a AprènCat", "Necessites ajuda? Escriu-nos a "],
+    es: ["Página no encontrada", "Esta página no existe", "Puede que el enlace esté mal escrito o que la página se haya movido.", "Ir al inicio", "Entrar en AprènCat", "¿Necesitas ayuda? Escríbenos a "],
+    en: ["Page not found", "This page doesn’t exist", "The link may be mistyped, or the page may have moved.", "Go to the home page", "Open AprènCat", "Need help? Write to us at "],
+    fr: ["Page introuvable", "Cette page n’existe pas", "Le lien est peut-être mal saisi, ou la page a été déplacée.", "Aller à l’accueil", "Ouvrir AprènCat", "Besoin d’aide ? Écrivez-nous à "],
+    pt: ["Página não encontrada", "Esta página não existe", "Talvez a ligação esteja mal escrita ou a página tenha mudado de lugar.", "Ir para o início", "Entrar no AprènCat", "Precisas de ajuda? Escreve-nos para "],
+    ru: ["Страница не найдена", "Такой страницы нет", "Возможно, в ссылке опечатка или страница была перемещена.", "На главную", "Открыть AprènCat", "Нужна помощь? Напишите нам: "],
+    zh: ["未找到页面", "此页面不存在", "链接可能有误，或页面已被移动。", "返回首页", "进入 AprènCat", "需要帮助？请写信至 "]
+  };
+  var l = null;
+  try { l = localStorage.getItem("acat_lang"); } catch (e) {}
+  if (!T[l]) {
+    var langs = navigator.languages || [navigator.language || "es"];
+    for (var i = 0; i < langs.length; i++) { var c = String(langs[i]).toLowerCase().split(/[-_]/)[0]; if (T[c]) { l = c; break; } }
+  }
+  if (!T[l]) l = "es";
+  var t = T[l];
+  document.documentElement.lang = l;
+  document.title = t[0] + " · AprènCat";
+  document.getElementById("t").textContent = t[1];
+  document.getElementById("d").textContent = t[2];
+  document.getElementById("home").textContent = t[3];
+  document.getElementById("home").href = "/?lang=" + l;
+  document.getElementById("app").textContent = t[4];
+  document.getElementById("app").href = "https://app.aprencat.com/?lang=" + l;
+  document.getElementById("h").firstChild.textContent = t[5];
+})();
+</script>
+</body>
+</html>
