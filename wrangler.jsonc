@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "landingcatala",
+  "compatibility_date": "2026-10-19",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    // Les adreces que no existeixen mostren 404.html (abans, una pàgina en blanc).
+    "not_found_handling": "404-page"
+  }
+}
