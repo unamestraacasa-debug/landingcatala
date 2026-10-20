@@ -323,7 +323,8 @@
 #acat-equip article p{font-size:15px;line-height:1.7;color:#5b6684;margin:0}
 #acat-equip .equip-avatar{position:relative;aspect-ratio:1/1.7;overflow:hidden;margin-top:auto}
 #acat-equip .equip-avatar::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(to right,#fff 2%,transparent 8%,transparent 92%,#fff 98%),linear-gradient(to top,#fff 2%,transparent 24%)}
-#acat-equip .equip-avatar img{position:absolute;max-width:none;width:330%;height:auto;left:calc(-5% - var(--person) * 110%);top:-6%;display:block;border:0;border-radius:0;box-shadow:none}
+#acat-equip /* Centre de cada persona dins la foto (mesurat): 18,1 % · 49,8 % · 81,8 %. */
+  .equip-avatar img{position:absolute;max-width:none;width:330%;height:auto;left:calc(50% - 330% * var(--face-x));top:-6%;display:block;border:0;border-radius:0;box-shadow:none}
 #acat-equip .equip-closing{text-align:center;color:#0b2d6b;margin:30px auto 0}
 @media(max-width:700px){#acat-equip .equip-grid{grid-template-columns:1fr;max-width:380px}#acat-equip .equip-copy{min-height:0}#acat-equip{padding:40px 20px}}
 </style>
@@ -331,9 +332,9 @@
 <h2>Quién hay detrás de ACat</h2>
 <p class="equip-intro">Dos profesoras y una filóloga. Experiencia docente, nuevas tecnologías y cuidado por la lengua, en un mismo proyecto.</p>
 <div class="equip-grid">
-<article style="--accent-equip:#0b2d6b;--person:0"><div class="equip-copy"><h3>Experiencia docente</h3><p>Una profesora con una amplia trayectoria aporta su experiencia en la enseñanza y su conocimiento de las dificultades del alumnado.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
-<article style="--accent-equip:#f6c86b;--person:1"><div class="equip-copy"><h3>Nuevas formas de aprender</h3><p>Una profesora joven formada en nuevas tecnologías aporta una mirada actual a la manera de aprender y practicar catalán.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
-<article style="--accent-equip:#f28b6b;--person:2"><div class="equip-copy"><h3>Revisión lingüística</h3><p>Una filóloga revisa y corrige las actividades para cuidar la calidad lingüística de los contenidos.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
+<article style="--accent-equip:#0b2d6b;--person:0;--face-x:0.181"><div class="equip-copy"><h3>Experiencia docente</h3><p>Una profesora con una amplia trayectoria aporta su experiencia en la enseñanza y su conocimiento de las dificultades del alumnado.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
+<article style="--accent-equip:#f6c86b;--person:1;--face-x:0.498"><div class="equip-copy"><h3>Nuevas formas de aprender</h3><p>Una profesora joven formada en nuevas tecnologías aporta una mirada actual a la manera de aprender y practicar catalán.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
+<article style="--accent-equip:#f28b6b;--person:2;--face-x:0.818"><div class="equip-copy"><h3>Revisión lingüística</h3><p>Una filóloga revisa y corrige las actividades para cuidar la calidad lingüística de los contenidos.</p></div><div class="equip-avatar"><img src="assets/equip-acat.webp" width="1400" height="933" decoding="async" loading="lazy" alt=""></div></article>
 </div><p class="equip-closing">Unimos nuestras experiencias para ayudarte a aprender catalán paso a paso.</p>
 </section>
 
