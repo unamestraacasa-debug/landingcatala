@@ -199,6 +199,39 @@
   footer a.ig:hover { color: var(--corall); }
 
   /* Plans visibles a la portada i adaptats a pantalles petites. */
+  /* Plans: targetes amb estalvi i finestra amb el que inclou cada pla (mateix disseny que l'app). */
+#plans.np{text-align:center}
+.np-hook{display:inline-block;margin:6px 0 26px;padding:6px 16px;border-radius:999px;background:var(--groc);color:var(--navy);font-weight:800;font-size:17px}
+.np-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;text-align:start}
+@media(max-width:1050px){.np-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.np-grid{grid-template-columns:1fr;gap:16px}}
+.np-card{position:relative;display:flex;flex-direction:column;gap:6px;padding:24px 22px 20px;border:1px solid var(--line);border-radius:22px;background:#fff;color:var(--ink);font:inherit;text-align:start;cursor:pointer;transition:transform .15s,box-shadow .15s,border-color .15s}
+.np-card:hover{transform:translateY(-3px);border-color:var(--navy);box-shadow:0 14px 30px rgb(11 45 107 / .12)}
+.np-card.is-best{border:2px solid var(--navy);background:linear-gradient(160deg,#eef2fb,#fff8e6)}
+.np-card h3{margin:0;font-size:22px;color:var(--navy)}
+.np-card .np-levels{color:var(--muted);font-size:14px}
+.np-card .np-price{margin-top:10px;font-size:34px;font-weight:800;color:var(--navy);font-variant-numeric:tabular-nums}
+.np-card .np-month{color:var(--muted);font-size:14px}
+.np-card .np-see{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--navy);font-size:15px}
+.np-tag,.np-save{position:absolute;top:-12px;inset-inline-start:18px;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:800}
+.np-tag{background:var(--groc);color:#3a2a00}.np-save{background:#e2f4ea;color:#145c3d}
+.np-note{margin:22px auto 0;color:var(--muted);font-size:14px;max-width:640px}
+.np-detail{width:min(460px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:0;border:none;border-radius:22px;background:#fff;color:var(--ink);overflow:auto;box-shadow:0 24px 60px rgb(11 45 107 / .35);text-align:start}
+.np-detail::backdrop{background:rgb(11 45 107 / .45);backdrop-filter:blur(2px)}
+.np-detail[open]{animation:np-in .2s ease-out}@keyframes np-in{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.np-detail[open]{animation:none}.np-card{transition:none}}
+.np-detail-head{display:grid;gap:8px;padding:16px 24px 20px;background:var(--navy);color:#fff}
+.np-detail-head h3{margin:0;font-size:24px;color:#fff;line-height:1.2}
+.np-back{justify-self:start;padding:6px 0;border:none;background:none;color:#cfd9f0;font:inherit;font-size:14px;cursor:pointer}
+.np-detail-price{margin:0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.np-detail-price strong{font-size:32px;color:var(--groc)}.np-detail-price span{color:#cfd9f0}
+.np-detail-list{list-style:none;margin:0;padding:20px 24px 6px;display:grid;gap:11px}
+.np-detail-list li{display:flex;gap:10px;align-items:flex-start;line-height:1.45}
+.np-detail-list li::before{content:"✓";flex:none;color:#1f8a5b;font-weight:800}
+.np-detail-list small{display:block;margin-top:2px;color:var(--muted);font-size:13px}
+.np-detail-actions{position:sticky;bottom:0;padding:14px 24px 20px;background:#fff}
+.np-detail-actions .np-cta{display:flex;justify-content:center;width:100%;box-sizing:border-box}
+.np-card:focus-visible,.np-back:focus-visible{outline:3px solid var(--groc);outline-offset:3px}
   .acat-plans-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;text-align:left}
   @media(max-width:1050px){.acat-plans-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:560px){.acat-plans-grid{grid-template-columns:1fr}}
@@ -338,7 +371,22 @@
 </div><p class="equip-closing">Unimos nuestras experiencias para ayudarte a aprender catalán paso a paso.</p>
 </section>
 
-<section id="plans" lang="es"><h2>Elige tu camino</h2><p class="sub">Tu nivel o un pack para llegar más lejos. La misma cuenta en la web y en la app.</p><div class="acat-plans-grid"><article class="acat-plan "><h3>Basic</h3><p class="acat-plan-price" data-amount="59.99">59,99 €</p><small>6 meses de acceso</small><p class="acat-plan-choice">Elige un nivel</p><ul><li>Todo el contenido de los niveles incluidos</li><li>Cómics, vocabulario y gramática</li><li>Práctica, correcciones y simulacros</li><li>Tutor de IA con límites de uso</li></ul><a class="btn" href="https://app.aprencat.com/?trial=1">Obtén el curso</a></article><article class="acat-plan "><h3>Duo</h3><p class="acat-plan-price" data-amount="99.99">99,99 €</p><small>12 meses de acceso</small><p class="acat-plan-choice">Elige dos niveles</p><ul><li>Todo el contenido de los niveles incluidos</li><li>Cómics, vocabulario y gramática</li><li>Práctica, correcciones y simulacros</li><li>Tutor de IA con límites de uso</li></ul><a class="btn" href="https://app.aprencat.com/?trial=1">Obtén el curso</a></article><article class="acat-plan "><h3>Trio</h3><p class="acat-plan-price" data-amount="129.99">129,99 €</p><small>18 meses de acceso</small><p class="acat-plan-choice">Elige tres niveles</p><ul><li>Todo el contenido de los niveles incluidos</li><li>Cómics, vocabulario y gramática</li><li>Práctica, correcciones y simulacros</li><li>Tutor de IA con límites de uso</li></ul><a class="btn" href="https://app.aprencat.com/?trial=1">Obtén el curso</a></article><article class="acat-plan complete"><h3>Completo</h3><p class="acat-plan-price" data-amount="159.99">159,99 €</p><small>24 meses de acceso</small><p class="acat-plan-choice">Los cuatro niveles incluidos</p><ul><li>Todo el contenido de los niveles incluidos</li><li>Cómics, vocabulario y gramática</li><li>Práctica, correcciones y simulacros</li><li>Tutor de IA con límites de uso</li></ul><a class="btn" href="https://app.aprencat.com/?trial=1">Obtén el curso</a></article></div><p class="acat-plan-note">Los importes indicados son el precio total de cada plan, no una cuota mensual. Después de crear tu cuenta elegirás los niveles A1, A2, B1 o B2 que quieras combinar.</p></section>
+<section id="plans" lang="es" class="np">
+<h2 data-np="title">Elige tu camino</h2>
+<p class="sub" data-np="sub">Tu nivel o un pack para llegar más lejos. La misma cuenta en la web y en la app.</p>
+<p class="np-hook" data-np-hook></p>
+<div class="np-grid" data-np-grid></div>
+<p class="np-note" data-np="note">Un solo pago, sin renovación automática. El importe es el precio total del plan.</p>
+<dialog class="np-detail" aria-labelledby="np-detail-title" data-np-detail>
+ <header class="np-detail-head">
+  <button type="button" class="np-back" data-np-close><span aria-hidden="true">←</span> <span data-np="back">Ver los otros planes</span></button>
+  <h3 id="np-detail-title" data-np-detail-title></h3>
+  <p class="np-detail-price"><strong data-np-detail-price></strong><span data-np-detail-month></span></p>
+ </header>
+ <ul class="np-detail-list" data-np-detail-list></ul>
+ <footer class="np-detail-actions"><a class="btn np-cta" data-np-detail-cta href="https://app.aprencat.com/?trial=1"></a></footer>
+</dialog>
+</section>
 
   <section id="final" class="narrow">
     <h2>¿Te mudas a Andorra?</h2>
@@ -428,5 +476,69 @@
 })();
 </script>
 
+<script>
+/* Plans (aprencat.com): mateix disseny que la finestra de plans de l'app. Preus del catàleg aprovat. */
+(() => {
+  const PLANS = [
+    {key: "BASIC", title: "Bàsic", amount: 59.99, months: 6, count: 1},
+    {key: "DUO", title: "Duo", amount: 99.99, months: 12, count: 2},
+    {key: "TRIPLE", title: "Trio", amount: 129.99, months: 18, count: 3},
+    {key: "ALL", title: "Complet", amount: 159.99, months: 24, count: 4}
+  ];
+  const T = {
+    ca: {title:"Tria el teu camí",sub:"El teu nivell o un pack per arribar més lluny. El mateix compte a la web i a l’app.",hook:"Des de {p} al dia",month:"{p} al mes",months:"{n} mesos",l1:"1 nivell",ln:"{n} nivells",lall:"A1, A2, B1 i B2",best:"Millor preu per mes",save:"Estalvia {n} %",see:"Mira què inclou",note:"Un sol pagament, sense renovació automàtica. L’import és el preu total del pla.",back:"Veure els altres plans",dtitle:"Què inclou el pla {plan}",access:"{n} mesos d’accés a tot el curs",p1:"1 nivell a triar: A1, A2, B1 o B2",pn:"{n} nivells a triar entre A1, A2, B1 i B2",pall:"Els quatre nivells: A1, A2, B1 i B2",tutor:"Conversa amb el tutor d’IA cada dia",tnote:"Màx. 6 minuts al dia",inc:["Curs, còmics i vocabulari","Gramàtica, lectures, escoltes i dictats","Escriptura amb correcció i simulacres","Jocs i pràctica amb el tutor d’IA","Comunitat i activitats"],once:"Un sol pagament, sense renovació automàtica",choose:"Tria el pla {plan}"},
+    es: {title:"Elige tu camino",sub:"Tu nivel o un pack para llegar más lejos. La misma cuenta en la web y en la app.",hook:"Desde {p} al día",month:"{p} al mes",months:"{n} meses",l1:"1 nivel",ln:"{n} niveles",lall:"A1, A2, B1 y B2",best:"Mejor precio por mes",save:"Ahorra {n} %",see:"Mira qué incluye",note:"Un solo pago, sin renovación automática. El importe es el precio total del plan.",back:"Ver los otros planes",dtitle:"Qué incluye el plan {plan}",access:"{n} meses de acceso a todo el curso",p1:"1 nivel a elegir: A1, A2, B1 o B2",pn:"{n} niveles a elegir entre A1, A2, B1 y B2",pall:"Los cuatro niveles: A1, A2, B1 y B2",tutor:"Conversación con el tutor de IA cada día",tnote:"Máx. 6 minutos al día",inc:["Curso, cómics y vocabulario","Gramática, lecturas, audios y dictados","Escritura con corrección y simulacros","Juegos y práctica con el tutor de IA","Comunidad y actividades"],once:"Un solo pago, sin renovación automática",choose:"Elegir el plan {plan}"},
+    en: {title:"Choose your path",sub:"Your level or a bundle to go further. One account for the web and the app.",hook:"From {p} a day",month:"{p} per month",months:"{n} months",l1:"1 level",ln:"{n} levels",lall:"A1, A2, B1 and B2",best:"Best price per month",save:"Save {n}%",see:"See what’s included",note:"One single payment, no automatic renewal. The amount is the total price of the plan.",back:"See the other plans",dtitle:"What the {plan} plan includes",access:"{n} months of access to the whole course",p1:"1 level of your choice: A1, A2, B1 or B2",pn:"{n} levels of your choice from A1, A2, B1 and B2",pall:"All four levels: A1, A2, B1 and B2",tutor:"Conversation with the AI tutor every day",tnote:"Up to 6 minutes a day",inc:["Course, comics and vocabulary","Grammar, reading, listening and dictation","Writing with feedback and mock exams","Games and practice with the AI tutor","Community and activities"],once:"One single payment, no automatic renewal",choose:"Choose the {plan} plan"},
+    fr: {title:"Choisis ton parcours",sub:"Ton niveau ou un pack pour aller plus loin. Un même compte sur le web et dans l’app.",hook:"À partir de {p} par jour",month:"{p} par mois",months:"{n} mois",l1:"1 niveau",ln:"{n} niveaux",lall:"A1, A2, B1 et B2",best:"Meilleur prix par mois",save:"Économise {n} %",see:"Voir ce qui est inclus",note:"Un seul paiement, sans renouvellement automatique. Le montant est le prix total de l’offre.",back:"Voir les autres offres",dtitle:"Ce que comprend l’offre {plan}",access:"{n} mois d’accès à tout le cours",p1:"1 niveau au choix : A1, A2, B1 ou B2",pn:"{n} niveaux au choix parmi A1, A2, B1 et B2",pall:"Les quatre niveaux : A1, A2, B1 et B2",tutor:"Conversation avec le tuteur IA chaque jour",tnote:"6 minutes max. par jour",inc:["Cours, BD et vocabulaire","Grammaire, lecture, écoute et dictées","Expression écrite corrigée et examens blancs","Jeux et pratique avec le tuteur IA","Communauté et activités"],once:"Un seul paiement, sans renouvellement automatique",choose:"Choisir l’offre {plan}"},
+    pt: {title:"Escolhe o teu caminho",sub:"O teu nível ou um pack para ires mais longe. A mesma conta na web e na app.",hook:"Desde {p} por dia",month:"{p} por mês",months:"{n} meses",l1:"1 nível",ln:"{n} níveis",lall:"A1, A2, B1 e B2",best:"Melhor preço por mês",save:"Poupa {n} %",see:"Vê o que inclui",note:"Um único pagamento, sem renovação automática. O valor é o preço total do plano.",back:"Ver os outros planos",dtitle:"O que inclui o plano {plan}",access:"{n} meses de acesso a todo o curso",p1:"1 nível à escolha: A1, A2, B1 ou B2",pn:"{n} níveis à escolha entre A1, A2, B1 e B2",pall:"Os quatro níveis: A1, A2, B1 e B2",tutor:"Conversa com o tutor de IA todos os dias",tnote:"Máx. 6 minutos por dia",inc:["Curso, banda desenhada e vocabulário","Gramática, leitura, compreensão oral e ditados","Escrita com correção e exames de preparação","Jogos e prática com o tutor de IA","Comunidade e atividades"],once:"Um único pagamento, sem renovação automática",choose:"Escolher o plano {plan}"},
+    ru: {title:"Выбери свой путь",sub:"Твой уровень или пакет, чтобы пойти дальше. Один аккаунт для сайта и приложения.",hook:"От {p} в день",month:"{p} в месяц",months:"{n} мес.",l1:"1 уровень",ln:"{n} уровня",lall:"A1, A2, B1 и B2",best:"Лучшая цена за месяц",save:"Экономия {n} %",see:"Что входит",note:"Один платёж, без автоматического продления. Указана полная стоимость тарифа.",back:"Другие тарифы",dtitle:"Что входит в тариф {plan}",access:"{n} мес. доступа ко всему курсу",p1:"1 уровень на выбор: A1, A2, B1 или B2",pn:"{n} уровня на выбор из A1, A2, B1 и B2",pall:"Все четыре уровня: A1, A2, B1 и B2",tutor:"Разговор с ИИ-репетитором каждый день",tnote:"Не более 6 минут в день",inc:["Курс, комиксы и словарь","Грамматика, чтение, аудирование и диктанты","Письмо с проверкой и пробные экзамены","Игры и занятия с ИИ-преподавателем","Сообщество и мероприятия"],once:"Один платёж, без автоматического продления",choose:"Выбрать тариф {plan}"},
+    zh: {title:"选择你的学习路径",sub:"选择你的级别或套餐，走得更远。网站和应用使用同一个账户。",hook:"每天低至 {p}",month:"每月 {p}",months:"{n} 个月",l1:"1 个级别",ln:"{n} 个级别",lall:"A1、A2、B1 和 B2",best:"每月最低价",save:"节省 {n}%",see:"查看包含内容",note:"一次性付款，不会自动续费。所示金额为方案总价。",back:"查看其他方案",dtitle:"{plan} 方案包含",access:"{n} 个月完整课程访问",p1:"可选 1 个级别：A1、A2、B1 或 B2",pn:"从 A1、A2、B1、B2 中任选 {n} 个级别",pall:"全部四个级别：A1、A2、B1 和 B2",tutor:"每天与 AI 导师对话",tnote:"每天最多 6 分钟",inc:["课程、漫画和词汇","语法、阅读、听力和听写","写作批改和模拟考试","游戏和AI导师练习","社区和活动"],once:"一次性付款，不会自动续费",choose:"选择 {plan} 方案"}
+  };
+  const root = document.getElementById("plans");
+  const grid = root.querySelector("[data-np-grid]");
+  const detail = root.querySelector("[data-np-detail]");
+  const fill = (s, v) => Object.entries(v).reduce((t, [k, x]) => t.replace("{" + k + "}", x), s);
+  const monthly = p => p.amount / p.months;
+  const base = monthly(PLANS[0]);
+  const best = PLANS.reduce((a, b) => monthly(a) <= monthly(b) ? a : b);
+  let lang = "es";
+  const euro = n => new Intl.NumberFormat(lang, {style: "currency", currency: "EUR"}).format(n);
+  const levels = (t, n) => n === 4 ? t.lall : n === 1 ? t.l1 : fill(t.ln, {n});
+  function signupUrl(plan) { const u = new URL("https://app.aprencat.com/"); u.searchParams.set("trial", "1"); u.searchParams.set("lang", lang); u.searchParams.set("plan", plan); return u.href; }
+  function render() {
+    lang = Object.hasOwn(T, document.documentElement.lang) ? document.documentElement.lang : "es";
+    const t = T[lang];
+    root.querySelectorAll("[data-np]").forEach(e => { e.textContent = t[e.dataset.np]; });
+    root.querySelector("[data-np-hook]").textContent = fill(t.hook, {p: euro(best.amount / (best.months * 365 / 12))});
+    grid.replaceChildren(...PLANS.map(p => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "np-card" + (p.key === best.key ? " is-best" : ""); b.setAttribute("aria-haspopup", "dialog");
+      const save = Math.round((1 - monthly(p) / base) * 100);
+      const badge = p.key === best.key ? `<span class="np-tag">${t.best}</span>` : save > 0 ? `<span class="np-save">${fill(t.save, {n: save})}</span>` : "";
+      b.innerHTML = `${badge}<h3>${p.title}</h3><span class="np-levels">${levels(t, p.count)} · ${fill(t.months, {n: p.months})}</span><span class="np-price">${euro(p.amount)}</span><span class="np-month">${fill(t.month, {p: euro(monthly(p))})}</span><span class="np-see">${t.see} <span aria-hidden="true">→</span></span>`;
+      b.addEventListener("click", () => open(p));
+      return b;
+    }));
+  }
+  function open(p) {
+    const t = T[lang];
+    detail.querySelector("[data-np-detail-title]").textContent = fill(t.dtitle, {plan: p.title});
+    detail.querySelector("[data-np-detail-price]").textContent = euro(p.amount);
+    detail.querySelector("[data-np-detail-month]").textContent = fill(t.month, {p: euro(monthly(p))});
+    const items = [fill(t.access, {n: p.months}), p.count === 4 ? t.pall : p.count === 1 ? t.p1 : fill(t.pn, {n: p.count}), t.tutor, ...t.inc, t.once];
+    detail.querySelector("[data-np-detail-list]").replaceChildren(...items.map(text => {
+      const li = document.createElement("li"); const span = document.createElement("span"); span.textContent = text;
+      if (text === t.tutor) { const small = document.createElement("small"); small.textContent = t.tnote; span.append(small); }
+      li.append(span); return li;
+    }));
+    const cta = detail.querySelector("[data-np-detail-cta]"); cta.textContent = fill(t.choose, {plan: p.title}); cta.href = signupUrl(p.key);
+    detail.lang = lang; detail.showModal();
+  }
+  detail.querySelector("[data-np-close]").addEventListener("click", () => detail.close());
+  detail.addEventListener("click", e => { if (e.target === detail) detail.close(); });
+  render();
+  document.getElementById("lang").addEventListener("change", () => setTimeout(render));
+})();
+</script>
 </body>
 </html>
