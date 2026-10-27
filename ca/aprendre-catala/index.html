@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ca"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App per aprendre català: AprènCat, de l’A1 al B2</title><meta name="description" content="AprènCat és una aplicació per aprendre català amb cursos A1, A2, B1 i B2, exercicis, pràctica oral amb IA i preparació per a les proves de català d’Andorra."><link rel="canonical" href="https://aprencat.com/ca/aprendre-catala/">
+<link rel="alternate" hreflang="ca" href="https://aprencat.com/ca/aprendre-catala/">
+<link rel="alternate" hreflang="es" href="https://aprencat.com/es/aprender-catalan/">
+<meta property="og:type" content="website"><meta property="og:title" content="App per aprendre català: AprènCat, de l’A1 al B2"><meta property="og:description" content="AprènCat és una aplicació per aprendre català amb cursos A1, A2, B1 i B2, exercicis, pràctica oral amb IA i preparació per a les proves de català d’Andorra."><meta property="og:url" content="https://aprencat.com/ca/aprendre-catala/"><meta property="og:image" content="https://aprencat.com/assets/acat-wordmark.png">
+<link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&amp;display=swap">
+<style>
+  :root { --navy:#0B2D6B; --navy-2:#123A82; --groc:#F6C86B; --corall:#F28B6B; --lavanda:#A7B6E8; --ink:#14213F; --muted:#4D5B7B; --faint:#52617C; --line:#E5E9F3; --surface:#FFFFFF; color-scheme: light; }
+  * { box-sizing: border-box; }
+  body { margin: 0; color: var(--ink); font-family: "Figtree", -apple-system, system-ui, sans-serif; font-size: 17px; line-height: 1.65;
+    background: radial-gradient(900px 520px at 12% -6%, rgba(167,182,232,.30), transparent 62%), radial-gradient(760px 460px at 92% 4%, rgba(246,200,107,.22), transparent 60%), #FBFCFE; background-attachment: fixed; padding-inline: 20px; }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  a { color: var(--navy); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+  header.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+  header.top .brand img { height: 30px; width: auto; display: block; }
+  header.top .back { font-size: 14px; font-weight: 600; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 16px; }
+  header.top .back:hover { border-color: var(--lavanda); }
+  main { padding-block: 40px 40px; }
+  .eyebrow { display: inline-block; margin: 0 0 14px; font-size: 13px; font-weight: 700; color: var(--corall); background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px; letter-spacing: .02em; }
+  h1 { margin: 0 0 14px; font-size: clamp(34px, 5vw, 50px); line-height: 1.1; font-weight: 700; letter-spacing: -0.025em; color: var(--navy); text-wrap: balance; }
+  .lede, .updated { margin: 0 0 32px; color: var(--muted); font-size: 18px; max-width: 60ch; }
+  .updated { font-size: 15px; }
+  h2 { margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--navy); display: flex; align-items: baseline; gap: 12px; }
+  h2 .n { font-size: 13px; font-weight: 800; color: var(--navy); background: #EDF1FA; border-radius: 999px; padding: 2px 10px; flex: none; }
+  p { margin: 0 0 14px; }
+  strong { font-weight: 700; color: var(--ink); }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-bottom: 18px; }
+  .card, .box, .intro, section.about { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .card h2 { font-size: 19px; }
+  .big { font-size: 22px; font-weight: 700; margin: 4px 0 8px; }
+  .big a { text-decoration: none; }
+  .intro { margin-bottom: 28px; background: #FFF8E8; border-color: #F5E3B6; }
+  .intro p:last-child, .card p:last-child, .box p:last-child, section.about p:last-child { margin-bottom: 0; }
+  main > section, .wrap > section { margin-bottom: 18px; }
+  section:not(.about) { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  section.about { margin-top: 18px; }
+  dl { display: grid; grid-template-columns: minmax(120px, 190px) 1fr; gap: 8px 18px; margin: 6px 0 0; }
+  dt { font-size: 14px; font-weight: 700; color: var(--muted); }
+  dd { margin: 0; }
+  .scroller { overflow-x: auto; margin: 8px 0 14px; border: 1px solid var(--line); border-radius: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 560px; }
+  th { text-align: left; font-size: 13px; font-weight: 700; color: var(--muted); background: #F4F6FB; padding: 10px 14px; }
+  td { padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  li { margin-bottom: 6px; }
+  code { font-size: 14px; background: #EDF1FA; color: var(--navy); border-radius: 6px; padding: 1px 6px; }
+  footer { padding-block: 30px 56px; border-top: 1px solid var(--line); margin-top: 24px; color: var(--faint); font-size: 14px; display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--navy); }
+  a:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 6px; }
+  @media (max-width: 560px) { dl { grid-template-columns: 1fr; gap: 2px; } dd { margin-bottom: 10px; } }
+  footer a.ig { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--navy); text-decoration: none; }
+  footer a.ig:hover { color: var(--corall); }
+
+main {max-width:72ch;margin-inline:auto} main h2 {margin-top:36px} main ul {padding-left:24px} .start {display:inline-block;background:var(--navy);color:#fff;padding:12px 22px;border-radius:999px;text-decoration:none;font-weight:700} .start:hover {background:var(--navy-2)} nav {display:flex;gap:16px;flex-wrap:wrap} ::selection {background:var(--groc);color:var(--ink)}
+</style><script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "Organization", "@id": "https://aprencat.com/#empresa", "name": "THE HYPE CENTER, SLU", "url": "https://aprencat.com/", "email": "hola@aprencat.com", "logo": "https://aprencat.com/assets/acat-wordmark.png", "sameAs": ["https://www.instagram.com/aprencatapp/"]}, {"@type": "SoftwareApplication", "@id": "https://aprencat.com/#app", "name": "AprènCat", "alternateName": ["ACat", "AprenCat"], "url": "https://app.aprencat.com/", "applicationCategory": "EducationalApplication", "operatingSystem": "iOS, Android, Web", "description": "Aplicació per aprendre català dels nivells A1 a B2, amb exercicis, pràctica oral amb IA i preparació per a les proves de català d’Andorra.", "publisher": {"@id": "https://aprencat.com/#empresa"}, "installUrl": ["https://apps.apple.com/app/id6815693481", "https://play.google.com/store/apps/details?id=com.aprencat.app"]}, {"@type": "WebPage", "@id": "https://aprencat.com/ca/aprendre-catala/", "url": "https://aprencat.com/ca/aprendre-catala/", "name": "App per aprendre català: AprènCat, de l’A1 al B2", "description": "AprènCat és una aplicació per aprendre català amb cursos A1, A2, B1 i B2, exercicis, pràctica oral amb IA i preparació per a les proves de català d’Andorra.", "inLanguage": "ca", "about": {"@id": "https://aprencat.com/#app"}}]}</script></head>
+<body><div class="wrap"><header class="top"><a class="brand" href="/?lang=ca" aria-label="AprènCat"><img src="/assets/acat-wordmark.png" alt="AprènCat"></a><nav aria-label="Idioma"><a href="/ca/aprendre-catala/" lang="ca" hreflang="ca">Català</a><a href="/es/aprender-catalan/" lang="es" hreflang="es">Español</a></nav></header>
+<main><h1>App per aprendre català: AprènCat, de l’A1 al B2</h1><p class="lede">AprènCat és una aplicació per aprendre català amb cursos A1, A2, B1 i B2, exercicis, pràctica oral amb IA i preparació per a les proves de català d’Andorra.</p><h2>Què pots practicar amb AprènCat?</h2><ul><li>Gramàtica i vocabulari amb teoria, còmics i exercicis.</li><li>Comprensió lectora i oral amb lectures, escoltes i dictats.</li><li>Expressió escrita en un apartat propi de les unitats.</li><li>Conversa i expressió oral amb un tutor d’intel·ligència artificial.</li></ul><h2>Un curs per a cada nivell</h2><p>Pots començar per l’A1 o continuar amb A2, B1 o B2. El test orientatiu de nivell és opcional: t’ajuda a triar per on començar, però no és un certificat oficial.</p><h2>Català per viure a Andorra i preparar les proves</h2><p>AprènCat està orientada a les proves oficials de català d’Andorra i a situacions de la vida quotidiana. Les activitats et permeten treballar la comprensió i l’expressió, tant oral com escrita.</p><p>AprènCat és una eina de preparació independent. Utilitzar l’aplicació no substitueix l’examen oficial ni garanteix aprovar-lo.</p><h2>Com la pots provar?</h2><p>Des de la web pots crear un compte i explorar la mostra gratuïta. Els cursos complets i les funcions incloses depenen del pla contractat; consulta’n les condicions i els preus actuals a la portada.</p><p><a class="start" href="https://app.aprencat.com/?trial=1&amp;lang=ca">Prova AprènCat</a></p><h2>També al mòbil</h2><p><a href="https://apps.apple.com/app/id6815693481">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.aprencat.app">Google Play</a> · <a href="https://app.aprencat.com/?lang=ca">Web</a></p><h2>Qui hi ha darrere d’AprènCat?</h2><p>AprènCat és un producte de THE HYPE CENTER, SLU, a Andorra. <a href="/contacto/">Contacte</a>: <a href="mailto:hola@aprencat.com">hola@aprencat.com</a>.</p></main>
+<footer><a href="/?lang=ca">Portada i plans</a><a href="/privacidad/">Privacitat</a><p>© 2026 AprènCat · THE HYPE CENTER, SLU</p></footer></div></body></html>
