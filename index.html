@@ -70,7 +70,7 @@
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="shortcut icon" href="/favicon.ico">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap">
 <style>
   :root {
     --navy: #0B2D6B;
@@ -94,7 +94,7 @@
       radial-gradient(760px 460px at 92% 4%, rgba(246,200,107,.22), transparent 60%),
       #FBFCFE;
     background-attachment: fixed;
-    font-family: "Figtree", -apple-system, system-ui, sans-serif;
+    font-family: "Sora", -apple-system, system-ui, sans-serif;
     font-size: 17px; line-height: 1.6;
     padding-inline: 20px;
   }
@@ -252,6 +252,39 @@
 .trial-info{background:#f1f3fc;border-radius:24px;padding:36px 28px;margin:36px auto;text-align:center}
 .trial-cancel{font-weight:600;color:#0b2d6b;line-height:1.6}
 .trial-info .small{font-size:15px;line-height:1.7;max-width:760px;margin:18px auto 26px}
+
+/* ── Estil de l'app (Alpenglow): blau de marca protagonista, ambre com a únic accent,
+   sense rosats ni degradats, botons rectangulars arrodonits com a l'app i la carena del Pirineu. ── */
+:root{--canvas:#F2F7FD;--blue-soft:#EDF1FA;--amber:#F6C86B;--amber-soft:#FFF4D6;--amber-ink:#6E4F0C;--meadow:#5FB894}
+body{background:var(--canvas)}
+.btn,.pill.solid{border-radius:13px}
+.btn{transition:background-color .15s,transform .12s cubic-bezier(.22,1,.36,1)}
+.hero .acat-web-link{background:var(--navy);color:#fff;border-radius:13px;box-shadow:none;padding:16px 30px}
+.hero .acat-web-link:hover{background:var(--navy-2);filter:none;box-shadow:none}
+.hero .acat-web-link:focus-visible{outline:3px solid var(--amber);outline-offset:4px}
+#final > .btn{background:var(--navy);color:#fff}
+#final > .btn:hover{background:var(--navy-2);filter:none}
+.badge b{color:var(--navy)}
+ol.steps li::before,ol.steps li:nth-child(2)::before,ol.steps li:nth-child(3)::before{background:var(--blue-soft);color:var(--navy)}
+ol.steps li:last-child::before{background:var(--amber-soft);color:var(--amber-ink)}
+footer a.ig:hover{color:var(--navy-2)}
+.t-lav,.t-groc,.t-cor,.t-mint{background:var(--blue-soft)}
+.acat-plan{border-radius:20px;background:#fff}
+.acat-plan.complete{background:#fff;border:2px solid var(--navy)}
+.trial-info{background:#fff;border:1px solid var(--line)}
+.level{border-radius:10px}
+.pill:hover{border-color:var(--navy)}
+/* La carena: del A1 al B2, com la barra de progrés de l'app. */
+.carena{position:relative;max-width:620px;margin:6px auto 0;height:96px}
+.carena svg{display:block;width:100%;height:72px;overflow:visible}
+.carena .far{fill:color-mix(in srgb,var(--navy) 6%,transparent)}
+.carena .ridge{fill:var(--blue-soft);stroke:color-mix(in srgb,var(--navy) 22%,transparent);stroke-width:1;vector-effect:non-scaling-stroke}
+.carena .done{fill:var(--navy)}
+.carena .flag{position:absolute;top:-14px;left:52%;width:2px;height:34px;background:var(--ink)}
+.carena .flag::after{content:"";position:absolute;top:0;left:2px;width:15px;height:10px;background:var(--amber);clip-path:polygon(0 0,100% 50%,0 100%)}
+.carena ol{list-style:none;display:flex;justify-content:space-between;margin:8px 0 0;padding:0 2%;font-size:13px;font-weight:700;color:var(--muted)}
+.carena ol li:last-child{color:var(--navy)}
+@media(prefers-reduced-motion:no-preference){.carena .fill{transform-box:fill-box;transform-origin:left center;animation:carena-puja 1.4s cubic-bezier(.22,1,.36,1) .2s both}@keyframes carena-puja{from{transform:scaleX(0)}}}
 </style>
 
 </head>
@@ -276,6 +309,16 @@
     <h1 class="hero-intro" lang="es">Aprende catalán y prepárate para los exámenes oficiales</h1>
     <a class="btn acat-web-link" href="https://app.aprencat.com/?trial=1" lang="es">Prueba gratis</a>
     <p class="sub" lang="es">Crea tu cuenta y prueba gratis la primera unidad del A1, sin tarjeta.</p>
+    <div class="carena" aria-hidden="true">
+      <svg viewBox="0 0 300 72" preserveAspectRatio="none">
+        <defs><clipPath id="carena-feta"><rect class="fill" x="0" y="0" width="156" height="72"/></clipPath></defs>
+        <path class="far" d="M0 50 L30 38 L52 44 L84 16 L110 30 L140 12 L170 26 L204 10 L232 30 L262 24 L300 40 L300 72 L0 72 Z"/>
+        <path class="ridge" d="M0 66 L18 58 L34 62 L58 40 L74 48 L100 22 L114 34 L132 26 L156 4 L178 28 L194 22 L218 44 L236 36 L262 54 L280 49 L300 60 L300 72 L0 72 Z"/>
+        <path class="done" clip-path="url(#carena-feta)" d="M0 66 L18 58 L34 62 L58 40 L74 48 L100 22 L114 34 L132 26 L156 4 L178 28 L194 22 L218 44 L236 36 L262 54 L280 49 L300 60 L300 72 L0 72 Z"/>
+      </svg>
+      <span class="flag"></span>
+      <ol><li>A1</li><li>A2</li><li>B1</li><li>B2</li></ol>
+    </div>
   </section>
 
   <section style="border:0;padding-top:0">
