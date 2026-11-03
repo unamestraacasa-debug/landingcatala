@@ -3,7 +3,7 @@
  * Sense consentiment no es desa cap identificador: només es manté el paràmetre
  * de l'anunci a l'enllaç cap a l'app perquè allà es pugui preguntar el mateix. */
 (() => {
-  const PIXEL_ID = ""; // Identificador del conjunt de dades de Meta (només xifres).
+  const PIXEL_ID = "945478698419058"; // Identificador del conjunt de dades de Meta (només xifres).
   if (!/^\d{5,20}$/.test(PIXEL_ID)) return;
 
   const DAY = 86400, DOMAIN = /(^|\.)aprencat\.com$/.test(location.hostname) ? ";domain=.aprencat.com" : "";
