@@ -57,7 +57,7 @@
   };
   let lang = (document.documentElement.lang || "es").slice(0, 2);
   try { lang = localStorage.getItem("acat_lang") || lang; } catch (e) { /* Sense emmagatzematge. */ }
-  const [body, accept, reject, more] = T[lang] || T.es;
+  const [body, accept, reject, more] = Object.hasOwn(T, lang) ? T[lang] : T.es;
 
   const box = document.createElement("aside");
   box.id = "acat-cookies"; box.setAttribute("role", "dialog"); box.setAttribute("aria-label", more); box.lang = lang;
