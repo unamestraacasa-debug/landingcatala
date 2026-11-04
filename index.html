@@ -259,6 +259,7 @@
 .np-card .np-cta{display:flex;justify-content:center;text-decoration:none;width:100%;box-sizing:border-box}
 .np-tag,.np-save{position:absolute;top:-12px;inset-inline-start:18px;padding:3px 12px;border-radius:999px;font-size:13px;font-weight:800}
 .np-tag{background:var(--groc);color:#3a2a00}.np-save{background:#e2f4ea;color:#145c3d}
+.np-sale{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;margin-top:6px;font-size:13px}.np-sale del{color:var(--muted)}.np-sale b{background:#f28b6b;color:#fff;border-radius:6px;padding:2px 8px;white-space:nowrap}
 .np-note{margin:22px auto 0;color:var(--muted);font-size:14px;max-width:640px}
 .np-cta:focus-visible{outline:3px solid var(--groc);outline-offset:3px}
   .acat-plans-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;text-align:left}
@@ -549,6 +550,11 @@ footer a.ig:hover{color:var(--navy-2)}
     {key: "TRIPLE", title: "Trio", amount: 129.99, months: 18, count: 3},
     {key: "ALL", title: "Complet", amount: 159.99, months: 24, count: 4}
   ];
+  /* Black Friday (mateixes dates i imports que l'app: supabase/functions/_shared/web-products.ts). */
+  const SALE = {name: "Black Friday", percent: 30, starts: "2026-11-23T00:00:00+01:00", ends: "2026-12-01T00:00:00+01:00",
+    amounts: {BASIC: 41.99, DUO: 69.99, TRIPLE: 89.99, ALL: 109.99}};
+  const now = Date.now();
+  if (now >= Date.parse(SALE.starts) && now < Date.parse(SALE.ends)) PLANS.forEach(p => { p.regular = p.amount; p.amount = SALE.amounts[p.key]; });
   const T = {
     ca: {want:"Vull aquest curs",title:"Tria el teu camí",sub:"El teu nivell o un pack per arribar més lluny. El mateix compte a la web i a l’app.",hook:"Des de {p} al dia",per:"al mes",month:"{p} en un únic pagament per {n} mesos",months:"{n} mesos",l1:"1 nivell",ln:"{n} nivells",lall:"A1, A2, B1 i B2",best:"Millor preu per mes",save:"Estalvia {n} %",see:"Mira què inclou",note:"El preu mensual és orientatiu: pagues el total del pla en un sol pagament, sense renovació automàtica.",back:"Veure els altres plans",dtitle:"Què inclou el pla {plan}",access:"{n} mesos d’accés a tot el curs",p1:"1 nivell a triar: A1, A2, B1 o B2",pn:"{n} nivells a triar entre A1, A2, B1 i B2",pall:"Els quatre nivells: A1, A2, B1 i B2",tutor:"Conversa amb el tutor d’IA cada dia",tnote:"Màx. 6 minuts al dia",inc:["Curs, còmics i vocabulari","Gramàtica, lectures, escoltes i dictats","Escriptura amb correcció i simulacres","Jocs i pràctica amb el tutor d’IA","Comunitat i activitats"],once:"Un sol pagament, sense renovació automàtica",choose:"Tria el pla {plan}"},
     es: {want:"Quiero este curso",title:"Elige tu camino",sub:"Tu nivel o un pack para llegar más lejos. La misma cuenta en la web y en la app.",hook:"Desde {p} al día",per:"al mes",month:"{p} en un único pago por {n} meses",months:"{n} meses",l1:"1 nivel",ln:"{n} niveles",lall:"A1, A2, B1 y B2",best:"Mejor precio por mes",save:"Ahorra {n} %",see:"Mira qué incluye",note:"El precio mensual es orientativo: pagas el total del plan en un solo pago, sin renovación automática.",back:"Ver los otros planes",dtitle:"Qué incluye el plan {plan}",access:"{n} meses de acceso a todo el curso",p1:"1 nivel a elegir: A1, A2, B1 o B2",pn:"{n} niveles a elegir entre A1, A2, B1 y B2",pall:"Los cuatro niveles: A1, A2, B1 y B2",tutor:"Conversación con el tutor de IA cada día",tnote:"Máx. 6 minutos al día",inc:["Curso, cómics y vocabulario","Gramática, lecturas, audios y dictados","Escritura con corrección y simulacros","Juegos y práctica con el tutor de IA","Comunidad y actividades"],once:"Un solo pago, sin renovación automática",choose:"Elegir el plan {plan}"},
@@ -579,7 +585,7 @@ footer a.ig:hover{color:var(--navy-2)}
       const save = Math.round((1 - monthly(p) / base) * 100);
       const badge = p.key === best.key ? `<span class="np-tag">${t.best}</span>` : save > 0 ? `<span class="np-save">${fill(t.save, {n: save})}</span>` : "";
       const items = [fill(t.access, {n: p.months}), p.count === 4 ? t.pall : p.count === 1 ? t.p1 : fill(t.pn, {n: p.count}), t.tutor, ...t.inc, t.once];
-      card.innerHTML = `${badge}<h3>${p.title}</h3><span class="np-price">${euro(monthly(p))}<span class="np-per"> ${t.per}</span></span><span class="np-month">${fill(t.month, {p: euro(p.amount), n: p.months})}</span><ul class="np-list"></ul><a class="btn np-cta"></a>`;
+      card.innerHTML = `${badge}<h3>${p.title}</h3><span class="np-price">${euro(monthly(p))}<span class="np-per"> ${t.per}</span></span><span class="np-month">${fill(t.month, {p: euro(p.amount), n: p.months})}</span>${p.regular ? `<span class="np-sale"><del>${euro(p.regular)}</del> <b>${SALE.name} −${SALE.percent} % · ≤ ${new Intl.DateTimeFormat(lang, {day: "numeric", month: "numeric", timeZone: "Europe/Andorra"}).format(new Date(Date.parse(SALE.ends) - 1))}</b></span>` : ""}<ul class="np-list"></ul><a class="btn np-cta"></a>`;
       card.querySelector(".np-list").replaceChildren(...items.map(text => {
         const li = document.createElement("li"); const span = document.createElement("span"); span.textContent = text;
         if (text === t.tutor) { const small = document.createElement("small"); small.textContent = t.tnote; span.append(small); }
