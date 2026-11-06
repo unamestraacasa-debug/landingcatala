@@ -128,6 +128,22 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
 .plan:not(.on) .btn{background:#EEF1FA;color:var(--navy)}
 .once{text-align:center;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 0}
 .preview{background:var(--groc);color:var(--navy);font-weight:800;text-align:center;border-radius:12px;padding:8px;margin-top:14px;font-size:13px}
+/* Personatges */
+.char{position:absolute;height:auto;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
+.hero .char{bottom:-6px;width:auto;height:200px}
+.char-l{left:-8px}.char-r{right:-8px}
+.wave{animation:charIn .7s cubic-bezier(.2,1.3,.4,1) both}
+.char-r.wave{animation-delay:.15s}
+@keyframes charIn{0%{transform:translateY(60px) scale(.6);opacity:0}100%{transform:none;opacity:1}}
+.scorewrap{position:relative;width:100%;height:250px;display:flex;justify-content:center;align-items:center;margin-top:12px}
+.scorewrap .char{height:176px;width:auto;bottom:-4px}
+.jl{left:-4px}.jr{right:-4px}
+.celebrate .jump{animation:jumpIn .6s cubic-bezier(.2,1.4,.4,1) both .35s,hop .9s ease-in-out 1.0s 4}
+.celebrate .jr{animation-delay:.5s,1.15s}
+@keyframes jumpIn{0%{transform:translateY(80px) scale(.5);opacity:0}100%{transform:none;opacity:1}}
+@keyframes hop{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}
+.snd{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--navy)}
+.snd svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 /* Ruleta */
 .spin-stage{display:flex;flex-direction:column;align-items:center;margin-top:22px;gap:0}
 .pointer{position:relative;z-index:2;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:30px solid var(--corall);margin-bottom:-16px;filter:drop-shadow(0 3px 3px rgba(11,45,107,.3))}
@@ -159,17 +175,21 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
 .celebrate .badge{animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both .7s}
 .celebrate .stats{animation:popIn .5s ease both .95s}
 @keyframes spinIn{0%{transform:scale(.3) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
-@media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}}
+@media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}.wave,.celebrate .jump{animation:none}}
 </style>
 </head>
 <body class="dark">
 <div class="wrap">
 <header>
   <a href="/" aria-label="AprènCat"><img src="/assets/acat-wordmark.png" alt="AprènCat" width="93" height="26"></a>
+  <div style="display:flex;gap:8px;align-items:center">
+  <button type="button" id="sound" class="snd" aria-pressed="true" aria-label="Música"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path id="sndOn" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/><path id="sndOff" d="m22 9-6 6M16 9l6 6" style="display:none"/></svg></button>
   <select id="lang" aria-label="Idioma">
     <option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="en">English</option>
   </select>
+  </div>
 </header>
+<audio id="bgm" src="/assets/ruleta/musica.mp3" loop preload="none"></audio>
 
 <main aria-live="polite">
   <!-- Portada -->
@@ -178,8 +198,8 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       <div class="disc" style="width:254px;height:254px;box-shadow:0 18px 40px rgba(0,0,0,.28)"><span id="heroWheel"></span></div>
       <span class="tag" style="left:0;top:26px;background:var(--groc);transform:rotate(-8deg)" data-cat="0"></span>
       <span class="tag" style="right:0;top:64px;background:var(--corall);transform:rotate(6deg)" data-cat="1"></span>
-      <span class="tag" style="right:4px;bottom:22px;background:var(--lavanda);transform:rotate(-4deg)" data-cat="2"></span>
-      <span class="tag" style="left:0;bottom:40px;background:var(--crema);transform:rotate(5deg)" data-cat="3"></span>
+      <img class="char char-l wave" src="/assets/ruleta/saludando-ella.webp" alt="" width="115" height="220">
+      <img class="char char-r wave" src="/assets/ruleta/saludando-ell.webp" alt="" width="122" height="220">
     </div>
     <span class="kicker" style="margin-top:14px">Ruleta ACat</span>
     <h1 id="h1"></h1>
@@ -230,7 +250,11 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   <section id="s-score" class="hide center">
     <span class="kicker" data-t="yourScore"></span>
     <p class="congrats" id="congrats"></p>
-    <div class="disc" style="width:236px;height:236px;margin-top:14px"><span id="bigWheel"></span></div>
+    <div class="scorewrap">
+      <div class="disc" style="width:236px;height:236px"><span id="bigWheel"></span></div>
+      <img class="char jump jl" src="/assets/ruleta/celebrando-ella.webp" alt="" width="104" height="176">
+      <img class="char jump jr" src="/assets/ruleta/celebrando-ell.webp" alt="" width="114" height="176">
+    </div>
     <p class="badge" id="badge" lang="ca"></p>
     <p id="badgeSub" style="margin:8px 0 0;color:var(--crema)"></p>
     <div class="stats"><span id="statStreak"></span><span id="statPts"></span></div>
@@ -442,6 +466,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     screen = id;
     ["intro","q","score","profile","loading","plan"].forEach(s => $("s-" + s).classList.toggle("hide", s !== id));
     document.body.classList.toggle("dark", id === "intro" || id === "score");
+    if (["profile", "loading", "plan"].includes(id)) music(false);
     window.scrollTo({top: 0});
   }
 
@@ -705,7 +730,14 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     if (screen === "profile") renderProfile();
     if (screen === "plan") renderPlan();
   }
-  $("start").onclick = () => { reset(); renderQ(); show("q"); };
+  /* Música de fons: només sona després de tocar «A jugar!»; el botó la silencia (es recorda). */
+  const bgm = $("bgm"); bgm.volume = 0.35;
+  let soundOn = true; try { soundOn = localStorage.getItem("acat_sound") !== "off"; } catch (e) {}
+  function paintSound() { $("sound").setAttribute("aria-pressed", soundOn); $("sndOn").style.display = soundOn ? "" : "none"; $("sndOff").style.display = soundOn ? "none" : ""; }
+  function music(play) { if (play && soundOn) bgm.play().catch(() => {}); else bgm.pause(); }
+  $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
+  paintSound();
+  $("start").onclick = () => { reset(); renderQ(); show("q"); music(true); };
   $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
   applyTexts();
 })();
