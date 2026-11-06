@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>¿El catalán te frena en Andorra? · Test gratis · AprènCat</title>
+<meta name="description" content="Responde 8 preguntas rápidas sobre tu día a día en Andorra y recibe tu plan para hablar catalán: tu nivel, lo que más te cuesta y el curso A1–B2 que necesitas.">
+<link rel="canonical" href="https://aprencat.com/test-de-nivell/">
+<meta property="og:title" content="¿El catalán te frena en Andorra? · AprènCat">
+<meta property="og:description" content="8 preguntas rápidas y tu plan personalizado para hablar catalán.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aprencat.com/test-de-nivell/">
+<meta property="og:image" content="https://aprencat.com/assets/acat-wordmark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap">
+<style>
+:root{--navy:#0B2D6B;--navy-2:#123A82;--groc:#F6C86B;--corall:#F28B6B;--lavanda:#A7B6E8;--crema:#FFF6E7;--ink:#14213F;--muted:#5E6B8C;--line:#E5E9F3;--ok:#2E8B57;--ok-bg:#E8F5EE;--ko:#C2462A;--ko-bg:#FDEDE8;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Sora",-apple-system,system-ui,sans-serif;font-size:17px;line-height:1.55;
+ background:radial-gradient(900px 520px at 12% -6%,rgba(167,182,232,.30),transparent 62%),radial-gradient(760px 460px at 92% 4%,rgba(246,200,107,.22),transparent 60%),#FBFCFE;background-attachment:fixed;padding:0 16px 40px}
+.wrap{max-width:620px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 0}
+header img{height:28px;width:auto;display:block}
+select{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:#fff;color:var(--ink)}
+.card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:28px 22px;box-shadow:0 10px 30px rgba(20,33,63,.06)}
+h1{margin:6px 0 12px;font-size:clamp(28px,7vw,40px);line-height:1.12;letter-spacing:-.02em;color:var(--navy);text-wrap:balance}
+h2{margin:0 0 6px;font-size:clamp(21px,5.4vw,26px);line-height:1.25;color:var(--navy);text-wrap:balance}
+.kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.lead{color:var(--muted);margin:0 0 22px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:16px;font-weight:700;border:0;border-radius:16px;padding:16px 26px;cursor:pointer;background:var(--navy);color:#fff;text-decoration:none;width:100%}
+.btn:hover{background:var(--navy-2)}
+.btn:disabled{background:#C9D0E2;cursor:default}
+.btn.corall{background:var(--corall);color:var(--ink)}
+.link{display:block;margin-top:16px;text-align:center;color:var(--muted);font-size:15px;font-weight:600}
+.hide{display:none!important}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:4px 0 22px}
+.bar i{display:block;height:100%;width:0;background:var(--navy);border-radius:99px;transition:width .35s ease}
+.meta{display:flex;justify-content:space-between;font-size:14px;font-weight:600;color:var(--muted)}
+.chip{display:inline-block;font-size:13px;font-weight:800;padding:3px 10px;border-radius:99px;background:var(--crema);color:var(--navy)}
+.hint{font-size:15px;font-weight:600;color:var(--muted);margin:0 0 6px}
+.q{font-size:clamp(20px,5.2vw,24px);font-weight:700;line-height:1.35;margin:0 0 20px;color:var(--ink)}
+.opts{display:grid;gap:12px}
+.opt{font:inherit;font-size:17px;text-align:left;padding:15px 18px;border-radius:16px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:12px}
+.opt .ico{flex:none;width:42px;height:42px;border-radius:12px;background:var(--crema);color:var(--navy);display:grid;place-items:center;font-size:14px;font-weight:800;transition:background .2s,color .2s}
+.ico svg,.fbi svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.opt.sel .ico{background:var(--navy);color:var(--groc)}
+.fb .fbi{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:var(--navy);color:var(--groc);margin-bottom:8px}
+.fb .fbi svg{width:18px;height:18px}
+.opt:hover{border-color:var(--lavanda)}
+.opt.sel{border-color:var(--navy);background:#EEF1FA}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg)}
+.opt.ko{border-color:var(--ko);background:var(--ko-bg)}
+.opt:disabled{cursor:default}
+.fb{margin:18px 0 0;padding:16px 18px;border-radius:16px;font-size:15px}
+.fb b{display:block;font-size:17px;margin-bottom:2px}
+.fb.ok{background:var(--ok-bg)}.fb.ok b{color:var(--ok)}
+.fb.ko{background:var(--ko-bg)}.fb.ko b{color:var(--ko)}
+.fb.info{background:var(--crema)}.fb.info b{color:var(--navy)}
+.actions{margin-top:20px}
+/* Preparant el pla */
+.loading{text-align:center;padding:24px 0}
+.loading ul{list-style:none;padding:0;margin:22px auto 0;max-width:360px;text-align:left;display:grid;gap:12px}
+.loading li{opacity:.25;font-weight:600;transition:opacity .3s}
+.loading li.on{opacity:1}
+.loading li::before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ok-bg);color:var(--ok);font-weight:800;margin-right:10px;font-size:14px}
+.spin{width:54px;height:54px;border-radius:50%;border:5px solid var(--line);border-top-color:var(--navy);margin:0 auto;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+/* Resultat */
+.result-head{text-align:center}
+.badge-lvl{display:inline-grid;place-items:center;width:112px;height:112px;border-radius:50%;background:var(--navy);color:var(--groc);font-size:40px;font-weight:800;margin:12px auto 14px;box-shadow:0 0 0 9px var(--crema)}
+.small{font-size:13px;color:var(--muted);margin:8px 0 0}
+.how{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+.how li{background:#F6F8FD;border-radius:16px;padding:14px 16px;font-size:15px}
+.how li b{display:block;color:var(--navy);font-size:16px;margin-bottom:2px}
+.rec{margin:16px 0 0;padding:16px 18px;border-radius:18px;background:var(--crema);font-size:16px}
+.offer{margin-top:22px}
+.bf{background:var(--navy);border-radius:28px;padding:24px 22px;color:#fff;text-align:center;margin-bottom:16px}
+.bf .t{font-size:clamp(28px,8vw,42px);font-weight:800;line-height:1.05;letter-spacing:-.02em}
+.bf .t span:nth-child(1){color:var(--groc)}.bf .t span:nth-child(2){color:var(--corall)}
+.bf .s{margin-top:8px;font-weight:700;color:var(--lavanda);font-size:15px;letter-spacing:.04em}
+.plans{display:grid;gap:12px}
+.plan{position:relative;background:#fff;border:2px solid var(--line);border-radius:20px;padding:18px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.plan.rec-on{border-color:var(--navy);box-shadow:0 8px 24px rgba(11,45,107,.14)}
+.plan .tag{grid-column:1/-1;justify-self:start;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--groc);color:var(--navy);border-radius:99px;padding:3px 10px;margin-bottom:4px}
+.plan h3{margin:0;font-size:19px;color:var(--navy)}
+.plan .d{font-size:14px;color:var(--muted);grid-column:1}
+.plan .p{grid-row:span 2;text-align:right;font-weight:800;font-size:21px;color:var(--navy);white-space:nowrap}
+.plan .p del{display:block;font-size:14px;font-weight:600;color:var(--muted)}
+.plan .btn{grid-column:1/-1;margin-top:12px;padding:13px 18px;font-size:15px}
+.plan:not(.rec-on) .btn{background:#EEF1FA;color:var(--navy)}
+.once{text-align:center;font-size:14px;font-weight:600;color:var(--muted);margin:14px 0 0}
+.preview{background:var(--groc);color:var(--navy);font-weight:800;text-align:center;border-radius:12px;padding:8px;margin-bottom:12px;font-size:14px}
+@media (prefers-reduced-motion:reduce){.bar i,.loading li{transition:none}.spin{animation:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a href="/" aria-label="AprènCat"><img src="/assets/acat-wordmark.png" alt="AprènCat" width="100" height="28"></a>
+  <select id="lang" aria-label="Idioma">
+    <option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="en">English</option>
+  </select>
+</header>
+
+<main class="card" aria-live="polite">
+  <section id="s-intro">
+    <span class="kicker" data-t="kicker"></span>
+    <h1 data-t="h1"></h1>
+    <p class="lead" data-t="lead"></p>
+    <button class="btn corall" id="start" data-t="start"></button>
+    <a class="link" id="skip" data-t="skip"></a>
+  </section>
+
+  <section id="s-quiz" class="hide">
+    <div class="meta"><span id="count"></span><span class="chip hide" id="chip"></span></div>
+    <div class="bar"><i id="prog"></i></div>
+    <p class="hint" id="hint"></p>
+    <p class="q" id="q"></p>
+    <div class="opts" id="opts"></div>
+    <div class="fb hide" id="fb" role="status"></div>
+    <div class="actions"><button class="btn" id="next" disabled></button></div>
+  </section>
+
+  <section id="s-loading" class="hide">
+    <div class="loading">
+      <div class="spin" aria-hidden="true"></div>
+      <h2 style="margin-top:18px" data-t="loading"></h2>
+      <ul id="steps"></ul>
+    </div>
+  </section>
+
+  <section id="s-result" class="hide">
+    <div class="result-head">
+      <span class="kicker" data-t="yourPlan"></span>
+      <div class="badge-lvl" id="rlvl"></div>
+      <h2 id="rtitle"></h2>
+      <p class="small" data-t="disclaimer"></p>
+    </div>
+    <ul class="how" id="how"></ul>
+    <div class="rec" id="rec"></div>
+    <div class="offer">
+      <div class="preview hide" id="preview" data-t="preview"></div>
+      <div class="bf hide" id="bf"><div class="t"><span>Black</span> <span>Friday</span></div><div class="t" style="color:#fff">−30 %</div><div class="s" id="bfs"></div></div>
+      <h2 id="offerTitle" class="hide" data-t="offerRegular"></h2>
+      <div class="plans" id="plans"></div>
+      <p class="once" data-t="once"></p>
+      <a class="link" id="free" data-t="free"></a>
+    </div>
+  </section>
+</main>
+</div>
+
+<script>
+(() => {
+  /* Preus i dates: els mateixos que la portada i supabase/functions/_shared/web-products.ts. */
+  const PLANS = [
+    {key:"BASIC", title:"Bàsic", amount:59.99, months:6, count:1},
+    {key:"DUO", title:"Duo", amount:99.99, months:12, count:2},
+    {key:"TRIPLE", title:"Trio", amount:129.99, months:18, count:3},
+    {key:"ALL", title:"Complet", amount:159.99, months:24, count:4}
+  ];
+  /* Sense ofertes en aquesta versió: la de Black Friday es guarda a la branca claude/black-friday. */
+  const SALE = {amounts:{}};
+  const params = new URLSearchParams(location.search);
+  const preview = false;
+  const showSale = false;
+  const LEVELS = ["A1","A2","B1","B2"];
+
+  /* Textos d'ajuda (es/ca/fr/en). Les opcions de cada pregunta van en el mateix ordre que STEPS. */
+  const T = {
+    es:{kicker:"Test gratis · 1 minuto",h1:"¿El catalán te frena en Andorra?",lead:"Cuéntanos tu situación con 8 preguntas rápidas y te preparamos un plan para hablarlo con confianza: en el médico, en el trabajo o con los vecinos.",start:"Empezar",skip:"Prefiero probar directamente la primera unidad gratis",
+      count:"{n} de {t}",multi:"Puedes marcar varias",one:"Elige una opción",next:"Siguiente",check:"Comprobar",finish:"Ver mi plan",right:"Molt bé!",wrong:"Gairebé!",correctIs:"La correcta es: {a}.",challenge:"Mini reto en catalán",
+      q:{
+       sit:{q:"¿Cuál es tu situación?",o:["Acabo de llegar a vivir a Andorra","Vivo aquí hace tiempo, pero el catalán se me resiste","Necesito el catalán para el trabajo","Tengo que aprobar un examen oficial"]},
+       pain:{q:"¿Qué es lo que más te cuesta?",o:["No entiendo cuando me hablan rápido","Me da corte hablar y acabo pasándome al castellano","Escribir un correo o rellenar un trámite","Aprobar el examen","No tengo tiempo para ir a clase"]},
+       where:{q:"¿Dónde te gustaría defenderte en catalán?",o:["En el médico","En la escuela de mis hijos","En el trabajo","En el comú y en el Govern","En tiendas y bares","Con vecinos y amigos","En todos los sitios"]},
+       tutor:{q:"Imagina que pudieras practicar hablando con un tutor que te escucha y te corrige, a cualquier hora. ¿Qué te parecería?",o:["¡Me encantaría!","Me daría un poco de corte, pero lo probaría","Prefiero empezar leyendo y escuchando"]},
+       time:{q:"¿Cuánto tiempo puedes dedicarle al día?",o:["5 minutos","10–15 minutos","30 minutos o más"]},
+       self:{q:"¿Qué nivel crees que tienes ahora?",o:["Empiezo de cero","Entiendo algo, pero no me atrevo a hablar","Me defiendo en lo básico","Hablo bastante bien"]},
+       goal:{q:"¿Tienes que aprobar algún examen oficial?",o:["A1","A2","B1","B2","No, quiero hablarlo para el día a día","Aún no lo sé"]}},
+      tutorFb:["¡Genial! Es justo lo que hace el tutor de voz de AprènCat.","Es normal. Con el tutor practicas en privado, sin nadie delante, y a tu ritmo.","Perfecto: tienes escuchas, lecturas y vocabulario, y hablas cuando te sientas preparado/a."],
+      loading:"Preparamos tu plan…",steps:["Analizamos tu situación","Elegimos tu nivel de partida","Ajustamos el plan a tu tiempo"],
+      yourPlan:"Tu plan para hablar catalán",disclaimer:"Nivel de partida orientativo según tus respuestas; no es una prueba oficial.",
+      titles:["Para que el idioma no te frene en tu nueva vida en Andorra","Para que el catalán deje de resistírsete de una vez","Para que el catalán te abra puertas en el trabajo","Para que llegues al examen con seguridad"],
+      how:{listen:["Entenderás cuando te hablen","Escuchas y dictados para acostumbrar el oído al catalán de verdad."],speak:["Hablarás sin vergüenza","El tutor de voz te escucha y te corrige en privado, cuando quieras."],write:["Escribirás sin miedo","Escritura con corrección al momento: correos, mensajes y trámites."],exam:["Llegarás preparado/a al examen","Modelos de examen y simulacros oficiales de Andorra con nota."],time:["Encaja en tu día","Lecciones de unos 10 minutos en el móvil o en la web, con recordatorio."]},
+      where:"Tu objetivo: defenderte {w}.",whereJoin:" y ",
+      recExam1:"Quieres aprobar el examen <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recExamN:"Quieres aprobar los exámenes <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recGoal:"Empiezas en <b>{s}</b> y quieres llegar al <b>{t}</b>: te recomendamos el plan <b>{p}</b> ({lv}).",recNext:"Empiezas en <b>{s}</b>. Te recomendamos el plan <b>{p}</b> para dar el primer paso.",recAbove:"Ya estás cerca del <b>{t}</b>: con el plan <b>{p}</b> lo preparas a fondo.",
+      bfSub:"En todos los planes · hasta el 30/11",offerRegular:"Elige tu plan",recTag:"Recomendado para ti",want:"Quiero este plan",
+      plan1:"1 nivel",planN:"{n} niveles",planAll:"A1, A2, B1 y B2",months:"{n} meses",once:"Pago único, sin renovaciones. La misma cuenta en la web y en la app.",free:"Probar gratis la primera unidad (sin tarjeta)",preview:"VISTA PREVIA · la oferta empieza el 23/11 · compra desactivada"},
+    ca:{kicker:"Test gratis · 1 minut",h1:"El català et frena a Andorra?",lead:"Explica’ns la teva situació amb 8 preguntes ràpides i et preparem un pla per parlar-lo amb confiança: al metge, a la feina o amb els veïns.",start:"Comença",skip:"Prefereixo provar directament la primera unitat gratis",
+      count:"{n} de {t}",multi:"Pots marcar-ne diverses",one:"Tria una opció",next:"Següent",check:"Comprova",finish:"Veure el meu pla",right:"Molt bé!",wrong:"Gairebé!",correctIs:"La correcta és: {a}.",challenge:"Mini repte en català",
+      q:{
+       sit:{q:"Quina és la teva situació?",o:["Acabo d’arribar a viure a Andorra","Fa temps que hi visc, però el català se’m resisteix","Necessito el català per a la feina","He d’aprovar un examen oficial"]},
+       pain:{q:"Què és el que et costa més?",o:["No entenc quan em parlen ràpid","Em fa vergonya parlar i acabo passant al castellà","Escriure un correu o omplir un tràmit","Aprovar l’examen","No tinc temps per anar a classe"]},
+       where:{q:"On t’agradaria defensar-te en català?",o:["Al metge","A l’escola dels meus fills","A la feina","Al comú i al Govern","A botigues i bars","Amb veïns i amics","A tot arreu"]},
+       tutor:{q:"Imagina que poguessis practicar parlant amb un tutor que t’escolta i et corregeix, a qualsevol hora. Què et semblaria?",o:["M’encantaria!","Em faria una mica de vergonya, però ho provaria","Prefereixo començar llegint i escoltant"]},
+       time:{q:"Quant de temps hi pots dedicar cada dia?",o:["5 minuts","10–15 minuts","30 minuts o més"]},
+       self:{q:"Quin nivell creus que tens ara?",o:["Començo de zero","Entenc alguna cosa, però no goso parlar","Em defenso en el més bàsic","Parlo força bé"]},
+       goal:{q:"Has d’aprovar algun examen oficial?",o:["A1","A2","B1","B2","No, el vull parlar per al dia a dia","Encara no ho sé"]}},
+      tutorFb:["Genial! És just el que fa el tutor de veu d’AprènCat.","És normal. Amb el tutor practiques en privat, sense ningú al davant, i al teu ritme.","Perfecte: tens escoltes, lectures i vocabulari, i parles quan et sentis preparat/da."],
+      loading:"Preparem el teu pla…",steps:["Analitzem la teva situació","Triem el teu nivell de partida","Ajustem el pla al teu temps"],
+      yourPlan:"El teu pla per parlar català",disclaimer:"Nivell de partida orientatiu segons les teves respostes; no és una prova oficial.",
+      titles:["Perquè l’idioma no et freni en la teva nova vida a Andorra","Perquè el català deixi de resistir-se’t d’una vegada","Perquè el català t’obri portes a la feina","Perquè arribis a l’examen amb seguretat"],
+      how:{listen:["Entendràs quan et parlin","Escoltes i dictats per acostumar l’orella al català de veritat."],speak:["Parlaràs sense vergonya","El tutor de veu t’escolta i et corregeix en privat, quan vulguis."],write:["Escriuràs sense por","Escriptura amb correcció al moment: correus, missatges i tràmits."],exam:["Arribaràs preparat/da a l’examen","Models d’examen i simulacres oficials d’Andorra amb nota."],time:["Encaixa en el teu dia","Lliçons d’uns 10 minuts al mòbil o a la web, amb recordatori."]},
+      where:"El teu objectiu: defensar-te {w}.",whereJoin:" i ",
+      recExam1:"Vols aprovar l’examen <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recExamN:"Vols aprovar els exàmens <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recGoal:"Comences a <b>{s}</b> i vols arribar al <b>{t}</b>: et recomanem el pla <b>{p}</b> ({lv}).",recNext:"Comences a <b>{s}</b>. Et recomanem el pla <b>{p}</b> per fer el primer pas.",recAbove:"Ja ets a prop del <b>{t}</b>: amb el pla <b>{p}</b> el prepares a fons.",
+      bfSub:"En tots els plans · fins al 30/11",offerRegular:"Tria el teu pla",recTag:"Recomanat per a tu",want:"Vull aquest pla",
+      plan1:"1 nivell",planN:"{n} nivells",planAll:"A1, A2, B1 i B2",months:"{n} mesos",once:"Pagament únic, sense renovacions. El mateix compte a la web i a l’app.",free:"Prova gratis la primera unitat (sense targeta)",preview:"VISTA PRÈVIA · l’oferta comença el 23/11 · compra desactivada"},
+    fr:{kicker:"Test gratuit · 1 minute",h1:"Le catalan te freine en Andorre ?",lead:"Raconte-nous ta situation en 8 questions rapides et on te prépare un plan pour le parler avec confiance : chez le médecin, au travail ou avec les voisins.",start:"Commencer",skip:"Je préfère essayer directement la première unité gratuite",
+      count:"{n} sur {t}",multi:"Tu peux en cocher plusieurs",one:"Choisis une option",next:"Suivant",check:"Vérifier",finish:"Voir mon plan",right:"Molt bé !",wrong:"Presque !",correctIs:"La bonne réponse : {a}.",challenge:"Mini défi en catalan",
+      q:{
+       sit:{q:"Quelle est ta situation ?",o:["Je viens de m’installer en Andorre","J’habite ici depuis longtemps, mais le catalan me résiste","J’ai besoin du catalan pour le travail","Je dois réussir un examen officiel"]},
+       pain:{q:"Qu’est-ce qui te coûte le plus ?",o:["Je ne comprends pas quand on parle vite","J’ai honte de parler et je finis par passer à l’espagnol ou au français","Écrire un e-mail ou remplir une démarche","Réussir l’examen","Je n’ai pas le temps d’aller en cours"]},
+       where:{q:"Où aimerais-tu te débrouiller en catalan ?",o:["Chez le médecin","À l’école de mes enfants","Au travail","Au comú et au Govern","Dans les magasins et les bars","Avec les voisins et les amis","Partout"]},
+       tutor:{q:"Imagine que tu puisses t’entraîner à parler avec un tuteur qui t’écoute et te corrige, à toute heure. Qu’en penserais-tu ?",o:["J’adorerais !","Ça me gênerait un peu, mais j’essaierais","Je préfère commencer en lisant et en écoutant"]},
+       time:{q:"Combien de temps peux-tu y consacrer par jour ?",o:["5 minutes","10–15 minutes","30 minutes ou plus"]},
+       self:{q:"Quel niveau penses-tu avoir aujourd’hui ?",o:["Je pars de zéro","Je comprends un peu, mais je n’ose pas parler","Je me débrouille pour l’essentiel","Je parle assez bien"]},
+       goal:{q:"Dois-tu réussir un examen officiel ?",o:["A1","A2","B1","B2","Non, je veux le parler au quotidien","Je ne sais pas encore"]}},
+      tutorFb:["Génial ! C’est exactement ce que fait le tuteur vocal d’AprènCat.","C’est normal. Avec le tuteur, tu t’entraînes en privé, sans personne, à ton rythme.","Parfait : tu as des écoutes, des lectures et du vocabulaire, et tu parles quand tu te sens prêt(e)."],
+      loading:"On prépare ton plan…",steps:["Nous analysons ta situation","Nous choisissons ton niveau de départ","Nous adaptons le plan à ton temps"],
+      yourPlan:"Ton plan pour parler catalan",disclaimer:"Niveau de départ indicatif selon tes réponses ; ce n’est pas un examen officiel.",
+      titles:["Pour que la langue ne te freine pas dans ta nouvelle vie en Andorre","Pour que le catalan arrête enfin de te résister","Pour que le catalan t’ouvre des portes au travail","Pour arriver à l’examen en toute confiance"],
+      how:{listen:["Tu comprendras quand on te parle","Écoutes et dictées pour habituer ton oreille au vrai catalan."],speak:["Tu parleras sans gêne","Le tuteur vocal t’écoute et te corrige en privé, quand tu veux."],write:["Tu écriras sans crainte","Écriture corrigée sur le moment : e-mails, messages et démarches."],exam:["Tu arriveras prêt(e) à l’examen","Modèles d’examen et simulations officielles d’Andorre, avec note."],time:["Ça rentre dans ta journée","Leçons d’environ 10 minutes sur mobile ou sur le web, avec rappel."]},
+      where:"Ton objectif : te débrouiller {w}.",whereJoin:" et ",
+      recExam1:"Tu veux réussir l’examen <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recExamN:"Tu veux réussir les examens <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recGoal:"Tu pars du <b>{s}</b> et tu veux atteindre le <b>{t}</b> : on te recommande la formule <b>{p}</b> ({lv}).",recNext:"Tu pars du <b>{s}</b>. On te recommande la formule <b>{p}</b> pour faire le premier pas.",recAbove:"Tu es déjà proche du <b>{t}</b> : avec la formule <b>{p}</b>, tu le prépares à fond.",
+      bfSub:"Sur toutes les formules · jusqu’au 30/11",offerRegular:"Choisis ta formule",recTag:"Recommandé pour toi",want:"Je veux cette formule",
+      plan1:"1 niveau",planN:"{n} niveaux",planAll:"A1, A2, B1 et B2",months:"{n} mois",once:"Paiement unique, sans renouvellement. Le même compte sur le web et dans l’app.",free:"Essayer gratuitement la première unité (sans carte)",preview:"APERÇU · l’offre commence le 23/11 · achat désactivé"},
+    en:{kicker:"Free test · 1 minute",h1:"Is Catalan holding you back in Andorra?",lead:"Tell us about your situation in 8 quick questions and we’ll put together a plan to speak it with confidence: at the doctor’s, at work or with your neighbours.",start:"Start",skip:"I’d rather try the first free unit right away",
+      count:"{n} of {t}",multi:"You can pick several",one:"Pick one option",next:"Next",check:"Check",finish:"See my plan",right:"Molt bé!",wrong:"Almost!",correctIs:"The right answer is: {a}.",challenge:"Mini challenge in Catalan",
+      q:{
+       sit:{q:"What’s your situation?",o:["I’ve just moved to Andorra","I’ve lived here for a while, but Catalan still escapes me","I need Catalan for work","I have to pass an official exam"]},
+       pain:{q:"What do you find hardest?",o:["I can’t follow when people speak fast","I feel shy speaking and switch to another language","Writing an email or filling in paperwork","Passing the exam","I don’t have time for classes"]},
+       where:{q:"Where would you like to get by in Catalan?",o:["At the doctor’s","At my children’s school","At work","At the comú and the Govern","In shops and bars","With neighbours and friends","Everywhere"]},
+       tutor:{q:"Imagine you could practise speaking with a tutor who listens and corrects you, any time. How would that feel?",o:["I’d love it!","A bit awkward, but I’d try it","I’d rather start by reading and listening"]},
+       time:{q:"How much time can you spend on it each day?",o:["5 minutes","10–15 minutes","30 minutes or more"]},
+       self:{q:"What level do you think you have now?",o:["Starting from zero","I understand some, but don’t dare to speak","I can handle the basics","I speak quite well"]},
+       goal:{q:"Do you need to pass an official exam?",o:["A1","A2","B1","B2","No, I want it for everyday life","I’m not sure yet"]}},
+      tutorFb:["Great! That’s exactly what AprènCat’s voice tutor does.","That’s normal. With the tutor you practise in private, with nobody watching, at your pace.","Perfect: you get listening, reading and vocabulary, and speak when you feel ready."],
+      loading:"Preparing your plan…",steps:["Analysing your situation","Choosing your starting level","Fitting the plan to your time"],
+      yourPlan:"Your plan to speak Catalan",disclaimer:"Rough starting level based on your answers; not an official exam.",
+      titles:["So the language doesn’t hold you back in your new life in Andorra","So Catalan finally stops escaping you","So Catalan opens doors at work","So you walk into the exam with confidence"],
+      how:{listen:["You’ll understand people","Listening and dictation to tune your ear to real Catalan."],speak:["You’ll speak without shyness","The voice tutor listens and corrects you in private, whenever you want."],write:["You’ll write without fear","Writing with instant correction: emails, messages and paperwork."],exam:["You’ll be ready for the exam","Andorra’s official model exams and mock tests, with a score."],time:["It fits your day","Lessons of about 10 minutes on your phone or the web, with a reminder."]},
+      where:"Your goal: getting by {w}.",whereJoin:" and ",
+      recExam1:"You want to pass the <b>{l}</b> exam: we recommend the <b>{p}</b> plan ({n}).",recExamN:"You want to pass the <b>{l}</b> exams: we recommend the <b>{p}</b> plan ({n}).",recGoal:"You start at <b>{s}</b> and want to reach <b>{t}</b>: we recommend the <b>{p}</b> plan ({lv}).",recNext:"You start at <b>{s}</b>. We recommend the <b>{p}</b> plan to take the first step.",recAbove:"You’re already close to <b>{t}</b>: the <b>{p}</b> plan helps you prepare it thoroughly.",
+      bfSub:"On every plan · until 30/11",offerRegular:"Choose your plan",recTag:"Recommended for you",want:"I want this plan",
+      plan1:"1 level",planN:"{n} levels",planAll:"A1, A2, B1 and B2",months:"{n} months",once:"One-off payment, no renewals. One account for the web and the app.",free:"Try the first unit for free (no card)",preview:"PREVIEW · the offer starts on 23/11 · purchase disabled"}
+  };
+  /* Icones de línia monocromes (traç d'un sol color: blau marí; seleccionades, groc sobre blau marí). */
+  const SVG = {
+    mountain:'<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
+    repeat:'<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+    briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    cap:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    ear:'<path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/>',
+    speech:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    check:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+    clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    doctor:'<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 12 0V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/>',
+    school:'<path d="m4 6 8-4 8 4"/><path d="m18 10 4 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-8l4-2"/><path d="M14 22v-4a2 2 0 0 0-4 0v4"/><path d="M18 5v17"/><path d="M6 5v17"/><circle cx="12" cy="9" r="2"/>',
+    landmark:'<path d="M3 22h18"/><path d="M6 18v-7"/><path d="M10 18v-7"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="M12 2 20 7H4z"/>',
+    bag:'<path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>',
+    home:'<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+    heart:'<path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7Z"/>',
+    mic:'<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/>',
+    headphones:'<path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/>',
+    zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+    coffee:'<path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><path d="M6 2v2"/><path d="M10 2v2"/><path d="M14 2v2"/>',
+    book:'<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    sprout:'<path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/>',
+    star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>',
+    calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+    pin:'<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+    help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>'
+  };
+  const svg = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${SVG[name]}</svg>`;
+  const ICONS = {sit:["mountain","repeat","briefcase","cap"],pain:["ear","speech","pen","check","clock"],where:["doctor","school","briefcase","landmark","bag","home","pin"],tutor:["heart","mic","headphones"],time:["zap","coffee","book"],self:["sprout","ear","speech","star"],goal:["A1","A2","B1","B2","calendar","help"]};
+
+  /* Mini repte en català, segons el nivell que diu tenir. La primera opció és la correcta. */
+  const CHALLENGE = [
+    {q:"Al forn: «Bon dia! Què li poso?» — «___ una barra de pa, si us plau.»", o:["Voldria","Sóc","Tinc"],
+     e:{es:"«Voldria» (querría) es la forma educada de pedir algo.",ca:"«Voldria» és la manera educada de demanar alguna cosa.",fr:"« Voldria » (je voudrais) est la façon polie de demander.",en:"“Voldria” (I would like) is the polite way to ask."}},
+    {q:"Ahir ___ al comú a demanar un certificat.", o:["vaig anar","aniré","vaig"],
+     e:{es:"Para el pasado: «vaig + infinitivo». «Vaig anar» = «fui».",ca:"Per al passat: «vaig + infinitiu». «Vaig anar».",fr:"Pour le passé : « vaig + infinitif ». « Vaig anar » = « je suis allé(e) ».",en:"For the past: “vaig + infinitive”. “Vaig anar” = “I went”."}},
+    {q:"Si ___ més temps, aniria a classes de cuina.", o:["tingués","tinc","tindré"],
+     e:{es:"Con «si» y el condicional «aniria» va el imperfecto de subjuntivo: «tingués» = «tuviera».",ca:"Amb «si» i el condicional «aniria», cal l’imperfet de subjuntiu: «tingués».",fr:"Avec « si » et le conditionnel « aniria » : subjonctif imparfait « tingués ».",en:"With “si” and the conditional “aniria”: imperfect subjunctive “tingués”."}},
+    {q:"—Li has donat les claus a la Marta? —Sí, ja ___ he donat.", o:["les hi","li les","els hi"],
+     e:{es:"«Les» (las llaves) + «li» (a ella), que pasa a «hi»: «les hi».",ca:"«Les» (les claus) + «li», que davant d’un altre pronom fa «hi»: «les hi».",fr:"« Les » (les clés) + « li » (à elle), qui devient « hi » : « les hi ».",en:"“Les” (the keys) + “li” (to her), which becomes “hi”: “les hi”."}}
+  ];
+
+  const EXCLUSIVE = {where:[6], goal:[4,5]};
+  const STEPS = [
+    {id:"sit", type:"one"}, {id:"pain", type:"multi"}, {id:"where", type:"multi"}, {id:"tutor", type:"one", fb:true},
+    {id:"time", type:"one"}, {id:"self", type:"one"}, {id:"challenge", type:"challenge"}, {id:"goal", type:"multi"}
+  ];
+
+  const $ = id => document.getElementById(id);
+  const fill = (s, v) => Object.entries(v).reduce((t, [k, x]) => t.split("{" + k + "}").join(x), s);
+  const pick = v => { const c = v && v.toLowerCase().split(/[-_]/)[0]; return c && Object.hasOwn(T, c) ? c : null; };
+  let saved = null; try { saved = localStorage.getItem("acat_lang"); } catch (e) {}
+  let lang = pick(params.get("lang")) || pick(saved) || (navigator.languages || [navigator.language]).map(pick).find(Boolean) || "es";
+  const t = () => T[lang];
+
+  function appUrl(extra) {
+    const u = new URL("https://app.aprencat.com/");
+    u.searchParams.set("trial", "1"); u.searchParams.set("lang", lang);
+    for (const [k, v] of params) if (k.startsWith("utm_")) u.searchParams.set(k, v);
+    if (!params.has("utm_source")) { u.searchParams.set("utm_source", "aprencat.com"); u.searchParams.set("utm_campaign", "test-nivell"); }
+    Object.entries(extra || {}).forEach(([k, v]) => v && u.searchParams.set(k, v));
+    return u.href;
+  }
+
+  const A = {}; // respostes: índex o llista d'índexs
+  let step = 0, challengeOrder = null, chosen = null, checked = false, challengeOk = false;
+
+  /* Nivell de partida: el que diu tenir; si encerta el repte, puja un graó (fins a B2). */
+  const selfStart = () => [0, 0, 1, 2][A.self ?? 0];
+  const startLevel = () => Math.min(3, selfStart() + (challengeOk && (A.self ?? 0) >= 2 ? 1 : 0));
+
+  function show(id) { ["s-intro","s-quiz","s-loading","s-result"].forEach(s => $(s).classList.toggle("hide", s !== id)); window.scrollTo({top:0}); }
+
+  function applyTexts() {
+    document.documentElement.lang = lang; $("lang").value = lang;
+    document.querySelectorAll("[data-t]").forEach(e => { e.textContent = t()[e.dataset.t]; });
+    $("skip").href = appUrl();
+    if (!$("s-quiz").classList.contains("hide")) renderStep();
+    if (!$("s-result").classList.contains("hide")) renderResult();
+  }
+
+  function optButton(label, icon, onClick, isCa) {
+    const b = document.createElement("button"); b.className = "opt"; b.type = "button";
+    if (icon) { const i = document.createElement("span"); i.className = "ico"; i.setAttribute("aria-hidden", "true"); if (SVG[icon]) i.innerHTML = svg(icon); else i.textContent = icon; b.append(i); }
+    const s = document.createElement("span"); s.textContent = label; if (isCa) s.lang = "ca"; b.append(s);
+    b.onclick = onClick; return b;
+  }
+
+  function renderStep() {
+    const tx = t(), st = STEPS[step];
+    $("count").textContent = fill(tx.count, {n: step + 1, t: STEPS.length});
+    $("prog").style.width = (step / STEPS.length * 100) + "%";
+    $("fb").classList.add("hide");
+    const opts = $("opts"), next = $("next");
+    $("chip").classList.toggle("hide", st.type !== "challenge");
+    if (st.type === "challenge") {
+      const c = CHALLENGE[selfStart() + ((A.self ?? 0) >= 2 ? 1 : 0)] || CHALLENGE[0];
+      if (!challengeOrder || challengeOrder.c !== c) challengeOrder = {c, o: c.o.map((text, j) => ({text, right: j === 0})).sort(() => Math.random() - .5)};
+      $("chip").textContent = tx.challenge;
+      $("hint").textContent = tx.one; $("q").textContent = c.q; $("q").lang = "ca";
+      opts.replaceChildren(...challengeOrder.o.map((o, j) => { const b = optButton(o.text, "", () => { if (checked) return; chosen = j; opts.querySelectorAll(".opt").forEach((x, k) => x.classList.toggle("sel", k === j)); next.disabled = false; }, true); if (chosen === j) b.classList.add("sel"); return b; }));
+      if (checked) challengeFeedback();
+      next.textContent = checked ? tx.next : tx.check; next.disabled = chosen === null;
+      return;
+    }
+    const q = tx.q[st.id];
+    $("hint").textContent = st.type === "multi" ? tx.multi : tx.one;
+    $("q").textContent = q.q; $("q").lang = lang;
+    const sel = A[st.id];
+    opts.replaceChildren(...q.o.map((label, j) => {
+      const b = optButton(label, ICONS[st.id][j], () => select(st, j));
+      if (st.type === "multi" ? (sel || []).includes(j) : sel === j) b.classList.add("sel");
+      return b;
+    }));
+    if (st.fb && sel !== undefined) tutorFeedback();
+    next.textContent = step === STEPS.length - 1 ? tx.finish : tx.next;
+    next.disabled = st.type === "multi" ? !(sel && sel.length) : sel === undefined;
+  }
+
+  function select(st, j) {
+    if (st.type === "multi") {
+      const s = new Set(A[st.id] || []); s.has(j) ? s.delete(j) : s.add(j);
+      // Opcions exclusives: «En todos los sitios» (where) i «No / Aún no lo sé» (goal) desmarquen la resta, i a l'inrevés.
+      const excl = EXCLUSIVE[st.id] || [];
+      if (excl.includes(j) && s.has(j)) { s.clear(); s.add(j); } else if (!excl.includes(j)) excl.forEach(x => s.delete(x));
+      A[st.id] = [...s];
+    }
+    else A[st.id] = j;
+    // Actualitza la selecció sense redibuixar (no es perd el focus del teclat).
+    const sel = A[st.id];
+    $("opts").querySelectorAll(".opt").forEach((b, k) => { const on = st.type === "multi" ? sel.includes(k) : sel === k; b.classList.toggle("sel", on); b.setAttribute("aria-pressed", on); });
+    $("next").disabled = st.type === "multi" ? !sel.length : false;
+    if (st.fb) tutorFeedback();
+  }
+
+  function tutorFeedback() {
+    const fb = $("fb"); fb.className = "fb info"; fb.innerHTML = "";
+    const b = document.createElement("span"); b.className = "fbi"; b.innerHTML = svg(ICONS.tutor[A.tutor]); fb.append(b, document.createElement("br"));
+    const s = document.createElement("span"); s.textContent = t().tutorFb[A.tutor]; fb.append(s);
+  }
+
+  function challengeFeedback() {
+    const tx = t(), o = challengeOrder.o, right = o[chosen].right, ans = o.find(x => x.right).text;
+    $("opts").querySelectorAll(".opt").forEach((b, k) => { b.disabled = true; b.classList.remove("sel"); if (o[k].right) b.classList.add("ok"); else if (k === chosen) b.classList.add("ko"); });
+    const fb = $("fb"); fb.className = "fb " + (right ? "ok" : "ko"); fb.innerHTML = "";
+    const b = document.createElement("b"); b.lang = "ca"; b.textContent = right ? tx.right : tx.wrong; fb.append(b);
+    if (!right) { const p = document.createElement("span"); p.textContent = fill(tx.correctIs, {a: "«" + ans + "»"}) + " "; fb.append(p); }
+    const e = document.createElement("span"); e.textContent = challengeOrder.c.e[lang] || challengeOrder.c.e.es; fb.append(e);
+  }
+
+  $("next").onclick = () => {
+    const st = STEPS[step];
+    if (st.type === "challenge" && !checked) {
+      if (chosen === null) return;
+      checked = true; challengeOk = challengeOrder.o[chosen].right; renderStep(); return;
+    }
+    if (step < STEPS.length - 1) { step++; renderStep(); return; }
+    $("prog").style.width = "100%";
+    loadingThenResult();
+  };
+
+  function loadingThenResult() {
+    show("s-loading");
+    const ul = $("steps"); ul.replaceChildren(...t().steps.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
+    const lis = [...ul.children], fast = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    lis.forEach((li, i) => setTimeout(() => li.classList.add("on"), fast ? 0 : 450 * (i + 1)));
+    setTimeout(() => { renderResult(); show("s-result"); }, fast ? 300 : 1900);
+  }
+
+  function renderResult() {
+    const tx = t(), s0 = startLevel();
+    $("rlvl").textContent = LEVELS[s0];
+    $("rtitle").textContent = tx.titles[A.sit ?? 0];
+
+    // Com t'ajudem: segons el que li costa (i el temps i el tutor)
+    const map = ["listen","speak","write","exam","time"];
+    let keys = (A.pain || []).map(i => map[i]);
+    if (A.tutor === 1 && !keys.includes("speak")) keys.push("speak");
+    if (A.sit === 3 && !keys.includes("exam")) keys.push("exam");
+    if (!keys.includes("time")) keys.push("time");
+    keys = [...new Set(keys)].slice(0, 4);
+    const items = keys.map(k => { const li = document.createElement("li"); const b = document.createElement("b"); b.textContent = tx.how[k][0]; li.append(b, document.createTextNode(tx.how[k][1])); return li; });
+    if (A.where && A.where.length) {
+      const names = A.where.map(i => tx.q.where.o[i].toLowerCase());
+      const w = names.length > 1 ? names.slice(0, -1).join(", ") + tx.whereJoin + names.at(-1) : names[0];
+      const li = document.createElement("li"); const b = document.createElement("b"); b.textContent = fill(tx.where, {w}); li.append(b); items.unshift(li);
+    }
+    $("how").replaceChildren(...items);
+
+    // Pla recomanat
+    /* Exàmens triats (0–3). Tants nivells, tants al pla: 1 Bàsic, 2 Duo, 3 Trio, 4 Complet. */
+    const exams = (A.goal || []).filter(i => i <= 3).sort();
+    const planFor = n => PLANS.find(p => p.count === Math.max(1, Math.min(4, n)));
+    const levelsTxt = n => n === 4 ? tx.planAll : n === 1 ? tx.plan1 : fill(tx.planN, {n});
+    let count = 1, html;
+    if (exams.length) {
+      count = exams.length;
+      const names = exams.map(i => LEVELS[i]);
+      const l = names.length > 1 ? names.slice(0, -1).join(", ") + tx.whereJoin + names.at(-1) : names[0];
+      html = fill(exams.length > 1 ? tx.recExamN : tx.recExam1, {l, p: planFor(count).title, n: levelsTxt(count)});
+    } else {
+      // Sense examen: per al dia a dia, dos nivells des del seu punt de partida; si no ho sap, un.
+      count = (A.goal || []).includes(4) ? Math.min(2, 4 - s0) : 1;
+      html = fill(tx.recNext, {s: LEVELS[s0], p: planFor(count).title});
+    }
+    const rec = planFor(count);
+    $("rec").innerHTML = html;
+
+    $("bf").classList.toggle("hide", !showSale);
+    $("offerTitle").classList.toggle("hide", showSale);
+    $("preview").classList.toggle("hide", !preview);
+    $("bfs").textContent = tx.bfSub;
+    const eur = n => new Intl.NumberFormat(lang, {style: "currency", currency: "EUR"}).format(n);
+    $("plans").replaceChildren(...[rec, ...PLANS.filter(p => p !== rec)].map(p => {
+      const el = document.createElement("article");
+      el.className = "plan" + (p === rec ? " rec-on" : "");
+      const price = showSale ? SALE.amounts[p.key] : p.amount;
+      el.innerHTML = (p === rec ? `<span class="tag"></span>` : "") + `<h3></h3><span class="p">${showSale ? `<del>${eur(p.amount)}</del>` : ""}${eur(price)}</span><span class="d"></span><a class="btn"></a>`;
+      if (p === rec) el.querySelector(".tag").textContent = tx.recTag;
+      el.querySelector("h3").textContent = p.title;
+      el.querySelector(".d").textContent = levelsTxt(p.count) + " · " + fill(tx.months, {n: p.months});
+      const a = el.querySelector(".btn"); a.textContent = tx.want;
+      if (preview) { a.setAttribute("aria-disabled", "true"); a.style.opacity = ".55"; a.style.pointerEvents = "none"; }
+      else a.href = appUrl({plan: p.key, level: LEVELS[s0]});
+      return el;
+    }));
+    $("free").href = appUrl({level: LEVELS[s0]});
+  }
+
+  $("start").onclick = () => { step = 0; renderStep(); show("s-quiz"); };
+  $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
+  applyTexts();
+})();
+</script>
+</body>
+</html>
