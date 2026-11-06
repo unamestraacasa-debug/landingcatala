@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruleta ACat · ¿Cuánto sabes de Andorra y del catalán?</title>
+<meta name="description" content="Juega gratis a la Ruleta ACat: gira y gana 6 quesitos sobre Andorra y el catalán del día a día. Sin registro, en 1 minuto, y al final tu plan para hablar catalán.">
+<link rel="canonical" href="https://aprencat.com/test-de-nivell/">
+<meta property="og:title" content="Ruleta ACat · ¿Cuánto sabes de Andorra y del catalán?">
+<meta property="og:description" content="6 quesitos, 1 minuto, sin registro. ¿Los consigues todos?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aprencat.com/test-de-nivell/">
+<meta property="og:image" content="https://aprencat.com/assets/acat-wordmark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap">
+<style>
+:root{--navy:#0B2D6B;--navy-2:#123A82;--groc:#F6C86B;--corall:#F28B6B;--lavanda:#A7B6E8;--crema:#FFF6E7;--corall-fosc:#D4552C;--blau:#5F78C4;--ink:#14213F;--muted:#5E6B8C;--line:#E5E9F3;--ok:#2E8B57;--ok-bg:#E8F5EE;--ko:#C2462A;--ko-bg:#FDEDE8;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"Sora",-apple-system,system-ui,sans-serif;font-size:17px;line-height:1.5;background:#FBFCFE;padding:0 16px 32px}
+body.dark{background:var(--navy);color:#fff}
+.wrap{max-width:460px;margin:0 auto}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}
+header img{height:26px;width:auto;display:block}
+body.dark header img{filter:brightness(0) invert(1)}
+select{font:inherit;font-size:14px;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:8px 14px;background:#fff;color:var(--ink)}
+.hide{display:none!important}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:inherit;font-size:17px;font-weight:800;border:0;border-radius:18px;min-height:58px;padding:0 24px;cursor:pointer;background:var(--navy);color:#fff;text-decoration:none;width:100%}
+.btn:disabled{background:#C9D0E2;cursor:default}
+.btn.corall{background:var(--corall);color:var(--navy)}
+.btn.ghost{background:transparent;color:#fff;border:2px solid var(--lavanda);min-height:54px;font-size:16px;font-weight:700}
+.btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.link{display:block;margin-top:14px;text-align:center;color:var(--muted);font-size:15px;font-weight:600}
+body.dark .link{color:var(--lavanda)}
+.kicker{display:block;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+body.dark .kicker{color:var(--lavanda)}
+h1{margin:6px 0 0;font-size:clamp(30px,8vw,36px);line-height:1.12;letter-spacing:-.02em;font-weight:800}
+h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;color:var(--navy);text-wrap:balance}
+/* Roda de formatgets */
+.wheel{display:block}
+.wheel path{stroke-linejoin:round;transition:fill .4s ease}
+/* La roda petita s’ajusta al disc també en pantalles baixes. */
+.qhead .disc > span{width:calc(100% - 8px);height:calc(100% - 8px);display:grid;place-items:center}
+.qhead .disc .wheel{width:100%;height:100%}
+.disc{border-radius:50%;background:var(--navy-2);display:grid;place-items:center;flex:none}
+/* Portada */
+.hero{position:relative;height:290px;display:flex;align-items:center;justify-content:center;margin-top:6px}
+.hero .tag{position:absolute;font-size:12px;font-weight:800;color:var(--navy);border-radius:999px;padding:6px 10px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chips span{font-size:13px;font-weight:600;border:1px solid rgba(167,182,232,.5);color:var(--crema);border-radius:999px;padding:6px 12px}
+/* Pregunta */
+.top{display:flex;justify-content:space-between;align-items:center}
+.pills{display:flex;gap:8px;align-items:center}
+.pill{display:flex;align-items:center;gap:6px;font-size:15px;font-weight:800;border-radius:999px;padding:8px 12px;background:var(--crema);color:var(--navy)}
+.pill.solid{background:var(--navy);color:#fff}
+.pill svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.qhead{display:flex;align-items:center;gap:14px;margin-top:18px}
+.cat{align-self:flex-start;font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--navy);border-radius:999px;padding:6px 12px}
+.sub{font-size:14px;font-weight:700;color:var(--muted)}
+.qbox{margin-top:26px;background:var(--navy);border-radius:26px;padding:22px 20px;color:#fff}
+.qbox .q{margin:0;font-size:clamp(21px,5.6vw,24px);line-height:1.3;font-weight:800}
+.qbox .ca{color:var(--groc)}
+.opts{display:grid;gap:12px;margin-top:18px}
+.opt{font:inherit;display:flex;align-items:center;gap:14px;text-align:left;padding:12px 16px;border-radius:18px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;min-height:62px;font-size:18px;font-weight:700}
+.opt .k{width:34px;height:34px;border-radius:11px;background:var(--crema);color:var(--navy);font-weight:800;display:grid;place-items:center;flex:none;font-size:15px}
+.opt .k svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.opt:hover:not(:disabled){border-color:var(--lavanda)}
+.opt.right{background:var(--navy);border-color:var(--navy);color:#fff}
+.opt.right .k{background:var(--groc)}
+.opt.wrong{background:var(--ko-bg);border-color:var(--ko)}
+.opt.dim{opacity:.45}
+.opt:disabled{cursor:default}
+.opt .plus{margin-left:auto;color:var(--groc);font-weight:800;font-size:15px}
+.verdict{margin:16px 0 0;font-size:28px;font-weight:800;letter-spacing:-.01em}
+.verdict.ok{color:var(--corall)}.verdict.ko{color:var(--navy)}
+.fact{margin-top:10px;background:var(--crema);border-radius:22px;padding:16px;display:grid;gap:6px;font-size:15px}
+.fact .h{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy)}
+.fact .h i{width:32px;height:32px;border-radius:10px;background:var(--navy);display:grid;place-items:center}
+.fact .h svg{width:17px;height:17px;fill:none;stroke:var(--groc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.fact p{margin:0}
+.fact .ca{color:var(--muted);font-size:14px}
+.fact .ca b{color:var(--navy)}
+.actions{margin-top:18px}
+/* Sense scroll entre preguntes: en respondre s'amaguen les opcions descartades i tot es compacta. */
+#s-q.answered .opt.dim{display:none}
+#s-q.answered .qhead{margin-top:10px}
+#s-q.answered .qbox{margin-top:24px;padding:16px 18px}
+#s-q.answered .opts{margin-top:12px;gap:10px}
+#s-q.answered .verdict{margin-top:10px;font-size:24px;line-height:1.2}
+#s-q.answered .fact{padding:12px 14px;gap:4px;font-size:14.5px;line-height:1.45}
+#s-q.answered .actions{margin-top:12px}
+@media (max-height:740px){
+ .qhead{margin-top:10px}.qhead .disc{width:60px!important;height:60px!important}
+ .qbox{margin-top:22px;padding:16px 18px}.opts{margin-top:12px;gap:10px}.opt{min-height:54px;padding:9px 14px}
+ .spin-stage{margin-top:12px}#spinStage .btn{margin-top:14px}
+ #s-q.answered .fact .h{display:none}
+}
+@media (max-height:660px){#s-q.answered .qhead{display:none}#s-q.answered .top{margin-bottom:4px}}
+body:has(#s-q:not(.hide)){padding-bottom:12px}
+/* Resultat */
+.center{text-align:center;display:flex;flex-direction:column;align-items:center}
+.badge{margin-top:16px;font-size:clamp(26px,7vw,30px);line-height:1.15;font-weight:800}
+.stats{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.stats span{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;background:rgba(167,182,232,.18);border-radius:999px;padding:8px 14px}
+.stats svg{width:16px;height:16px;fill:none;stroke:var(--groc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.stack{display:grid;gap:12px;width:100%;margin-top:26px}
+.toast{margin-top:10px;font-size:14px;font-weight:700;color:var(--groc)}
+/* Perfil */
+.card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px 20px;box-shadow:0 10px 30px rgba(20,33,63,.06)}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:6px 0 20px}
+.bar i{display:block;height:100%;width:0;background:var(--navy);border-radius:99px;transition:width .35s}
+.hint{font-size:14px;font-weight:600;color:var(--muted);margin:0 0 4px}
+.popt{font:inherit;font-size:16px;text-align:left;padding:13px 16px;border-radius:16px;border:2px solid var(--line);background:#fff;color:var(--ink);cursor:pointer;display:flex;align-items:center;gap:12px}
+.popt .ico{flex:none;width:40px;height:40px;border-radius:12px;background:var(--crema);color:var(--navy);display:grid;place-items:center;font-size:14px;font-weight:800}
+.popt .ico svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.popt.sel{border-color:var(--navy);background:#EEF1FA}
+.popt.sel .ico{background:var(--navy);color:var(--groc)}
+.loading{text-align:center;padding:30px 0}
+.loading ul{list-style:none;padding:0;margin:20px auto 0;max-width:340px;text-align:left;display:grid;gap:12px}
+.loading li{opacity:.25;font-weight:600;transition:opacity .3s}
+.loading li.on{opacity:1}
+.loading li::before{content:"✓";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ok-bg);color:var(--ok);font-weight:800;margin-right:10px;font-size:14px}
+.spin{width:54px;height:54px;border-radius:50%;border:5px solid var(--line);border-top-color:var(--navy);margin:0 auto;animation:r 1s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+/* Pla */
+.how{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px}
+.how li{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:10px 12px;font-size:14px;line-height:1.4}
+.how li i{width:36px;height:36px;border-radius:10px;background:var(--crema);display:grid;place-items:center;flex:none}
+.how li svg{width:20px;height:20px;fill:none;stroke:var(--navy);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.how b{color:var(--navy)}
+.rec{margin-top:12px;padding:14px 16px;border-radius:16px;background:var(--crema);font-size:15px}
+.offer{margin-top:14px;background:var(--navy);border-radius:22px;padding:16px 18px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.offer .t{font-size:20px;font-weight:800;line-height:1.15}.offer .t span:first-child{color:var(--groc)}.offer .t span:last-child{color:var(--corall)}
+.offer .s{font-size:13px;font-weight:700;color:var(--lavanda);margin-top:6px}
+.offer .p{font-size:30px;font-weight:800;white-space:nowrap}
+.plans{display:grid;gap:12px;margin-top:14px}
+.plan{background:#fff;border:2px solid var(--line);border-radius:20px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.plan.on{border-color:var(--navy);box-shadow:0 10px 26px rgba(11,45,107,.14)}
+.plan .tag{grid-column:1/-1;justify-self:start;font-size:11px;font-weight:800;letter-spacing:.06em;background:var(--groc);color:var(--navy);border-radius:999px;padding:3px 10px;margin-bottom:4px}
+.plan h3{margin:0;font-size:20px;color:var(--navy)}
+.plan .d{font-size:13px;color:var(--muted);grid-column:1}
+.plan .pr{grid-row:span 2;text-align:right;font-weight:800;font-size:22px;color:var(--navy);white-space:nowrap}
+.plan .pr del{display:block;font-size:13px;font-weight:600;color:var(--muted)}
+.plan .btn{grid-column:1/-1;margin-top:10px;min-height:50px;font-size:15px}
+.plan .btn.big{min-height:64px;font-size:19px;font-weight:800;background:var(--corall);color:var(--navy);box-shadow:0 10px 22px rgba(242,139,107,.35)}
+#free{margin-top:8px;font-size:12px;font-weight:500;opacity:.8}
+.plan:not(.on) .btn{background:#EEF1FA;color:var(--navy)}
+.once{text-align:center;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 0}
+.preview{background:var(--groc);color:var(--navy);font-weight:800;text-align:center;border-radius:12px;padding:8px;margin-top:14px;font-size:13px}
+/* Personatges */
+.char{position:absolute;height:auto;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
+.hero .char{bottom:-6px;width:auto;height:200px}
+.char-l{left:-8px}.char-r{right:-8px}
+.wave{animation:charIn .7s cubic-bezier(.2,1.3,.4,1) both}
+.char-r.wave{animation-delay:.15s}
+@keyframes charIn{0%{transform:translateY(60px) scale(.6);opacity:0}100%{transform:none;opacity:1}}
+.scorewrap{position:relative;width:100%;height:250px;display:flex;justify-content:center;align-items:center;margin-top:12px}
+.scorewrap .char{height:176px;width:auto;bottom:-4px}
+.jl{left:-4px}.jr{right:-4px}
+.celebrate .jump{animation:jumpIn .6s cubic-bezier(.2,1.4,.4,1) both .35s,hop .9s ease-in-out 1.0s 4}
+.celebrate .jr{animation-delay:.5s,1.15s}
+@keyframes jumpIn{0%{transform:translateY(80px) scale(.5);opacity:0}100%{transform:none;opacity:1}}
+@keyframes hop{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}
+.snd{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:#fff;display:grid;place-items:center;cursor:pointer;color:var(--navy)}
+.snd svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+/* Ruleta */
+.spin-stage{display:flex;flex-direction:column;align-items:center;margin-top:22px;gap:0}
+.pointer{position:relative;z-index:2;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:30px solid var(--corall);margin-bottom:-16px;filter:drop-shadow(0 3px 3px rgba(11,45,107,.3))}
+.rwrap{width:290px;height:290px;border-radius:50%;background:var(--navy);display:grid;place-items:center;box-shadow:0 16px 40px rgba(11,45,107,.25);transition:transform 2.6s cubic-bezier(.12,.75,.18,1)}
+.spin-stage .btn{margin-top:26px}
+.qarea-in{animation:popIn .45s cubic-bezier(.2,1.4,.4,1) both}
+/* Pop-ups i celebració */
+#pop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50;padding:24px}
+.popcard{pointer-events:auto;background:var(--navy);color:#fff;border-radius:30px;padding:26px 28px;min-width:260px;max-width:340px;text-align:center;box-shadow:0 24px 60px rgba(11,45,107,.35);animation:popIn .45s cubic-bezier(.2,1.4,.4,1) both}
+.popcard.out{animation:popOut .25s ease-in both}
+.popcard .pi{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center}
+.popcard .pi svg{width:42px;height:42px;fill:none;stroke:var(--navy);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.popcard .pt{font-size:26px;font-weight:800;line-height:1.15}
+.popcard .ps{margin-top:6px;font-size:16px;font-weight:700;color:var(--lavanda)}
+.popcard .pp{display:inline-block;margin-top:12px;font-size:20px;font-weight:800;color:var(--navy);background:var(--groc);border-radius:999px;padding:6px 16px}
+.popcard .pk{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:16px;font-weight:800;color:var(--groc)}
+.popcard .pk svg{width:20px;height:20px;fill:none;stroke:var(--groc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes popIn{0%{transform:scale(.4) rotate(-6deg);opacity:0}70%{transform:scale(1.06) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes popOut{to{transform:scale(.7);opacity:0}}
+.floatpts{position:absolute;right:16px;top:-6px;font-weight:800;color:var(--corall);font-size:22px;animation:floatUp 1s ease-out forwards;pointer-events:none}
+.opt{position:relative}
+@keyframes floatUp{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-46px);opacity:0}}
+.pill.bump{animation:bump .4s ease}
+@keyframes bump{50%{transform:scale(1.25)}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.congrats{margin:8px 0 0;font-size:clamp(34px,9vw,42px);font-weight:800;letter-spacing:-.02em;color:var(--groc)}
+.celebrate .congrats{animation:popIn .6s cubic-bezier(.2,1.4,.4,1) both}
+.celebrate .disc{animation:spinIn .9s cubic-bezier(.2,1.2,.4,1) both .15s}
+.celebrate .badge{animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both .7s}
+.celebrate .stats{animation:popIn .5s ease both .95s}
+@keyframes spinIn{0%{transform:scale(.3) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+@media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}.wave,.celebrate .jump{animation:none}}
+</style>
+</head>
+<body class="dark">
+<div class="wrap">
+<header>
+  <a href="/" aria-label="AprènCat"><img src="/assets/acat-wordmark.png" alt="AprènCat" width="93" height="26"></a>
+  <div style="display:flex;gap:8px;align-items:center">
+  <button type="button" id="sound" class="snd" aria-pressed="true" aria-label="Música"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path id="sndOn" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/><path id="sndOff" d="m22 9-6 6M16 9l6 6" style="display:none"/></svg></button>
+  <select id="lang" aria-label="Idioma">
+    <option value="es">Español</option><option value="ca">Català</option><option value="fr">Français</option><option value="en">English</option>
+  </select>
+  </div>
+</header>
+<audio id="bgm" src="/assets/ruleta/musica.mp3" loop preload="none"></audio>
+
+<main aria-live="polite">
+  <!-- Portada -->
+  <section id="s-intro">
+    <div class="hero">
+      <div class="disc" style="width:254px;height:254px;box-shadow:0 18px 40px rgba(0,0,0,.28)"><span id="heroWheel"></span></div>
+      <span class="tag" style="left:0;top:26px;background:var(--groc);transform:rotate(-8deg)" data-cat="0"></span>
+      <span class="tag" style="right:0;top:64px;background:var(--corall);transform:rotate(6deg)" data-cat="1"></span>
+      <img class="char char-l wave" src="/assets/ruleta/saludando-ella.webp" alt="" width="115" height="220">
+      <img class="char char-r wave" src="/assets/ruleta/saludando-ell.webp" alt="" width="122" height="220">
+    </div>
+    <span class="kicker" style="margin-top:14px">Ruleta ACat</span>
+    <h1 id="h1"></h1>
+    <div class="chips"><span data-t="chip1"></span><span data-t="chip2"></span><span data-t="chip3"></span></div>
+    <div class="stack" style="margin-top:28px">
+      <button class="btn corall" id="start" type="button" data-t="start"></button>
+    </div>
+    <a class="link" id="skip" data-t="skip"></a>
+  </section>
+
+  <!-- Pregunta del trivial -->
+  <section id="s-q" class="hide">
+    <div class="top">
+      <span class="sub" id="qcount"></span>
+      <div class="pills">
+        <span class="pill" id="streak" aria-label=""><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span id="streakN">0</span></span>
+        <span class="pill solid"><span id="pts">0</span>&nbsp;pts</span>
+      </div>
+    </div>
+    <div class="qhead">
+      <div class="disc" style="width:76px;height:76px;background:var(--navy)"><span id="miniWheel"></span></div>
+      <div style="display:grid;gap:6px">
+        <span class="cat" id="qcat"></span>
+        <span class="sub" id="qsub"></span>
+      </div>
+    </div>
+    <div class="spin-stage" id="spinStage">
+      <div class="pointer" aria-hidden="true"></div>
+      <div class="rwrap" id="rwrap"><span id="roulette"></span></div>
+      <button class="btn corall" id="spinBtn" type="button" data-t="spin"></button>
+    </div>
+    <div id="qarea" class="hide">
+      <div class="qbox"><p class="q" id="qtext"></p></div>
+      <div class="opts" id="opts"></div>
+    </div>
+    <div id="after" class="hide">
+      <p class="verdict" id="verdict" lang="ca"></p>
+      <div class="fact">
+        <div class="h"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.1 14c.2-1 .7-1.7 1.4-2.5A6 6 0 1 0 6 8c0 1.5.6 2.6 1.5 3.5.7.7 1.2 1.5 1.4 2.5"/></svg></i><span data-t="didYouKnow"></span></div>
+        <p id="factText"></p>
+        <p class="ca" id="factCa"></p>
+      </div>
+      <div class="actions"><button class="btn" id="next" type="button"></button></div>
+    </div>
+  </section>
+
+  <!-- Resultat -->
+  <section id="s-score" class="hide center">
+    <span class="kicker" data-t="yourScore"></span>
+    <p class="congrats" id="congrats"></p>
+    <div class="scorewrap">
+      <div class="disc" style="width:236px;height:236px"><span id="bigWheel"></span></div>
+      <img class="char jump jl" src="/assets/ruleta/celebrando-ella.webp" alt="" width="104" height="176">
+      <img class="char jump jr" src="/assets/ruleta/celebrando-ell.webp" alt="" width="114" height="176">
+    </div>
+    <p class="badge" id="badge" lang="ca"></p>
+    <p id="badgeSub" style="margin:8px 0 0;color:var(--crema)"></p>
+    <div class="stats"><span id="statStreak"></span><span id="statPts"></span></div>
+    <div class="stack">
+      <button class="btn corall" id="toProfile" type="button" data-t="toProfile"></button>
+      <button class="btn ghost" id="share" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg><span data-t="share"></span></button>
+    </div>
+    <p class="toast hide" id="toast" role="status" data-t="copied"></p>
+    <a class="link" href="#" id="again" data-t="again"></a>
+  </section>
+
+  <!-- Perfil (3 preguntes) -->
+  <section id="s-profile" class="hide card">
+    <span class="sub" id="pcount"></span>
+    <div class="bar"><i id="pbar"></i></div>
+    <p class="hint" id="phint"></p>
+    <h2 id="pq"></h2>
+    <div class="opts" id="popts"></div>
+    <div class="actions"><button class="btn" id="pnext" type="button" disabled></button></div>
+  </section>
+
+  <section id="s-loading" class="hide card">
+    <div class="loading"><div class="spin" aria-hidden="true"></div><h2 style="margin-top:18px" data-t="loading"></h2><ul id="lsteps"></ul></div>
+  </section>
+
+  <!-- Pla -->
+  <section id="s-plan" class="hide">
+    <span class="kicker" data-t="yourPlan"></span>
+    <h2 id="planTitle" style="margin-top:6px"></h2>
+    <ul class="how" id="how"></ul>
+    <div class="rec" id="rec"></div>
+    <div class="offer hide" id="offer"><div><div class="t"><span data-t="offer1"></span> <span data-t="offer2"></span></div><div class="s" id="offerSub"></div></div><div class="p">−20 %</div></div>
+    <div class="preview hide" id="preview" data-t="preview"></div>
+    <div class="plans" id="plans"></div>
+    <p class="once" data-t="once"></p>
+    <a class="link" id="free" data-t="free"></a>
+  </section>
+</main>
+</div>
+<div id="pop" role="status" aria-live="assertive"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(() => {
+  /* ---------- Preus i oferta ----------
+     Preus: els mateixos que la portada i supabase/functions/_shared/web-products.ts.
+     Oferta «per ser dels primers» (−20 %): només es mostra si ready === true i som dins les dates.
+     Posar ready a true NOMÉS quan el cobrament amb el preu rebaixat estigui comprovat amb una compra de prova. */
+  const PLANS = [
+    {key:"BASIC", title:"Bàsic", amount:59.99, months:6, count:1},
+    {key:"DUO", title:"Duo", amount:99.99, months:12, count:2},
+    {key:"TRIPLE", title:"Trio", amount:129.99, months:18, count:3},
+    {key:"ALL", title:"Complet", amount:159.99, months:24, count:4}
+  ];
+  const OFFER = {id:"primers-2026", ready:false, starts:"2026-11-09T00:00:00+01:00", ends:"2026-11-16T00:00:00+01:00",
+    amounts:{BASIC:47.99, DUO:79.99, TRIPLE:103.99, ALL:127.99}};
+  const params = new URLSearchParams(location.search);
+  const now = Date.now();
+  const offerLive = OFFER.ready && now >= Date.parse(OFFER.starts) && now < Date.parse(OFFER.ends);
+  /* ?oferta=preview: només per revisar el disseny; la compra queda desactivada. */
+  const preview = !offerLive && params.get("oferta") === "preview";
+  const showOffer = offerLive || preview;
+  const LEVELS = ["A1","A2","B1","B2"];
+  const CAT_COLORS = ["#F6C86B","#F28B6B","#A7B6E8","#FFF6E7","#D4552C","#5F78C4"];
+
+  /* ---------- Preguntes del trivial (una per formatget). La resposta correcta és la primera. ---------- */
+  const TRIVIA = [
+    {cat:0, q:{es:"¿Cuántas parroquias tiene Andorra?",ca:"Quantes parròquies té Andorra?",fr:"Combien de paroisses compte l’Andorre ?",en:"How many parishes does Andorra have?"},
+     o:[{es:"7"},{es:"6"},{es:"8"}],
+     f:{es:"Canillo es la más extensa y Andorra la Vella, la capital.",ca:"Canillo és la més extensa i Andorra la Vella, la capital.",fr:"Canillo est la plus étendue et Andorre-la-Vieille, la capitale.",en:"Canillo is the largest and Andorra la Vella is the capital."},
+     c:"Andorra té set parròquies."},
+    {cat:1, q:{es:"Las «escombraries» son…",ca:"Les «escombraries» són…",fr:"Les « escombraries », ce sont…",en:"“Escombraries” are…"},
+     o:[{es:"La basura",ca:"Les deixalles",fr:"Les ordures",en:"Rubbish"},{es:"Las escobas",ca:"Les escombres",fr:"Les balais",en:"Brooms"},{es:"Las escaleras",ca:"Les escales",fr:"Les escaliers",en:"Stairs"}],
+     f:{es:"Ojo: «escombra» sí es escoba, pero «escombraries» es la basura.",ca:"Compte: «escombra» és l’estri per escombrar, però «escombraries» són les deixalles.",fr:"Attention : « escombra » est bien un balai, mais « escombraries », ce sont les ordures.",en:"Careful: “escombra” is a broom, but “escombraries” means rubbish."},
+     c:"Baixo les escombraries."},
+    {cat:2, q:{es:"«Bon profit!» se dice…",ca:"«Bon profit!» es diu…",fr:"On dit « Bon profit ! »…",en:"You say “Bon profit!”…"},
+     o:[{es:"Antes de comer",ca:"Abans de menjar",fr:"Avant de manger",en:"Before eating"},{es:"Al despedirse",ca:"En acomiadar-se",fr:"En se disant au revoir",en:"When saying goodbye"},{es:"Al brindar",ca:"En brindar",fr:"En trinquant",en:"When making a toast"}],
+     f:{es:"Equivale a «¡Buen provecho!». Para brindar se dice «Salut!».",ca:"És el desig de bon àpat abans de menjar. Per brindar diem «Salut!».",fr:"C’est l’équivalent de « Bon appétit ! ». Pour trinquer, on dit « Salut ! ».",en:"It’s like “Enjoy your meal!”. For a toast, say “Salut!”."},
+     c:"Bon profit a tothom!"},
+    {cat:3, q:{es:"¿Qué día es la Diada de Meritxell?",ca:"Quin dia és la Diada de Meritxell?",fr:"Quel jour est la fête de Meritxell ?",en:"When is Meritxell Day?"},
+     o:[{es:"8 de septiembre",ca:"8 de setembre",fr:"8 septembre",en:"8 September"},{es:"11 de septiembre",ca:"11 de setembre",fr:"11 septembre",en:"11 September"},{es:"14 de marzo",ca:"14 de març",fr:"14 mars",en:"14 March"}],
+     f:{es:"Es la fiesta nacional de Andorra, en honor a su patrona, la Mare de Déu de Meritxell.",ca:"És la festa nacional d’Andorra, en honor de la patrona, la Mare de Déu de Meritxell.",fr:"C’est la fête nationale de l’Andorre, en l’honneur de sa patronne, Notre-Dame de Meritxell.",en:"It’s Andorra’s national day, honouring its patron, Our Lady of Meritxell."},
+     c:"El 8 de setembre és festa."},
+    {cat:4, q:{es:"Completa: «No crec que l’examen ___ tan difícil.»",ca:"Completa: «No crec que l’examen ___ tan difícil.»",fr:"Complète : « No crec que l’examen ___ tan difícil. »",en:"Fill in: “No crec que l’examen ___ tan difícil.”"},
+     o:[{es:"sigui"},{es:"és"},{es:"serà"}],
+     f:{es:"Después de «no crec que» va subjuntivo: «sigui» = «sea».",ca:"Després de «no crec que» va el subjuntiu: «sigui».",fr:"Après « no crec que », on emploie le subjonctif : « sigui ».",en:"After “no crec que” (I don’t think that), Catalan uses the subjunctive: “sigui”."},
+     c:"No crec que sigui tan difícil."},
+    {cat:5, q:{es:"Si estás «constipat», estás…",ca:"Si estàs «constipat», estàs…",fr:"Si tu es « constipat », tu es…",en:"If you’re “constipat”, you are…"},
+     o:[{es:"Resfriado",ca:"Refredat",fr:"Enrhumé(e)",en:"Got a cold"},{es:"Estreñido",ca:"Restret",fr:"Constipé(e)",en:"Constipated"},{es:"Cansado",ca:"Cansat",fr:"Fatigué(e)",en:"Tired"}],
+     f:{es:"¡Falso amigo! «Constipat» es resfriado; estreñido se dice «restret».",ca:"Fals amic! En castellà «estreñido» es diu «restret» en català.",fr:"Faux ami ! « Constipat » veut dire enrhumé ; constipé se dit « restret ».",en:"False friend! “Constipat” means having a cold; constipated is “restret”."},
+     c:"Estic constipat: tinc mocs i tos."}
+  ];
+
+  const T = {
+    es:{spin:"¡Gira la ruleta!",spinSub:"Gira y descubre qué quesito te toca",landed:"¡Te toca {c}!",popGot:"¡Quesito {c}!",popPts:"+100 puntos",popStreak:"¡En racha! x{n}",popHot:"¡Imparable! x{n}",popMiss:"¡Casi!",popMissSub:"El siguiente quesito es tuyo",congrats:["¡Buen comienzo!","¡Muy bien!","¡Enhorabuena!","¡Increíble! ¡Pleno!"],h1:"¿Cuánto sabes de <span style='color:#F6C86B'>Andorra</span> y del <span style='color:#F28B6B'>catalán</span>?",chip1:"6 quesitos",chip2:"1 minuto",chip3:"Sin registro",start:"¡A jugar!",skip:"Prefiero probar la app directamente",
+      cats:["Andorra","Palabras","Expresiones","Cultura","Gramática","Falsos amigos"],qcount:"Pregunta {n} de {t}",goFor:"A por el quesito {c}",colors:["amarillo","coral","lavanda","crema","teja","azul"],got:"¡Quesito conseguido! Llevas {n} de 6",miss:"Este quesito se te escapa · llevas {n} de 6",
+      right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La respuesta era: {a}.",didYouKnow:"¿Sabías que…?",inCa:"En catalán:",next:"Siguiente",finish:"Ver mi resultado",
+      yourScore:"Tu resultado",streak:"Mejor racha: {n}",pts:"{n} puntos",missing:"Tienes {n} de 6 quesitos. Te falta: {c}.",all:"¡Los 6 quesitos! Ahora, a por el catalán de verdad.",toProfile:"Ver mi plan en 3 preguntas",share:"Compartir y retar a un amigo",copied:"Enlace copiado. ¡Pégalo donde quieras!",again:"Jugar otra vez",
+      shareText:"Tengo {n} de 6 quesitos en la Ruleta ACat. ¿Me superas?",
+      multi:"Puedes marcar varias",one:"Elige una opción",pcount:"Tu plan · {n} de 3",pnext:"Siguiente",pfinish:"Ver mi plan",
+      p:{sit:{q:"¿Cuál es tu situación?",o:["Acabo de llegar a vivir a Andorra","Vivo aquí hace tiempo, pero el catalán se me resiste","Necesito el catalán para el trabajo","Tengo que aprobar un examen oficial"]},
+         pain:{q:"¿Qué es lo que más te cuesta?",o:["No entiendo cuando me hablan rápido","Me da corte hablar y acabo pasándome al castellano","Escribir un correo o rellenar un trámite","Aprobar el examen","No tengo tiempo para ir a clase"]},
+         goal:{q:"¿Tienes que aprobar algún examen oficial?",o:["A1","A2","B1","B2","No, quiero hablarlo para el día a día","Aún no lo sé"]}},
+      loading:"Preparamos tu plan…",lsteps:["Contamos tus quesitos","Miramos lo que más te cuesta","Elegimos tu plan"],
+      yourPlan:"Tu plan para hablar catalán",titles:["Para que el idioma no te frene en tu nueva vida en Andorra","Para que el catalán deje de resistírsete de una vez","Para que el catalán te abra puertas en el trabajo","Para que llegues al examen con seguridad"],
+      how:{listen:["Entenderás cuando te hablen","escuchas y dictados para acostumbrar el oído"],speak:["Hablarás sin vergüenza","el tutor de voz te escucha y te corrige en privado"],write:["Escribirás sin miedo","escritura con corrección al momento"],exam:["Llegarás preparado/a al examen","modelos de examen y simulacros oficiales con nota"],time:["Encaja en tu día","lecciones de unos 10 minutos, con recordatorio"]},
+      recExam1:"Quieres aprobar el examen <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recExamN:"Quieres aprobar los exámenes <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recDaily:"Para el día a día te recomendamos el plan <b>{p}</b> ({n}): dos niveles para soltarte.",recUnsure:"Para empezar te recomendamos el plan <b>{p}</b> ({n}). Podrás ampliarlo cuando quieras.",join:" y ",
+      offer1:"Por ser de",offer2:"los primeros",offerSub:"En todos los planes · hasta el {d}",preview:"VISTA PREVIA · oferta aún no activa · compra desactivada",recTag:"RECOMENDADO PARA TI",cta:"Regístrate y obtén tu curso",want:"Quiero este plan",
+      plan1:"1 nivel",planN:"{n} niveles",planAll:"A1, A2, B1 y B2",months:"{n} meses",once:"Pago único, sin renovaciones. La misma cuenta en la web y en la app.",free:"Probar gratis la primera unidad (sin tarjeta)",
+      badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["¡Buen comienzo! Con AprènCat lo subes en nada.","Vas por buen camino.","¡Casi en la cima!","¡Perfecto! Eres un/a crack."]},
+    ca:{spin:"Gira la ruleta!",spinSub:"Gira i descobreix quin formatget et toca",landed:"Et toca {c}!",popGot:"Formatget {c}!",popPts:"+100 punts",popStreak:"En ratxa! x{n}",popHot:"Imparable! x{n}",popMiss:"Gairebé!",popMissSub:"El pròxim formatget és teu",congrats:["Bon començament!","Molt bé!","Enhorabona!","Increïble! Ple!"],h1:"Quant saps d’<span style='color:#F6C86B'>Andorra</span> i del <span style='color:#F28B6B'>català</span>?",chip1:"6 formatgets",chip2:"1 minut",chip3:"Sense registre",start:"A jugar!",skip:"Prefereixo provar l’app directament",
+      cats:["Andorra","Paraules","Expressions","Cultura","Gramàtica","Falsos amics"],qcount:"Pregunta {n} de {t}",goFor:"A pel formatget {c}",colors:["groc","corall","lavanda","crema","teula","blau"],got:"Formatget aconseguit! En portes {n} de 6",miss:"Aquest formatget se t’escapa · en portes {n} de 6",
+      right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La resposta era: {a}.",didYouKnow:"Sabies que…?",inCa:"Per dir-ho:",next:"Següent",finish:"Veure el meu resultat",
+      yourScore:"El teu resultat",streak:"Millor ratxa: {n}",pts:"{n} punts",missing:"Tens {n} de 6 formatgets. Et falta: {c}.",all:"Els 6 formatgets! Ara, a pel català de veritat.",toProfile:"Veure el meu pla en 3 preguntes",share:"Comparteix i repta un amic",copied:"Enllaç copiat. Enganxa’l on vulguis!",again:"Tornar a jugar",
+      shareText:"Tinc {n} de 6 formatgets a la Ruleta ACat. Em superes?",
+      multi:"Pots marcar-ne diverses",one:"Tria una opció",pcount:"El teu pla · {n} de 3",pnext:"Següent",pfinish:"Veure el meu pla",
+      p:{sit:{q:"Quina és la teva situació?",o:["Acabo d’arribar a viure a Andorra","Fa temps que hi visc, però el català se’m resisteix","Necessito el català per a la feina","He d’aprovar un examen oficial"]},
+         pain:{q:"Què és el que et costa més?",o:["No entenc quan em parlen ràpid","Em fa vergonya parlar i acabo passant al castellà","Escriure un correu o omplir un tràmit","Aprovar l’examen","No tinc temps per anar a classe"]},
+         goal:{q:"Has d’aprovar algun examen oficial?",o:["A1","A2","B1","B2","No, el vull parlar per al dia a dia","Encara no ho sé"]}},
+      loading:"Preparem el teu pla…",lsteps:["Comptem els teus formatgets","Mirem què et costa més","Triem el teu pla"],
+      yourPlan:"El teu pla per parlar català",titles:["Perquè l’idioma no et freni en la teva nova vida a Andorra","Perquè el català deixi de resistir-se’t d’una vegada","Perquè el català t’obri portes a la feina","Perquè arribis a l’examen amb seguretat"],
+      how:{listen:["Entendràs quan et parlin","escoltes i dictats per acostumar l’orella"],speak:["Parlaràs sense vergonya","el tutor de veu t’escolta i et corregeix en privat"],write:["Escriuràs sense por","escriptura amb correcció al moment"],exam:["Arribaràs preparat/da a l’examen","models d’examen i simulacres oficials amb nota"],time:["Encaixa en el teu dia","lliçons d’uns 10 minuts, amb recordatori"]},
+      recExam1:"Vols aprovar l’examen <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recExamN:"Vols aprovar els exàmens <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recDaily:"Per al dia a dia et recomanem el pla <b>{p}</b> ({n}): dos nivells per deixar-te anar.",recUnsure:"Per començar et recomanem el pla <b>{p}</b> ({n}). El podràs ampliar quan vulguis.",join:" i ",
+      offer1:"Per ser dels",offer2:"primers",offerSub:"En tots els plans · fins al {d}",preview:"VISTA PRÈVIA · oferta encara no activa · compra desactivada",recTag:"RECOMANAT PER A TU",cta:"Registra’t i obtén el teu curs",want:"Vull aquest pla",
+      plan1:"1 nivell",planN:"{n} nivells",planAll:"A1, A2, B1 i B2",months:"{n} mesos",once:"Pagament únic, sense renovacions. El mateix compte a la web i a l’app.",free:"Prova gratis la primera unitat (sense targeta)",
+      badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon començament! Amb AprènCat ho puges en res.","Vas per bon camí.","Gairebé al cim!","Perfecte! Ets un crac."]},
+    fr:{spin:"Fais tourner la roue !",spinSub:"Tourne et découvre ta catégorie",landed:"C’est {c} !",popGot:"Part {c} !",popPts:"+100 points",popStreak:"En série ! x{n}",popHot:"Inarrêtable ! x{n}",popMiss:"Presque !",popMissSub:"La prochaine part est pour toi",congrats:["Bon début !","Très bien !","Félicitations !","Incroyable ! Sans faute !"],h1:"Que sais-tu de l’<span style='color:#F6C86B'>Andorre</span> et du <span style='color:#F28B6B'>catalan</span> ?",chip1:"6 parts de fromage",chip2:"1 minute",chip3:"Sans inscription",start:"On joue !",skip:"Je préfère essayer l’app directement",
+      cats:["Andorre","Mots","Expressions","Culture","Grammaire","Faux amis"],qcount:"Question {n} sur {t}",goFor:"Pour la part {c}",colors:["jaune","corail","lavande","crème","brique","bleue"],got:"Part gagnée ! Tu en as {n} sur 6",miss:"Cette part t’échappe · tu en as {n} sur 6",
+      right:"Molt bé ! +100",wrong:"Presque !",correctIs:"La réponse était : {a}.",didYouKnow:"Le savais-tu ?",inCa:"En catalan :",next:"Suivant",finish:"Voir mon résultat",
+      yourScore:"Ton résultat",streak:"Meilleure série : {n}",pts:"{n} points",missing:"Tu as {n} parts sur 6. Il te manque : {c}.",all:"Les 6 parts ! Maintenant, au vrai catalan.",toProfile:"Voir mon plan en 3 questions",share:"Partager et défier un ami",copied:"Lien copié. Colle-le où tu veux !",again:"Rejouer",
+      shareText:"J’ai {n} parts sur 6 à la Roue ACat. Tu fais mieux ?",
+      multi:"Tu peux en cocher plusieurs",one:"Choisis une option",pcount:"Ton plan · {n} sur 3",pnext:"Suivant",pfinish:"Voir mon plan",
+      p:{sit:{q:"Quelle est ta situation ?",o:["Je viens de m’installer en Andorre","J’habite ici depuis longtemps, mais le catalan me résiste","J’ai besoin du catalan pour le travail","Je dois réussir un examen officiel"]},
+         pain:{q:"Qu’est-ce qui te coûte le plus ?",o:["Je ne comprends pas quand on parle vite","J’ai honte de parler et je change de langue","Écrire un e-mail ou remplir une démarche","Réussir l’examen","Je n’ai pas le temps d’aller en cours"]},
+         goal:{q:"Dois-tu réussir un examen officiel ?",o:["A1","A2","B1","B2","Non, je veux le parler au quotidien","Je ne sais pas encore"]}},
+      loading:"On prépare ton plan…",lsteps:["Nous comptons tes parts","Nous regardons ce qui te coûte","Nous choisissons ton plan"],
+      yourPlan:"Ton plan pour parler catalan",titles:["Pour que la langue ne te freine pas dans ta nouvelle vie en Andorre","Pour que le catalan arrête enfin de te résister","Pour que le catalan t’ouvre des portes au travail","Pour arriver à l’examen en toute confiance"],
+      how:{listen:["Tu comprendras quand on te parle","écoutes et dictées pour habituer ton oreille"],speak:["Tu parleras sans gêne","le tuteur vocal t’écoute et te corrige en privé"],write:["Tu écriras sans crainte","écriture corrigée sur le moment"],exam:["Tu arriveras prêt(e) à l’examen","modèles d’examen et simulations officielles avec note"],time:["Ça rentre dans ta journée","leçons d’environ 10 minutes, avec rappel"]},
+      recExam1:"Tu veux réussir l’examen <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recExamN:"Tu veux réussir les examens <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recDaily:"Pour le quotidien, on te recommande la formule <b>{p}</b> ({n}) : deux niveaux pour te lancer.",recUnsure:"Pour commencer, on te recommande la formule <b>{p}</b> ({n}). Tu pourras l’élargir quand tu veux.",join:" et ",
+      offer1:"Parce que tu es",offer2:"parmi les premiers",offerSub:"Sur toutes les formules · jusqu’au {d}",preview:"APERÇU · offre pas encore active · achat désactivé",recTag:"RECOMMANDÉ POUR TOI",cta:"Inscris-toi et obtiens ton cours",want:"Je veux cette formule",
+      plan1:"1 niveau",planN:"{n} niveaux",planAll:"A1, A2, B1 et B2",months:"{n} mois",once:"Paiement unique, sans renouvellement. Le même compte sur le web et dans l’app.",free:"Essayer gratuitement la première unité (sans carte)",
+      badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon début ! Avec AprènCat, tu progresses vite.","Tu es sur la bonne voie.","Presque au sommet !","Parfait ! Bravo."]},
+    en:{spin:"Spin the wheel!",spinSub:"Spin to find out your category",landed:"It’s {c}!",popGot:"{c} wedge!",popPts:"+100 points",popStreak:"On a streak! x{n}",popHot:"Unstoppable! x{n}",popMiss:"So close!",popMissSub:"The next wedge is yours",congrats:["Good start!","Well done!","Congratulations!","Amazing! Perfect score!"],h1:"How much do you know about <span style='color:#F6C86B'>Andorra</span> and <span style='color:#F28B6B'>Catalan</span>?",chip1:"6 wedges",chip2:"1 minute",chip3:"No sign-up",start:"Let’s play!",skip:"I’d rather try the app right away",
+      cats:["Andorra","Words","Expressions","Culture","Grammar","False friends"],qcount:"Question {n} of {t}",goFor:"Going for the {c} wedge",colors:["yellow","coral","lavender","cream","brick","blue"],got:"Wedge won! You have {n} of 6",miss:"This wedge got away · you have {n} of 6",
+      right:"Molt bé! +100",wrong:"Almost!",correctIs:"The answer was: {a}.",didYouKnow:"Did you know?",inCa:"In Catalan:",next:"Next",finish:"See my result",
+      yourScore:"Your result",streak:"Best streak: {n}",pts:"{n} points",missing:"You have {n} of 6 wedges. Missing: {c}.",all:"All 6 wedges! Now for some real Catalan.",toProfile:"See my plan in 3 questions",share:"Share and challenge a friend",copied:"Link copied. Paste it anywhere!",again:"Play again",
+      shareText:"I got {n} of 6 wedges on the ACat Wheel. Can you beat me?",
+      multi:"You can pick several",one:"Pick one option",pcount:"Your plan · {n} of 3",pnext:"Next",pfinish:"See my plan",
+      p:{sit:{q:"What’s your situation?",o:["I’ve just moved to Andorra","I’ve lived here for a while, but Catalan still escapes me","I need Catalan for work","I have to pass an official exam"]},
+         pain:{q:"What do you find hardest?",o:["I can’t follow when people speak fast","I feel shy speaking and switch languages","Writing an email or filling in paperwork","Passing the exam","I don’t have time for classes"]},
+         goal:{q:"Do you need to pass an official exam?",o:["A1","A2","B1","B2","No, I want it for everyday life","I’m not sure yet"]}},
+      loading:"Preparing your plan…",lsteps:["Counting your wedges","Looking at what you find hardest","Choosing your plan"],
+      yourPlan:"Your plan to speak Catalan",titles:["So the language doesn’t hold you back in your new life in Andorra","So Catalan finally stops escaping you","So Catalan opens doors at work","So you walk into the exam with confidence"],
+      how:{listen:["You’ll understand people","listening and dictation to tune your ear"],speak:["You’ll speak without shyness","the voice tutor listens and corrects you in private"],write:["You’ll write without fear","writing with instant correction"],exam:["You’ll be ready for the exam","official model exams and mock tests with a score"],time:["It fits your day","lessons of about 10 minutes, with a reminder"]},
+      recExam1:"You want to pass the <b>{l}</b> exam: we recommend the <b>{p}</b> plan ({n}).",recExamN:"You want to pass the <b>{l}</b> exams: we recommend the <b>{p}</b> plan ({n}).",recDaily:"For everyday life we recommend the <b>{p}</b> plan ({n}): two levels to get you going.",recUnsure:"To start, we recommend the <b>{p}</b> plan ({n}). You can extend it any time.",join:" and ",
+      offer1:"For being",offer2:"one of the first",offerSub:"On every plan · until {d}",preview:"PREVIEW · offer not active yet · purchase disabled",recTag:"RECOMMENDED FOR YOU",cta:"Sign up and get your course",want:"I want this plan",
+      plan1:"1 level",planN:"{n} levels",planAll:"A1, A2, B1 and B2",months:"{n} months",once:"One-off payment, no renewals. One account for the web and the app.",free:"Try the first unit for free (no card)",
+      badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Good start! AprènCat will get you climbing fast.","You’re on the right track.","Almost at the top!","Perfect! Well done."]}
+  };
+
+  const SVG = {
+    mountain:'<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>', repeat:'<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+    briefcase:'<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>', cap:'<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+    ear:'<path d="M6 8.5a6.5 6.5 0 1 1 13 0c0 6-6 6-6 10a3.5 3.5 0 1 1-7 0"/><path d="M15 8.5a2.5 2.5 0 0 0-5 0v1a2 2 0 1 1 0 4"/>', speech:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>', check:'<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+    clock:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>', calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/>',
+    help:'<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>', tick:'<path d="M20 6 9 17l-5-5"/>', x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+    flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.07-2.14-.22-4.05 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.15.43-2.29 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    star:'<path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/>'
+  };
+  const svg = n => `<svg viewBox="0 0 24 24" aria-hidden="true">${SVG[n]}</svg>`;
+  const PICONS = {sit:["mountain","repeat","briefcase","cap"],pain:["ear","speech","pen","check","clock"],goal:["cap","cap","cap","cap","calendar","help"]};
+  const PROFILE = [{id:"sit",type:"one"},{id:"pain",type:"multi"},{id:"goal",type:"multi",excl:[4,5]}];
+
+  /* Roda de 6 formatgets: won = conjunt de categories guanyades; all = pintar-les totes (portada). */
+  const WEDGES = ["M50 50 L50 4 A46 46 0 0 1 89.84 27 Z","M50 50 L89.84 27 A46 46 0 0 1 89.84 73 Z","M50 50 L89.84 73 A46 46 0 0 1 50 96 Z","M50 50 L50 96 A46 46 0 0 1 10.16 73 Z","M50 50 L10.16 73 A46 46 0 0 1 10.16 27 Z","M50 50 L10.16 27 A46 46 0 0 1 50 4 Z"];
+  function wheel(size, won, sep, label, all, centerText) {
+    const paths = WEDGES.map((d, i) => `<path d="${d}" fill="${all || won.has(i) ? CAT_COLORS[i] : "rgba(255,255,255,.15)"}" stroke="${sep}" stroke-width="${size > 120 ? 2.6 : 3.4}"/>`).join("");
+    const center = `<circle cx="50" cy="50" r="${centerText ? 17 : 12}" fill="#0B2D6B" stroke="${sep}" stroke-width="2.6"/>` + (centerText ? `<text x="50" y="55" text-anchor="middle" font-family="Sora, sans-serif" font-size="14" font-weight="800" fill="#F6C86B">${centerText}</text>` : "");
+    return `<svg class="wheel" width="${size}" height="${size}" viewBox="0 0 100 100" role="img" aria-label="${label}">${paths}${center}</svg>`;
+  }
+
+  const $ = id => document.getElementById(id);
+  const fill = (s, v) => Object.entries(v).reduce((t, [k, x]) => t.split("{" + k + "}").join(x), s);
+  const pick = v => { const c = v && v.toLowerCase().split(/[-_]/)[0]; return c && Object.hasOwn(T, c) ? c : null; };
+  let saved = null; try { saved = localStorage.getItem("acat_lang"); } catch (e) {}
+  let lang = pick(params.get("lang")) || pick(saved) || (navigator.languages || [navigator.language]).map(pick).find(Boolean) || "es";
+  const t = () => T[lang];
+  const tr = o => o[lang] || o.es;
+
+  function appUrl(extra) {
+    const u = new URL("https://app.aprencat.com/");
+    u.searchParams.set("trial", "1"); u.searchParams.set("lang", lang);
+    for (const [k, v] of params) if (k.startsWith("utm_")) u.searchParams.set(k, v);
+    if (!params.has("utm_source")) { u.searchParams.set("utm_source", "aprencat.com"); u.searchParams.set("utm_campaign", "ruleta"); }
+    Object.entries(extra || {}).forEach(([k, v]) => v && u.searchParams.set(k, v));
+    return u.href;
+  }
+
+  // ---------- Estat ----------
+  let order, qi, answered, won, points, streak, bestStreak, A, pstep, screen = "intro", spun = false, spinning = false, rot = 0;
+  function reset() {
+    order = TRIVIA.map(q => ({...q, opts: q.o.map((o, j) => ({o, right: j === 0})).sort(() => Math.random() - .5)})).sort(() => Math.random() - .5); // la ruleta decideix l'ordre
+    qi = 0; answered = null; spun = false; won = new Set(); points = 0; streak = 0; bestStreak = 0; A = {}; pstep = 0;
+  }
+  reset();
+
+  function show(id) {
+    screen = id;
+    ["intro","q","score","profile","loading","plan"].forEach(s => $("s-" + s).classList.toggle("hide", s !== id));
+    document.body.classList.toggle("dark", id === "intro" || id === "score");
+    if (["profile", "loading", "plan"].includes(id)) music(false);
+    window.scrollTo({top: 0});
+  }
+
+  // ---------- Portada ----------
+  function renderIntro() {
+    $("heroWheel").innerHTML = wheel(226, won, "#123A82", t().chip1, true, "?");
+    $("h1").innerHTML = t().h1;
+    document.querySelectorAll("[data-cat]").forEach(e => { e.textContent = t().cats[+e.dataset.cat]; });
+  }
+
+  // ---------- Trivial ----------
+  function renderQ() {
+    const tx = t(), q = order[qi];
+    $("qcount").textContent = fill(tx.qcount, {n: qi + 1, t: order.length});
+    $("streakN").textContent = streak; $("pts").textContent = points;
+    $("miniWheel").innerHTML = wheel(68, won, "#0B2D6B", fill(tx.got, {n: won.size}), false);
+    if (!spun) {
+      $("qcat").textContent = "?"; $("qcat").style.background = "#FFF6E7";
+      $("qsub").textContent = tx.spinSub;
+      // La ruleta s'adapta a l'alçada de la pantalla perquè el botó es vegi sense fer scroll.
+      const ws = Math.round(Math.max(170, Math.min(270, innerHeight - 400)));
+      $("rwrap").style.width = $("rwrap").style.height = (ws + 20) + "px";
+      $("roulette").innerHTML = wheel(ws, won, "#0B2D6B", tx.spin, true);
+      $("spinStage").classList.remove("hide"); $("qarea").classList.add("hide"); $("after").classList.add("hide"); $("s-q").classList.remove("answered");
+      $("spinBtn").disabled = spinning;
+      return;
+    }
+    $("spinStage").classList.add("hide"); $("qarea").classList.remove("hide");
+    $("qcat").textContent = tx.cats[q.cat].toUpperCase(); $("qcat").style.background = CAT_COLORS[q.cat];
+    $("qtext").textContent = tr(q.q);
+    $("opts").replaceChildren(...q.opts.map((op, j) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "opt";
+      const k = document.createElement("span"); k.className = "k"; k.textContent = "ABC"[j];
+      const s = document.createElement("span"); s.textContent = tr(op.o);
+      b.append(k, s); b.onclick = () => answer(j); return b;
+    }));
+    $("after").classList.add("hide"); $("s-q").classList.remove("answered");
+    if (answered !== null) paintAnswer();
+    else $("qsub").textContent = fill(tx.goFor, {c: tx.colors[q.cat]});
+  }
+
+  /* Gira la ruleta i para al formatget de la pregunta que toca (el sector i té el centre a 30 + 60·i graus des de dalt). */
+  $("spinBtn").onclick = () => {
+    if (spinning || spun) return;
+    spinning = true; $("spinBtn").disabled = true; sfx("ruleta");
+    const cat = order[qi].cat, target = (360 - (30 + 60 * cat)) % 360;
+    rot = rot - (rot % 360) + 360 * 5 + target;
+    const done = () => {
+      // Es veu un moment on ha caigut la ruleta i després surt la pregunta.
+      const tx = t();
+      $("qcat").textContent = tx.cats[cat].toUpperCase(); $("qcat").style.background = CAT_COLORS[cat];
+      $("qsub").textContent = fill(tx.landed, {c: tx.cats[cat]});
+      $("spinBtn").textContent = fill(tx.landed, {c: tx.cats[cat]});
+      setTimeout(() => {
+        spinning = false; spun = true; $("spinBtn").textContent = tx.spin;
+        renderQ(); $("qarea").classList.remove("qarea-in"); void $("qarea").offsetWidth; $("qarea").classList.add("qarea-in");
+      }, reduced() ? 0 : 900);
+    };
+    if (reduced()) { $("rwrap").style.transform = `rotate(${rot}deg)`; done(); return; }
+    $("rwrap").style.transform = `rotate(${rot}deg)`;
+    setTimeout(done, 2750);
+  };
+
+  function answer(j) {
+    if (answered !== null) return;
+    answered = j;
+    const q = order[qi];
+    if (q.opts[j].right) { won.add(q.cat); points += 100; streak++; bestStreak = Math.max(bestStreak, streak); }
+    else streak = 0;
+    $("streakN").textContent = streak; $("pts").textContent = points;
+    $("miniWheel").innerHTML = wheel(68, won, "#0B2D6B", fill(t().got, {n: won.size}), false);
+    paintAnswer();
+    const ok = q.opts[j].right;
+    if (ok) {
+      const btn = $("opts").querySelectorAll(".opt")[j]; const f = document.createElement("span"); f.className = "floatpts"; f.textContent = "+100"; btn.append(f);
+      ["streak", "pts"].forEach(id => { const el = $(id).closest(".pill"); el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); });
+    }
+    // Només si una pantalla molt petita no hi cap tot, es baixa fins al botó «Següent».
+    popup(ok, q.cat, () => { if ($("next").getBoundingClientRect().bottom > innerHeight) $("next").scrollIntoView({behavior: reduced() ? "auto" : "smooth", block: "end"}); });
+  }
+
+  function paintAnswer() {
+    const tx = t(), q = order[qi], ok = q.opts[answered].right, ans = tr(q.opts.find(o => o.right).o);
+    $("opts").querySelectorAll(".opt").forEach((b, k) => {
+      b.disabled = true; const r = q.opts[k].right;
+      if (r) { b.classList.add("right"); b.querySelector(".k").innerHTML = svg("tick"); if (ok) { const p = document.createElement("span"); p.className = "plus"; p.textContent = "+100"; b.append(p); } }
+      else if (k === answered) { b.classList.add("wrong"); b.querySelector(".k").innerHTML = svg("x"); }
+      else b.classList.add("dim");
+    });
+    $("qsub").textContent = fill(ok ? tx.got : tx.miss, {n: won.size});
+    $("verdict").textContent = ok ? tx.right : tx.wrong; $("verdict").className = "verdict " + (ok ? "ok" : "ko");
+    $("factText").textContent = (ok ? "" : fill(tx.correctIs, {a: "«" + ans + "»"}) + " ") + tr(q.f);
+    $("factCa").innerHTML = ""; const lab = document.createTextNode(tx.inCa + " "); const b = document.createElement("b"); b.lang = "ca"; b.textContent = "«" + q.c + "»"; $("factCa").append(lab, b);
+    $("next").textContent = qi === order.length - 1 ? tx.finish : tx.next;
+    $("after").classList.remove("hide"); $("s-q").classList.add("answered"); window.scrollTo({top: 0});
+  }
+
+  $("next").onclick = () => {
+    if (qi < order.length - 1) { qi++; answered = null; spun = false; renderQ(); window.scrollTo({top: 0}); return; }
+    renderScore(); show("score"); celebrate();
+  };
+
+  // ---------- Pop-ups ----------
+  const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let popTimer = null;
+  function popup(ok, cat, after) {
+    const tx = t(), box = $("pop"); clearTimeout(popTimer); sfx(ok ? "acierto" : "fallo");
+    const card = document.createElement("div"); card.className = "popcard";
+    const icon = document.createElement("div"); icon.className = "pi"; icon.style.background = ok ? CAT_COLORS[cat] : "#A7B6E8";
+    icon.innerHTML = ok ? svg("tick") : svg("help");
+    const title = document.createElement("div"); title.className = "pt"; title.textContent = ok ? fill(tx.popGot, {c: tx.colors[cat]}) : tx.popMiss;
+    card.append(icon, title);
+    if (ok) {
+      const pts = document.createElement("span"); pts.className = "pp"; pts.textContent = tx.popPts; card.append(pts);
+      if (streak >= 2) { const k = document.createElement("div"); k.className = "pk"; k.innerHTML = svg("flame"); k.append(document.createTextNode(fill(streak >= 3 ? tx.popHot : tx.popStreak, {n: streak}))); card.append(k); }
+    } else { const sub = document.createElement("div"); sub.className = "ps"; sub.textContent = tx.popMissSub; card.append(sub); }
+    box.replaceChildren(card);
+    if (ok && won.size && !reduced()) confetti(28, 0.35);
+    const close = () => { clearTimeout(popTimer); card.classList.add("out"); setTimeout(() => { if (box.contains(card)) box.replaceChildren(); if (after) after(); }, reduced() ? 0 : 230); };
+    card.addEventListener("click", close, {once: true});
+    popTimer = setTimeout(close, ok ? 1400 : 1200);
+  }
+
+  /* Confeti amb els colors de la marca (canvas, sense dependències). */
+  function confetti(n, spread) {
+    if (reduced()) return;
+    const cv = $("confetti"), ctx = cv.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cols = ["#F6C86B", "#F28B6B", "#A7B6E8", "#FFF6E7", "#D4552C", "#5F78C4"];
+    const parts = Array.from({length: n}, () => ({x: innerWidth / 2 + (Math.random() - .5) * innerWidth * spread, y: innerHeight * .35, vx: (Math.random() - .5) * 9, vy: -Math.random() * 11 - 4, r: Math.random() * Math.PI, vr: (Math.random() - .5) * .3, w: 7 + Math.random() * 6, h: 10 + Math.random() * 8, c: cols[Math.floor(Math.random() * cols.length)]}));
+    const start = performance.now();
+    (function frame(tm) {
+      const el = tm - start; ctx.clearRect(0, 0, innerWidth, innerHeight);
+      parts.forEach(p => { p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.max(0, 1 - el / 2600); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); });
+      if (el < 2600) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    })(start);
+  }
+
+  function celebrate() {
+    const sec = $("s-score"); sec.classList.remove("celebrate"); void sec.offsetWidth; sec.classList.add("celebrate");
+    const n = won.size; sfx("victoria"); confetti(60 + n * 25, 0.9); if (n >= 5) setTimeout(() => confetti(90, 1), 700);
+    // Els punts compten cap amunt
+    if (reduced()) return;
+    const target = points, t0 = performance.now(), tx = t();
+    (function count(tm) { const k = Math.min(1, (tm - t0) / 1100); $("statPts").innerHTML = svg("star") + fill(tx.pts, {n: Math.round(target * k)}); if (k < 1) requestAnimationFrame(count); })(t0);
+  }
+
+  // ---------- Resultat ----------
+  function badgeIdx() { const n = won.size; return n <= 2 ? 0 : n <= 4 ? 1 : n === 5 ? 2 : 3; }
+  function renderScore() {
+    const tx = t(), n = won.size;
+    $("bigWheel").innerHTML = wheel(218, won, "#123A82", fill(tx.missing, {n, c: ""}), false, n + "/6");
+    $("badge").textContent = tx.badges[badgeIdx()];
+    $("congrats").textContent = tx.congrats[badgeIdx()];
+    const missing = [0,1,2,3,4,5].filter(i => !won.has(i)).map(i => tx.cats[i]);
+    $("badgeSub").textContent = (n === 6 ? tx.all : fill(tx.missing, {n, c: missing.join(", ")})) + " " + tx.badgeSub[badgeIdx()];
+    $("statStreak").innerHTML = svg("flame") + fill(tx.streak, {n: bestStreak});
+    $("statPts").innerHTML = svg("star") + fill(tx.pts, {n: points});
+  }
+  $("share").onclick = async () => {
+    const url = "https://aprencat.com/test-de-nivell/?utm_source=share&utm_campaign=ruleta&lang=" + lang;
+    const text = fill(t().shareText, {n: won.size});
+    try {
+      if (navigator.share) { await navigator.share({title: "Ruleta ACat", text, url}); return; }
+      await navigator.clipboard.writeText(text + " " + url);
+      $("toast").classList.remove("hide");
+    } catch (e) { /* L'usuari ha cancel·lat o no hi ha porta-retalls. */ }
+  };
+  $("again").onclick = e => { e.preventDefault(); reset(); renderQ(); show("q"); };
+  $("toProfile").onclick = () => { pstep = 0; renderProfile(); show("profile"); };
+
+  // ---------- Perfil ----------
+  function renderProfile() {
+    const tx = t(), st = PROFILE[pstep], q = tx.p[st.id], sel = A[st.id];
+    $("pcount").textContent = fill(tx.pcount, {n: pstep + 1});
+    $("pbar").style.width = ((pstep) / PROFILE.length * 100) + "%";
+    $("phint").textContent = st.type === "multi" ? tx.multi : tx.one;
+    $("pq").textContent = q.q;
+    $("popts").replaceChildren(...q.o.map((label, j) => {
+      const b = document.createElement("button"); b.type = "button"; b.className = "popt";
+      const on = st.type === "multi" ? (sel || []).includes(j) : sel === j;
+      if (on) b.classList.add("sel"); b.setAttribute("aria-pressed", on);
+      const i = document.createElement("span"); i.className = "ico"; i.setAttribute("aria-hidden", "true");
+      const icon = PICONS[st.id][j]; if (SVG[icon]) i.innerHTML = svg(icon); else i.textContent = icon;
+      const s = document.createElement("span"); s.textContent = label;
+      b.append(i, s); b.onclick = () => choose(st, j); return b;
+    }));
+    $("pnext").textContent = pstep === PROFILE.length - 1 ? tx.pfinish : tx.pnext;
+    $("pnext").disabled = st.type === "multi" ? !(sel && sel.length) : sel === undefined;
+  }
+  function choose(st, j) {
+    if (st.type === "multi") {
+      const s = new Set(A[st.id] || []); s.has(j) ? s.delete(j) : s.add(j);
+      const excl = st.excl || [];
+      if (excl.includes(j) && s.has(j)) { s.clear(); s.add(j); } else if (!excl.includes(j)) excl.forEach(x => s.delete(x));
+      A[st.id] = [...s];
+    } else A[st.id] = j;
+    const sel = A[st.id];
+    $("popts").querySelectorAll(".popt").forEach((b, k) => { const on = st.type === "multi" ? sel.includes(k) : sel === k; b.classList.toggle("sel", on); b.setAttribute("aria-pressed", on); });
+    $("pnext").disabled = st.type === "multi" ? !sel.length : false;
+  }
+  $("pnext").onclick = () => {
+    if (pstep < PROFILE.length - 1) { pstep++; renderProfile(); return; }
+    show("loading");
+    const ul = $("lsteps"); ul.replaceChildren(...t().lsteps.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
+    const fast = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    [...ul.children].forEach((li, i) => setTimeout(() => li.classList.add("on"), fast ? 0 : 450 * (i + 1)));
+    setTimeout(() => { renderPlan(); show("plan"); }, fast ? 300 : 1900);
+  };
+
+  // ---------- Pla ----------
+  function renderPlan() {
+    const tx = t();
+    $("planTitle").textContent = tx.titles[A.sit ?? 0];
+    const map = ["listen","speak","write","exam","time"], icons = {listen:"ear",speak:"speech",write:"pen",exam:"check",time:"clock"};
+    let keys = (A.pain || []).map(i => map[i]);
+    if (A.sit === 3 && !keys.includes("exam")) keys.push("exam");
+    if (!keys.includes("time")) keys.push("time");
+    keys = [...new Set(keys)].slice(0, 3);
+    $("how").replaceChildren(...keys.map(k => { const li = document.createElement("li"); const i = document.createElement("i"); i.innerHTML = svg(icons[k]); const s = document.createElement("span"); const b = document.createElement("b"); b.textContent = tx.how[k][0] + ": "; s.append(b, document.createTextNode(tx.how[k][1])); li.append(i, s); return li; }));
+
+    const exams = (A.goal || []).filter(i => i <= 3).sort();
+    const planFor = n => PLANS.find(p => p.count === Math.max(1, Math.min(4, n)));
+    const levelsTxt = n => n === 4 ? tx.planAll : n === 1 ? tx.plan1 : fill(tx.planN, {n});
+    let count, html;
+    if (exams.length) {
+      count = exams.length;
+      const names = exams.map(i => LEVELS[i]);
+      const l = names.length > 1 ? names.slice(0, -1).join(", ") + tx.join + names.at(-1) : names[0];
+      html = fill(exams.length > 1 ? tx.recExamN : tx.recExam1, {l, p: planFor(count).title, n: levelsTxt(count)});
+    } else if ((A.goal || []).includes(4)) { count = 2; html = fill(tx.recDaily, {p: planFor(2).title, n: levelsTxt(2)}); }
+    else { count = 1; html = fill(tx.recUnsure, {p: planFor(1).title, n: levelsTxt(1)}); }
+    const rec = planFor(count);
+    $("rec").innerHTML = html;
+
+    $("offer").classList.toggle("hide", !showOffer);
+    $("preview").classList.toggle("hide", !preview);
+    const last = new Date(Date.parse(OFFER.ends) - 1);
+    $("offerSub").textContent = fill(tx.offerSub, {d: new Intl.DateTimeFormat(lang, {day: "numeric", month: "numeric", timeZone: "Europe/Andorra"}).format(last)});
+    const eur = n => new Intl.NumberFormat(lang, {style: "currency", currency: "EUR"}).format(n);
+    $("plans").replaceChildren(...[rec, ...PLANS.filter(p => p !== rec)].map(p => {
+      const el = document.createElement("article"); el.className = "plan" + (p === rec ? " on" : "");
+      if (p === rec) { const tg = document.createElement("span"); tg.className = "tag"; tg.textContent = tx.recTag; el.append(tg); }
+      const h = document.createElement("h3"); h.textContent = p.title;
+      const pr = document.createElement("span"); pr.className = "pr";
+      if (showOffer) { const d = document.createElement("del"); d.textContent = eur(p.amount); pr.append(d); }
+      pr.append(document.createTextNode(eur(showOffer ? OFFER.amounts[p.key] : p.amount)));
+      const d = document.createElement("span"); d.className = "d"; d.textContent = levelsTxt(p.count) + " · " + fill(tx.months, {n: p.months});
+      const a = document.createElement("a"); a.className = "btn" + (p === rec ? " big" : ""); a.textContent = p === rec ? tx.cta : tx.want;
+      if (preview) { a.setAttribute("aria-disabled", "true"); a.style.opacity = ".55"; a.style.pointerEvents = "none"; }
+      else a.href = appUrl({plan: p.key, level: LEVELS[exams[0] ?? 0]});
+      el.append(h, pr, d, a); return el;
+    }));
+    $("free").href = appUrl({level: LEVELS[exams[0] ?? 0]});
+  }
+
+  // ---------- Idioma ----------
+  function applyTexts() {
+    document.documentElement.lang = lang; $("lang").value = lang;
+    document.querySelectorAll("[data-t]").forEach(e => { e.textContent = t()[e.dataset.t]; });
+    $("skip").href = appUrl();
+    renderIntro();
+    if (screen === "q") renderQ();
+    if (screen === "score") renderScore();
+    if (screen === "profile") renderProfile();
+    if (screen === "plan") renderPlan();
+  }
+  /* Música de fons: només sona després de tocar «A jugar!»; el botó la silencia (es recorda). */
+  const bgm = $("bgm"); bgm.volume = 0.35;
+  let soundOn = true; try { soundOn = localStorage.getItem("acat_sound") !== "off"; } catch (e) {}
+  function paintSound() { $("sound").setAttribute("aria-pressed", soundOn); $("sndOn").style.display = soundOn ? "" : "none"; $("sndOff").style.display = soundOn ? "none" : ""; }
+  function music(play) { if (play && soundOn) bgm.play().catch(() => {}); else bgm.pause(); }
+  /* Efectes: ruleta, encert, fallada i victòria. Es carreguen en tocar «A jugar!». */
+  const SFX = {}; const SFX_VOL = {ruleta: .7, acierto: .8, fallo: .7, victoria: .9};
+  function loadSfx() { Object.keys(SFX_VOL).forEach(k => { if (!SFX[k]) { const a = new Audio("/assets/ruleta/" + k + ".mp3"); a.preload = "auto"; a.volume = SFX_VOL[k]; SFX[k] = a; } }); }
+  function sfx(k) { if (!soundOn || !SFX[k]) return; try { SFX[k].currentTime = 0; SFX[k].play().catch(() => {}); } catch (e) {} }
+  $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
+  paintSound();
+  $("start").onclick = () => { loadSfx(); reset(); renderQ(); show("q"); music(true); };
+  $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
+  applyTexts();
+})();
+</script>
+</body>
+</html>
