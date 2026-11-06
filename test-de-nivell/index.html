@@ -80,6 +80,22 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
 .fact .ca{color:var(--muted);font-size:14px}
 .fact .ca b{color:var(--navy)}
 .actions{margin-top:18px}
+/* Sense scroll entre preguntes: en respondre s'amaguen les opcions descartades i tot es compacta. */
+#s-q.answered .opt.dim{display:none}
+#s-q.answered .qhead{margin-top:10px}
+#s-q.answered .qbox{margin-top:12px;padding:16px 18px}
+#s-q.answered .opts{margin-top:12px;gap:10px}
+#s-q.answered .verdict{margin-top:10px;font-size:24px;line-height:1.2}
+#s-q.answered .fact{padding:12px 14px;gap:4px;font-size:14.5px;line-height:1.45}
+#s-q.answered .actions{margin-top:12px}
+@media (max-height:740px){
+ .qhead{margin-top:10px}.qhead .disc{width:60px!important;height:60px!important}
+ .qbox{margin-top:12px;padding:16px 18px}.opts{margin-top:12px;gap:10px}.opt{min-height:54px;padding:9px 14px}
+ .spin-stage{margin-top:12px}#spinStage .btn{margin-top:14px}
+ #s-q.answered .fact .h{display:none}
+}
+@media (max-height:660px){#s-q.answered .qhead{display:none}#s-q.answered .top{margin-bottom:4px}}
+body:has(#s-q:not(.hide)){padding-bottom:12px}
 /* Resultat */
 .center{text-align:center;display:flex;flex-direction:column;align-items:center}
 .badge{margin-top:16px;font-size:clamp(26px,7vw,30px);line-height:1.15;font-weight:800}
@@ -486,8 +502,11 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     if (!spun) {
       $("qcat").textContent = "?"; $("qcat").style.background = "#FFF6E7";
       $("qsub").textContent = tx.spinSub;
-      $("roulette").innerHTML = wheel(270, won, "#0B2D6B", tx.spin, true);
-      $("spinStage").classList.remove("hide"); $("qarea").classList.add("hide"); $("after").classList.add("hide");
+      // La ruleta s'adapta a l'alçada de la pantalla perquè el botó es vegi sense fer scroll.
+      const ws = Math.round(Math.max(170, Math.min(270, innerHeight - 400)));
+      $("rwrap").style.width = $("rwrap").style.height = (ws + 20) + "px";
+      $("roulette").innerHTML = wheel(ws, won, "#0B2D6B", tx.spin, true);
+      $("spinStage").classList.remove("hide"); $("qarea").classList.add("hide"); $("after").classList.add("hide"); $("s-q").classList.remove("answered");
       $("spinBtn").disabled = spinning;
       return;
     }
@@ -500,7 +519,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       const s = document.createElement("span"); s.textContent = tr(op.o);
       b.append(k, s); b.onclick = () => answer(j); return b;
     }));
-    $("after").classList.add("hide");
+    $("after").classList.add("hide"); $("s-q").classList.remove("answered");
     if (answered !== null) paintAnswer();
     else $("qsub").textContent = fill(tx.goFor, {c: tx.colors[q.cat]});
   }
@@ -541,7 +560,8 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       const btn = $("opts").querySelectorAll(".opt")[j]; const f = document.createElement("span"); f.className = "floatpts"; f.textContent = "+100"; btn.append(f);
       ["streak", "pts"].forEach(id => { const el = $(id).closest(".pill"); el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); });
     }
-    popup(ok, q.cat, () => $("after").scrollIntoView({behavior: reduced() ? "auto" : "smooth", block: "nearest"}));
+    // Només si una pantalla molt petita no hi cap tot, es baixa fins al botó «Següent».
+    popup(ok, q.cat, () => { if ($("next").getBoundingClientRect().bottom > innerHeight) $("next").scrollIntoView({behavior: reduced() ? "auto" : "smooth", block: "end"}); });
   }
 
   function paintAnswer() {
@@ -557,7 +577,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     $("factText").textContent = (ok ? "" : fill(tx.correctIs, {a: "«" + ans + "»"}) + " ") + tr(q.f);
     $("factCa").innerHTML = ""; const lab = document.createTextNode(tx.inCa + " "); const b = document.createElement("b"); b.lang = "ca"; b.textContent = "«" + q.c + "»"; $("factCa").append(lab, b);
     $("next").textContent = qi === order.length - 1 ? tx.finish : tx.next;
-    $("after").classList.remove("hide");
+    $("after").classList.remove("hide"); $("s-q").classList.add("answered"); window.scrollTo({top: 0});
   }
 
   $("next").onclick = () => {
