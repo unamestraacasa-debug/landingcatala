@@ -128,7 +128,38 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
 .plan:not(.on) .btn{background:#EEF1FA;color:var(--navy)}
 .once{text-align:center;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 0}
 .preview{background:var(--groc);color:var(--navy);font-weight:800;text-align:center;border-radius:12px;padding:8px;margin-top:14px;font-size:13px}
-@media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}}
+/* Ruleta */
+.spin-stage{display:flex;flex-direction:column;align-items:center;margin-top:22px;gap:0}
+.pointer{position:relative;z-index:2;width:0;height:0;border-left:18px solid transparent;border-right:18px solid transparent;border-top:30px solid var(--corall);margin-bottom:-16px;filter:drop-shadow(0 3px 3px rgba(11,45,107,.3))}
+.rwrap{width:290px;height:290px;border-radius:50%;background:var(--navy);display:grid;place-items:center;box-shadow:0 16px 40px rgba(11,45,107,.25);transition:transform 2.6s cubic-bezier(.12,.75,.18,1)}
+.spin-stage .btn{margin-top:26px}
+.qarea-in{animation:popIn .45s cubic-bezier(.2,1.4,.4,1) both}
+/* Pop-ups i celebració */
+#pop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:50;padding:24px}
+.popcard{pointer-events:auto;background:var(--navy);color:#fff;border-radius:30px;padding:26px 28px;min-width:260px;max-width:340px;text-align:center;box-shadow:0 24px 60px rgba(11,45,107,.35);animation:popIn .45s cubic-bezier(.2,1.4,.4,1) both}
+.popcard.out{animation:popOut .25s ease-in both}
+.popcard .pi{width:84px;height:84px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center}
+.popcard .pi svg{width:42px;height:42px;fill:none;stroke:var(--navy);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.popcard .pt{font-size:26px;font-weight:800;line-height:1.15}
+.popcard .ps{margin-top:6px;font-size:16px;font-weight:700;color:var(--lavanda)}
+.popcard .pp{display:inline-block;margin-top:12px;font-size:20px;font-weight:800;color:var(--navy);background:var(--groc);border-radius:999px;padding:6px 16px}
+.popcard .pk{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:10px;font-size:16px;font-weight:800;color:var(--groc)}
+.popcard .pk svg{width:20px;height:20px;fill:none;stroke:var(--groc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@keyframes popIn{0%{transform:scale(.4) rotate(-6deg);opacity:0}70%{transform:scale(1.06) rotate(1deg);opacity:1}100%{transform:scale(1) rotate(0)}}
+@keyframes popOut{to{transform:scale(.7);opacity:0}}
+.floatpts{position:absolute;right:16px;top:-6px;font-weight:800;color:var(--corall);font-size:22px;animation:floatUp 1s ease-out forwards;pointer-events:none}
+.opt{position:relative}
+@keyframes floatUp{0%{transform:translateY(0);opacity:1}100%{transform:translateY(-46px);opacity:0}}
+.pill.bump{animation:bump .4s ease}
+@keyframes bump{50%{transform:scale(1.25)}}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:40}
+.congrats{margin:8px 0 0;font-size:clamp(34px,9vw,42px);font-weight:800;letter-spacing:-.02em;color:var(--groc)}
+.celebrate .congrats{animation:popIn .6s cubic-bezier(.2,1.4,.4,1) both}
+.celebrate .disc{animation:spinIn .9s cubic-bezier(.2,1.2,.4,1) both .15s}
+.celebrate .badge{animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both .7s}
+.celebrate .stats{animation:popIn .5s ease both .95s}
+@keyframes spinIn{0%{transform:scale(.3) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+@media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}}
 </style>
 </head>
 <body class="dark">
@@ -175,8 +206,15 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
         <span class="sub" id="qsub"></span>
       </div>
     </div>
-    <div class="qbox"><p class="q" id="qtext"></p></div>
-    <div class="opts" id="opts"></div>
+    <div class="spin-stage" id="spinStage">
+      <div class="pointer" aria-hidden="true"></div>
+      <div class="rwrap" id="rwrap"><span id="roulette"></span></div>
+      <button class="btn corall" id="spinBtn" type="button" data-t="spin"></button>
+    </div>
+    <div id="qarea" class="hide">
+      <div class="qbox"><p class="q" id="qtext"></p></div>
+      <div class="opts" id="opts"></div>
+    </div>
     <div id="after" class="hide">
       <p class="verdict" id="verdict" lang="ca"></p>
       <div class="fact">
@@ -191,7 +229,8 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   <!-- Resultat -->
   <section id="s-score" class="hide center">
     <span class="kicker" data-t="yourScore"></span>
-    <div class="disc" style="width:236px;height:236px;margin-top:18px"><span id="bigWheel"></span></div>
+    <p class="congrats" id="congrats"></p>
+    <div class="disc" style="width:236px;height:236px;margin-top:14px"><span id="bigWheel"></span></div>
     <p class="badge" id="badge" lang="ca"></p>
     <p id="badgeSub" style="margin:8px 0 0;color:var(--crema)"></p>
     <div class="stats"><span id="statStreak"></span><span id="statPts"></span></div>
@@ -231,6 +270,8 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   </section>
 </main>
 </div>
+<div id="pop" role="status" aria-live="assertive"></div>
+<canvas id="confetti" aria-hidden="true"></canvas>
 
 <script>
 (() => {
@@ -284,7 +325,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   ];
 
   const T = {
-    es:{h1:"¿Cuánto sabes de <span style='color:#F6C86B'>Andorra</span> y del <span style='color:#F28B6B'>catalán</span>?",chip1:"6 quesitos",chip2:"1 minuto",chip3:"Sin registro",start:"¡A jugar!",skip:"Prefiero probar la app directamente",
+    es:{spin:"¡Gira la ruleta!",spinSub:"Gira y descubre qué quesito te toca",landed:"¡Te toca {c}!",popGot:"¡Quesito {c}!",popPts:"+100 puntos",popStreak:"¡En racha! x{n}",popHot:"¡Imparable! x{n}",popMiss:"¡Casi!",popMissSub:"El siguiente quesito es tuyo",congrats:["¡Buen comienzo!","¡Muy bien!","¡Enhorabuena!","¡Increíble! ¡Pleno!"],h1:"¿Cuánto sabes de <span style='color:#F6C86B'>Andorra</span> y del <span style='color:#F28B6B'>catalán</span>?",chip1:"6 quesitos",chip2:"1 minuto",chip3:"Sin registro",start:"¡A jugar!",skip:"Prefiero probar la app directamente",
       cats:["Andorra","Palabras","Expresiones","Cultura","Gramática","Falsos amigos"],qcount:"Pregunta {n} de {t}",goFor:"A por el quesito {c}",colors:["amarillo","coral","lavanda","crema","teja","azul"],got:"¡Quesito conseguido! Llevas {n} de 6",miss:"Este quesito se te escapa · llevas {n} de 6",
       right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La respuesta era: {a}.",didYouKnow:"¿Sabías que…?",inCa:"En catalán:",next:"Siguiente",finish:"Ver mi resultado",
       yourScore:"Tu resultado",streak:"Mejor racha: {n}",pts:"{n} puntos",missing:"Tienes {n} de 6 quesitos. Te falta: {c}.",all:"¡Los 6 quesitos! Ahora, a por el catalán de verdad.",toProfile:"Ver mi plan en 3 preguntas",share:"Compartir y retar a un amigo",copied:"Enlace copiado. ¡Pégalo donde quieras!",again:"Jugar otra vez",
@@ -300,7 +341,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       offer1:"Por ser de",offer2:"los primeros",offerSub:"En todos los planes · hasta el {d}",preview:"VISTA PREVIA · oferta aún no activa · compra desactivada",recTag:"RECOMENDADO PARA TI",want:"Quiero este plan",
       plan1:"1 nivel",planN:"{n} niveles",planAll:"A1, A2, B1 y B2",months:"{n} meses",once:"Pago único, sin renovaciones. La misma cuenta en la web y en la app.",free:"Probar gratis la primera unidad (sin tarjeta)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["¡Buen comienzo! Con AprènCat lo subes en nada.","Vas por buen camino.","¡Casi en la cima!","¡Perfecto! Eres un/a crack."]},
-    ca:{h1:"Quant saps d’<span style='color:#F6C86B'>Andorra</span> i del <span style='color:#F28B6B'>català</span>?",chip1:"6 formatgets",chip2:"1 minut",chip3:"Sense registre",start:"A jugar!",skip:"Prefereixo provar l’app directament",
+    ca:{spin:"Gira la ruleta!",spinSub:"Gira i descobreix quin formatget et toca",landed:"Et toca {c}!",popGot:"Formatget {c}!",popPts:"+100 punts",popStreak:"En ratxa! x{n}",popHot:"Imparable! x{n}",popMiss:"Gairebé!",popMissSub:"El pròxim formatget és teu",congrats:["Bon començament!","Molt bé!","Enhorabona!","Increïble! Ple!"],h1:"Quant saps d’<span style='color:#F6C86B'>Andorra</span> i del <span style='color:#F28B6B'>català</span>?",chip1:"6 formatgets",chip2:"1 minut",chip3:"Sense registre",start:"A jugar!",skip:"Prefereixo provar l’app directament",
       cats:["Andorra","Paraules","Expressions","Cultura","Gramàtica","Falsos amics"],qcount:"Pregunta {n} de {t}",goFor:"A pel formatget {c}",colors:["groc","corall","lavanda","crema","teula","blau"],got:"Formatget aconseguit! En portes {n} de 6",miss:"Aquest formatget se t’escapa · en portes {n} de 6",
       right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La resposta era: {a}.",didYouKnow:"Sabies que…?",inCa:"Per dir-ho:",next:"Següent",finish:"Veure el meu resultat",
       yourScore:"El teu resultat",streak:"Millor ratxa: {n}",pts:"{n} punts",missing:"Tens {n} de 6 formatgets. Et falta: {c}.",all:"Els 6 formatgets! Ara, a pel català de veritat.",toProfile:"Veure el meu pla en 3 preguntes",share:"Comparteix i repta un amic",copied:"Enllaç copiat. Enganxa’l on vulguis!",again:"Tornar a jugar",
@@ -316,7 +357,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       offer1:"Per ser dels",offer2:"primers",offerSub:"En tots els plans · fins al {d}",preview:"VISTA PRÈVIA · oferta encara no activa · compra desactivada",recTag:"RECOMANAT PER A TU",want:"Vull aquest pla",
       plan1:"1 nivell",planN:"{n} nivells",planAll:"A1, A2, B1 i B2",months:"{n} mesos",once:"Pagament únic, sense renovacions. El mateix compte a la web i a l’app.",free:"Prova gratis la primera unitat (sense targeta)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon començament! Amb AprènCat ho puges en res.","Vas per bon camí.","Gairebé al cim!","Perfecte! Ets un crac."]},
-    fr:{h1:"Que sais-tu de l’<span style='color:#F6C86B'>Andorre</span> et du <span style='color:#F28B6B'>catalan</span> ?",chip1:"6 parts de fromage",chip2:"1 minute",chip3:"Sans inscription",start:"On joue !",skip:"Je préfère essayer l’app directement",
+    fr:{spin:"Fais tourner la roue !",spinSub:"Tourne et découvre ta catégorie",landed:"C’est {c} !",popGot:"Part {c} !",popPts:"+100 points",popStreak:"En série ! x{n}",popHot:"Inarrêtable ! x{n}",popMiss:"Presque !",popMissSub:"La prochaine part est pour toi",congrats:["Bon début !","Très bien !","Félicitations !","Incroyable ! Sans faute !"],h1:"Que sais-tu de l’<span style='color:#F6C86B'>Andorre</span> et du <span style='color:#F28B6B'>catalan</span> ?",chip1:"6 parts de fromage",chip2:"1 minute",chip3:"Sans inscription",start:"On joue !",skip:"Je préfère essayer l’app directement",
       cats:["Andorre","Mots","Expressions","Culture","Grammaire","Faux amis"],qcount:"Question {n} sur {t}",goFor:"Pour la part {c}",colors:["jaune","corail","lavande","crème","brique","bleue"],got:"Part gagnée ! Tu en as {n} sur 6",miss:"Cette part t’échappe · tu en as {n} sur 6",
       right:"Molt bé ! +100",wrong:"Presque !",correctIs:"La réponse était : {a}.",didYouKnow:"Le savais-tu ?",inCa:"En catalan :",next:"Suivant",finish:"Voir mon résultat",
       yourScore:"Ton résultat",streak:"Meilleure série : {n}",pts:"{n} points",missing:"Tu as {n} parts sur 6. Il te manque : {c}.",all:"Les 6 parts ! Maintenant, au vrai catalan.",toProfile:"Voir mon plan en 3 questions",share:"Partager et défier un ami",copied:"Lien copié. Colle-le où tu veux !",again:"Rejouer",
@@ -332,7 +373,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
       offer1:"Parce que tu es",offer2:"parmi les premiers",offerSub:"Sur toutes les formules · jusqu’au {d}",preview:"APERÇU · offre pas encore active · achat désactivé",recTag:"RECOMMANDÉ POUR TOI",want:"Je veux cette formule",
       plan1:"1 niveau",planN:"{n} niveaux",planAll:"A1, A2, B1 et B2",months:"{n} mois",once:"Paiement unique, sans renouvellement. Le même compte sur le web et dans l’app.",free:"Essayer gratuitement la première unité (sans carte)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon début ! Avec AprènCat, tu progresses vite.","Tu es sur la bonne voie.","Presque au sommet !","Parfait ! Bravo."]},
-    en:{h1:"How much do you know about <span style='color:#F6C86B'>Andorra</span> and <span style='color:#F28B6B'>Catalan</span>?",chip1:"6 wedges",chip2:"1 minute",chip3:"No sign-up",start:"Let’s play!",skip:"I’d rather try the app right away",
+    en:{spin:"Spin the wheel!",spinSub:"Spin to find out your category",landed:"It’s {c}!",popGot:"{c} wedge!",popPts:"+100 points",popStreak:"On a streak! x{n}",popHot:"Unstoppable! x{n}",popMiss:"So close!",popMissSub:"The next wedge is yours",congrats:["Good start!","Well done!","Congratulations!","Amazing! Perfect score!"],h1:"How much do you know about <span style='color:#F6C86B'>Andorra</span> and <span style='color:#F28B6B'>Catalan</span>?",chip1:"6 wedges",chip2:"1 minute",chip3:"No sign-up",start:"Let’s play!",skip:"I’d rather try the app right away",
       cats:["Andorra","Words","Expressions","Culture","Grammar","False friends"],qcount:"Question {n} of {t}",goFor:"Going for the {c} wedge",colors:["yellow","coral","lavender","cream","brick","blue"],got:"Wedge won! You have {n} of 6",miss:"This wedge got away · you have {n} of 6",
       right:"Molt bé! +100",wrong:"Almost!",correctIs:"The answer was: {a}.",didYouKnow:"Did you know?",inCa:"In Catalan:",next:"Next",finish:"See my result",
       yourScore:"Your result",streak:"Best streak: {n}",pts:"{n} points",missing:"You have {n} of 6 wedges. Missing: {c}.",all:"All 6 wedges! Now for some real Catalan.",toProfile:"See my plan in 3 questions",share:"Share and challenge a friend",copied:"Link copied. Paste it anywhere!",again:"Play again",
@@ -390,10 +431,10 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   }
 
   // ---------- Estat ----------
-  let order, qi, answered, won, points, streak, bestStreak, A, pstep, screen = "intro";
+  let order, qi, answered, won, points, streak, bestStreak, A, pstep, screen = "intro", spun = false, spinning = false, rot = 0;
   function reset() {
-    order = TRIVIA.map(q => ({...q, opts: q.o.map((o, j) => ({o, right: j === 0})).sort(() => Math.random() - .5)}));
-    qi = 0; answered = null; won = new Set(); points = 0; streak = 0; bestStreak = 0; A = {}; pstep = 0;
+    order = TRIVIA.map(q => ({...q, opts: q.o.map((o, j) => ({o, right: j === 0})).sort(() => Math.random() - .5)})).sort(() => Math.random() - .5); // la ruleta decideix l'ordre
+    qi = 0; answered = null; spun = false; won = new Set(); points = 0; streak = 0; bestStreak = 0; A = {}; pstep = 0;
   }
   reset();
 
@@ -417,6 +458,15 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     $("qcount").textContent = fill(tx.qcount, {n: qi + 1, t: order.length});
     $("streakN").textContent = streak; $("pts").textContent = points;
     $("miniWheel").innerHTML = wheel(68, won, "#0B2D6B", fill(tx.got, {n: won.size}), false);
+    if (!spun) {
+      $("qcat").textContent = "?"; $("qcat").style.background = "#FFF6E7";
+      $("qsub").textContent = tx.spinSub;
+      $("roulette").innerHTML = wheel(270, won, "#0B2D6B", tx.spin, true);
+      $("spinStage").classList.remove("hide"); $("qarea").classList.add("hide"); $("after").classList.add("hide");
+      $("spinBtn").disabled = spinning;
+      return;
+    }
+    $("spinStage").classList.add("hide"); $("qarea").classList.remove("hide");
     $("qcat").textContent = tx.cats[q.cat].toUpperCase(); $("qcat").style.background = CAT_COLORS[q.cat];
     $("qtext").textContent = tr(q.q);
     $("opts").replaceChildren(...q.opts.map((op, j) => {
@@ -430,6 +480,28 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     else $("qsub").textContent = fill(tx.goFor, {c: tx.colors[q.cat]});
   }
 
+  /* Gira la ruleta i para al formatget de la pregunta que toca (el sector i té el centre a 30 + 60·i graus des de dalt). */
+  $("spinBtn").onclick = () => {
+    if (spinning || spun) return;
+    spinning = true; $("spinBtn").disabled = true;
+    const cat = order[qi].cat, target = (360 - (30 + 60 * cat)) % 360;
+    rot = rot - (rot % 360) + 360 * 5 + target;
+    const done = () => {
+      // Es veu un moment on ha caigut la ruleta i després surt la pregunta.
+      const tx = t();
+      $("qcat").textContent = tx.cats[cat].toUpperCase(); $("qcat").style.background = CAT_COLORS[cat];
+      $("qsub").textContent = fill(tx.landed, {c: tx.cats[cat]});
+      $("spinBtn").textContent = fill(tx.landed, {c: tx.cats[cat]});
+      setTimeout(() => {
+        spinning = false; spun = true; $("spinBtn").textContent = tx.spin;
+        renderQ(); $("qarea").classList.remove("qarea-in"); void $("qarea").offsetWidth; $("qarea").classList.add("qarea-in");
+      }, reduced() ? 0 : 900);
+    };
+    if (reduced()) { $("rwrap").style.transform = `rotate(${rot}deg)`; done(); return; }
+    $("rwrap").style.transform = `rotate(${rot}deg)`;
+    setTimeout(done, 2750);
+  };
+
   function answer(j) {
     if (answered !== null) return;
     answered = j;
@@ -439,7 +511,12 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     $("streakN").textContent = streak; $("pts").textContent = points;
     $("miniWheel").innerHTML = wheel(68, won, "#0B2D6B", fill(t().got, {n: won.size}), false);
     paintAnswer();
-    $("after").scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest"});
+    const ok = q.opts[j].right;
+    if (ok) {
+      const btn = $("opts").querySelectorAll(".opt")[j]; const f = document.createElement("span"); f.className = "floatpts"; f.textContent = "+100"; btn.append(f);
+      ["streak", "pts"].forEach(id => { const el = $(id).closest(".pill"); el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); });
+    }
+    popup(ok, q.cat, () => $("after").scrollIntoView({behavior: reduced() ? "auto" : "smooth", block: "nearest"}));
   }
 
   function paintAnswer() {
@@ -459,9 +536,54 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
   }
 
   $("next").onclick = () => {
-    if (qi < order.length - 1) { qi++; answered = null; renderQ(); window.scrollTo({top: 0}); return; }
-    renderScore(); show("score");
+    if (qi < order.length - 1) { qi++; answered = null; spun = false; renderQ(); window.scrollTo({top: 0}); return; }
+    renderScore(); show("score"); celebrate();
   };
+
+  // ---------- Pop-ups ----------
+  const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let popTimer = null;
+  function popup(ok, cat, after) {
+    const tx = t(), box = $("pop"); clearTimeout(popTimer);
+    const card = document.createElement("div"); card.className = "popcard";
+    const icon = document.createElement("div"); icon.className = "pi"; icon.style.background = ok ? CAT_COLORS[cat] : "#A7B6E8";
+    icon.innerHTML = ok ? svg("tick") : svg("help");
+    const title = document.createElement("div"); title.className = "pt"; title.textContent = ok ? fill(tx.popGot, {c: tx.colors[cat]}) : tx.popMiss;
+    card.append(icon, title);
+    if (ok) {
+      const pts = document.createElement("span"); pts.className = "pp"; pts.textContent = tx.popPts; card.append(pts);
+      if (streak >= 2) { const k = document.createElement("div"); k.className = "pk"; k.innerHTML = svg("flame"); k.append(document.createTextNode(fill(streak >= 3 ? tx.popHot : tx.popStreak, {n: streak}))); card.append(k); }
+    } else { const sub = document.createElement("div"); sub.className = "ps"; sub.textContent = tx.popMissSub; card.append(sub); }
+    box.replaceChildren(card);
+    if (ok && won.size && !reduced()) confetti(28, 0.35);
+    const close = () => { clearTimeout(popTimer); card.classList.add("out"); setTimeout(() => { if (box.contains(card)) box.replaceChildren(); if (after) after(); }, reduced() ? 0 : 230); };
+    card.addEventListener("click", close, {once: true});
+    popTimer = setTimeout(close, ok ? 1400 : 1200);
+  }
+
+  /* Confeti amb els colors de la marca (canvas, sense dependències). */
+  function confetti(n, spread) {
+    if (reduced()) return;
+    const cv = $("confetti"), ctx = cv.getContext("2d"), dpr = window.devicePixelRatio || 1;
+    cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const cols = ["#F6C86B", "#F28B6B", "#A7B6E8", "#FFF6E7", "#D4552C", "#5F78C4"];
+    const parts = Array.from({length: n}, () => ({x: innerWidth / 2 + (Math.random() - .5) * innerWidth * spread, y: innerHeight * .35, vx: (Math.random() - .5) * 9, vy: -Math.random() * 11 - 4, r: Math.random() * Math.PI, vr: (Math.random() - .5) * .3, w: 7 + Math.random() * 6, h: 10 + Math.random() * 8, c: cols[Math.floor(Math.random() * cols.length)]}));
+    const start = performance.now();
+    (function frame(tm) {
+      const el = tm - start; ctx.clearRect(0, 0, innerWidth, innerHeight);
+      parts.forEach(p => { p.vy += .32; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.globalAlpha = Math.max(0, 1 - el / 2600); ctx.fillStyle = p.c; ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h); ctx.restore(); });
+      if (el < 2600) requestAnimationFrame(frame); else ctx.clearRect(0, 0, innerWidth, innerHeight);
+    })(start);
+  }
+
+  function celebrate() {
+    const sec = $("s-score"); sec.classList.remove("celebrate"); void sec.offsetWidth; sec.classList.add("celebrate");
+    const n = won.size; confetti(60 + n * 25, 0.9); if (n >= 5) setTimeout(() => confetti(90, 1), 700);
+    // Els punts compten cap amunt
+    if (reduced()) return;
+    const target = points, t0 = performance.now(), tx = t();
+    (function count(tm) { const k = Math.min(1, (tm - t0) / 1100); $("statPts").innerHTML = svg("star") + fill(tx.pts, {n: Math.round(target * k)}); if (k < 1) requestAnimationFrame(count); })(t0);
+  }
 
   // ---------- Resultat ----------
   function badgeIdx() { const n = won.size; return n <= 2 ? 0 : n <= 4 ? 1 : n === 5 ? 2 : 3; }
@@ -469,6 +591,7 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
     const tx = t(), n = won.size;
     $("bigWheel").innerHTML = wheel(218, won, "#123A82", fill(tx.missing, {n, c: ""}), false, n + "/6");
     $("badge").textContent = tx.badges[badgeIdx()];
+    $("congrats").textContent = tx.congrats[badgeIdx()];
     const missing = [0,1,2,3,4,5].filter(i => !won.has(i)).map(i => tx.cats[i]);
     $("badgeSub").textContent = (n === 6 ? tx.all : fill(tx.missing, {n, c: missing.join(", ")})) + " " + tx.badgeSub[badgeIdx()];
     $("statStreak").innerHTML = svg("flame") + fill(tx.streak, {n: bestStreak});
