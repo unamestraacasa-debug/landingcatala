@@ -151,6 +151,26 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 .plan:not(.on) .btn{background:#EEF1FA;color:var(--navy)}
 .once{text-align:center;font-size:13px;font-weight:600;color:var(--muted);margin:14px 0 0}
 .preview{background:var(--groc);color:var(--navy);font-weight:800;text-align:center;border-radius:12px;padding:8px;margin-top:14px;font-size:13px}
+/* Selecció de plans compacta, amb desplaçament de reserva per a text ampliat. */
+#s-plan:not(.hide){position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;padding:12px;background:rgba(11,45,107,.62)}
+.plans-dialog{position:relative;width:min(100%,440px);max-height:calc(100dvh - 24px);overflow:auto;background:#fff;border-radius:24px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.plans-close{position:absolute;right:12px;top:10px;width:44px;height:44px;border:0;background:transparent;color:var(--navy);font:inherit;font-size:25px;cursor:pointer}
+#s-plan .kicker{font-size:11px;padding-right:44px}
+#s-plan h2{font-size:clamp(18px,5vw,22px);line-height:1.2}
+#s-plan .how,#s-plan .rec{display:none}
+#s-plan .plans{gap:6px;margin-top:10px}
+#s-plan .plan{padding:7px 10px;border-radius:13px;gap:0 8px;grid-template-columns:minmax(0,1fr) auto auto;box-shadow:none}
+#s-plan .plan .tag{grid-column:1/-1;margin:0;font-size:9px;padding:1px 6px}
+#s-plan .plan h3{font-size:15px}
+#s-plan .plan .d{font-size:11px;grid-column:1}
+#s-plan .plan .pr{font-size:15px;grid-column:2;grid-row:span 2}
+#s-plan .plan .pr del{font-size:10px}
+#s-plan .plan .btn,#s-plan .plan .btn.big{grid-column:3;grid-row:span 2;margin:0;min-height:44px;width:auto;padding:0 10px;font-size:12px;line-height:1.1;box-shadow:none}
+#s-plan .offer{margin-top:8px;padding:9px 12px;border-radius:14px}
+#s-plan .offer .t{font-size:15px}#s-plan .offer .s{font-size:11px;margin-top:2px}#s-plan .offer .p{font-size:22px}
+#s-plan .preview{margin-top:6px;padding:4px;font-size:10px}
+#s-plan .once{margin:8px 0 0;font-size:11px}
+#s-plan #free{margin-top:6px;font-size:12px}
 /* Personatges */
 .char{position:absolute;height:auto;pointer-events:none;filter:drop-shadow(0 10px 14px rgba(0,0,0,.25))}
 .hero .char{bottom:-6px;width:auto;height:200px}
@@ -308,7 +328,9 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   </section>
 
   <!-- Pla -->
-  <section id="s-plan" class="hide">
+  <section id="s-plan" class="hide" role="dialog" aria-modal="true" aria-labelledby="planTitle">
+    <div class="plans-dialog">
+    <button type="button" id="closePlans" class="plans-close" aria-label="Tanca">×</button>
     <span class="kicker" data-t="yourPlan"></span>
     <h2 id="planTitle" style="margin-top:6px"></h2>
     <ul class="how" id="how"></ul>
@@ -318,6 +340,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     <div class="plans" id="plans"></div>
     <p class="once" data-t="once"></p>
     <a class="link" id="free" data-t="free"></a>
+    </div>
   </section>
 </main>
 </div>
@@ -495,7 +518,19 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     document.body.classList.toggle("dark", id === "intro" || id === "score");
     if (["profile", "loading", "plan"].includes(id)) music(false);
     window.scrollTo({top: 0});
+    if (id === "plan") { $("closePlans").setAttribute("aria-label", ({es:"Cerrar",ca:"Tanca",fr:"Fermer",en:"Close"})[lang]); $("closePlans").focus(); }
   }
+
+  $("closePlans").onclick = () => { show("profile"); $("pnext").focus(); };
+  document.addEventListener("keydown", e => {
+    if (screen === "plan" && e.key === "Escape") { e.preventDefault(); $("closePlans").click(); }
+    if (screen !== "plan" || e.key !== "Tab") return;
+    const focusable = [...$("s-plan").querySelectorAll('button:not([disabled]),a[href]:not([aria-disabled="true"])')];
+    if (!focusable.length) return;
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
   // ---------- Portada ----------
   function renderIntro() {
@@ -742,7 +777,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       if (showOffer) { const d = document.createElement("del"); d.textContent = eur(p.amount); pr.append(d); }
       pr.append(document.createTextNode(eur(showOffer ? OFFER.amounts[p.key] : p.amount)));
       const d = document.createElement("span"); d.className = "d"; d.textContent = levelsTxt(p.count) + " · " + fill(tx.months, {n: p.months});
-      const a = document.createElement("a"); a.className = "btn" + (p === rec ? " big" : ""); a.textContent = p === rec ? tx.cta : tx.want;
+      const a = document.createElement("a"); a.className = "btn" + (p === rec ? " big" : ""); a.textContent = ({es:"Continuar",ca:"Continua",fr:"Continuer",en:"Continue"})[lang]; a.setAttribute("aria-label", (p === rec ? tx.cta : tx.want) + " · " + p.title);
       if (preview) { a.setAttribute("aria-disabled", "true"); a.style.opacity = ".55"; a.style.pointerEvents = "none"; }
       else a.href = appUrl({plan: p.key, level: LEVELS[exams[0] ?? 0]});
       el.append(h, pr, d, a); return el;
