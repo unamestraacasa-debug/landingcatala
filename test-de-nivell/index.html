@@ -803,7 +803,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   function music(play) { if (play && soundOn) bgm.play().catch(() => {}); else bgm.pause(); }
   /* Efectes: ruleta, encert, fallada i victòria. Es carreguen en tocar «A jugar!». */
   const SFX = {}; const SFX_VOL = {ruleta: .7, acierto: .8, fallo: .7, victoria: .9};
-  function loadSfx() { Object.keys(SFX_VOL).forEach(k => { if (!SFX[k]) { const a = new Audio("/assets/ruleta/" + k + ".mp3"); a.preload = "auto"; a.volume = SFX_VOL[k]; SFX[k] = a; } }); }
+  function loadSfx() { Object.keys(SFX_VOL).forEach(k => { if (!SFX[k]) { const a = new Audio("/assets/ruleta/" + (k === "victoria" ? "victoria-suau" : k) + ".mp3"); a.preload = "auto"; a.volume = SFX_VOL[k]; SFX[k] = a; } }); }
   function sfx(k) { if (!soundOn || !SFX[k]) return; try { SFX[k].currentTime = 0; SFX[k].play().catch(() => {}); } catch (e) {} }
   $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
   paintSound();
