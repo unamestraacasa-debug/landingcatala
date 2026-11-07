@@ -108,6 +108,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 .stats span{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;background:rgba(167,182,232,.18);border-radius:999px;padding:8px 14px}
 .stats svg{width:16px;height:16px;fill:none;stroke:var(--groc);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .stack{display:grid;gap:12px;width:100%;margin-top:26px}
+#s-score #toProfile{margin-top:16px}
 .toast{margin-top:10px;font-size:14px;font-weight:700;color:var(--groc)}
 /* Perfil */
 .card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px 20px;box-shadow:0 10px 30px rgba(20,33,63,.06)}
@@ -303,10 +304,10 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       <img class="char jump jr" src="/assets/ruleta/celebracio.png" alt="" width="114" height="176">
     </div>
     <p class="badge" id="badge" lang="ca"></p>
+    <button class="btn corall" id="toProfile" type="button" data-t="toProfile"></button>
     <p id="badgeSub" style="margin:8px 0 0;color:var(--crema)"></p>
     <div class="stats"><span id="statStreak"></span><span id="statPts"></span></div>
     <div class="stack">
-      <button class="btn corall" id="toProfile" type="button" data-t="toProfile"></button>
       <button class="btn ghost" id="share" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/></svg><span data-t="share"></span></button>
     </div>
     <p class="toast hide" id="toast" role="status" data-t="copied"></p>
