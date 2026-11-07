@@ -780,7 +780,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       const d = document.createElement("span"); d.className = "d"; d.textContent = levelsTxt(p.count) + " · " + fill(tx.months, {n: p.months});
       const a = document.createElement("a"); a.className = "btn" + (p === rec ? " big" : ""); a.textContent = ({es:"Continuar",ca:"Continua",fr:"Continuer",en:"Continue"})[lang]; a.setAttribute("aria-label", (p === rec ? tx.cta : tx.want) + " · " + p.title);
       if (preview) { a.setAttribute("aria-disabled", "true"); a.style.opacity = ".55"; a.style.pointerEvents = "none"; }
-      else a.href = appUrl({plan: p.key, level: LEVELS[exams[0] ?? 0]});
+      else a.href = appUrl({plan: p.key, level: LEVELS[exams[0] ?? 0], promo: offerLive ? "PRIMERS20" : null});
       el.append(h, pr, d, a); return el;
     }));
     $("free").href = appUrl({level: LEVELS[exams[0] ?? 0]});
