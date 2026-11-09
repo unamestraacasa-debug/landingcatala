@@ -368,6 +368,35 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   /* ?oferta=preview: només per revisar el disseny; la compra queda desactivada. */
   const preview = !offerLive && params.get("oferta") === "preview";
   const showOffer = offerLive || preview;
+
+  // ---------- Comptador anònim de passos ----------
+  // Només diu a quin pas arriba cada visita (sense galetes, correu ni IP). L'identificador és
+  // aleatori i desapareix en tancar la pàgina. Es veu agregat a admin.aprencat.com.
+  const TRACK = {url: "https://notbhjukenkbafdwuvqn.supabase.co/rest/v1/rpc/log_web_step",
+    key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vdGJoanVrZW5rYmFmZHd1dnFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTY1MzQsImV4cCI6MjA5ODM5MjUzNH0.KK4tVdbXoP86Zuf0GBXfTPE26qp4FgiLs-uu5UoWVCI"};
+  const VISIT = (crypto.randomUUID && crypto.randomUUID()) || "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+  const SOURCE = (() => {
+    const u = (params.get("utm_source") || "").toLowerCase();
+    if (params.has("fbclid") || ["facebook","instagram","ig","fb","meta"].includes(u)) return "meta";
+    if (u) return u;
+    let host = ""; try { host = new URL(document.referrer).hostname; } catch (e) {}
+    if (!host) return "directe";
+    if (/instagram|facebook|fb\.com/.test(host)) return "instagram";
+    if (/aprencat\.com$/.test(host)) return "aprencat.com";
+    if (/google\./.test(host)) return "google";
+    return "altra-web";
+  })();
+  const DEVICE = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ? "ios"
+    : /Android/i.test(navigator.userAgent) ? "android" : "other";
+  const tracked = new Set();
+  function track(step) {
+    if (preview || tracked.has(step) || !/^https?:$/.test(location.protocol) || /^(localhost|127\.)/.test(location.hostname)) return;
+    tracked.add(step);
+    try {
+      fetch(TRACK.url, {method: "POST", keepalive: true, headers: {apikey: TRACK.key, Authorization: "Bearer " + TRACK.key, "Content-Type": "application/json"},
+        body: JSON.stringify({p_visit: VISIT, p_step: step, p_source: SOURCE, p_device: DEVICE, p_lang: typeof lang === "string" ? lang : null})}).catch(() => {});
+    } catch (e) { /* comptar mai no impedeix jugar */ }
+  }
   const LEVELS = ["A1","A2","B1","B2"];
   const CAT_COLORS = ["#F6C86B","#F28B6B","#A7B6E8","#FFF6E7","#D4552C","#5F78C4"];
 
@@ -597,6 +626,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     if (answered !== null) return;
     answered = j;
     const q = order[qi];
+    if (qi === 0) track("q1"); if (qi === 2) track("q3");
     if (q.opts[j].right) { won.add(q.cat); points += 100; streak++; bestStreak = Math.max(bestStreak, streak); }
     else streak = 0;
     $("streakN").textContent = streak; $("pts").textContent = points;
@@ -629,7 +659,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 
   $("next").onclick = () => {
     if (qi < order.length - 1) { qi++; answered = null; spun = false; renderQ(); window.scrollTo({top: 0}); return; }
-    renderScore(); show("score"); celebrate();
+    renderScore(); show("score"); celebrate(); track("roulette_done");
   };
 
   // ---------- Pop-ups ----------
@@ -690,6 +720,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     $("statPts").innerHTML = svg("star") + fill(tx.pts, {n: points});
   }
   $("share").onclick = async () => {
+    track("share");
     const url = "https://aprencat.com/test-de-nivell/?utm_source=share&utm_campaign=ruleta&lang=" + lang;
     const text = fill(t().shareText, {n: won.size});
     try {
@@ -699,7 +730,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     } catch (e) { /* L'usuari ha cancel·lat o no hi ha porta-retalls. */ }
   };
   $("again").onclick = e => { e.preventDefault(); reset(); renderQ(); show("q"); };
-  $("toProfile").onclick = () => { pstep = 0; renderProfile(); show("profile"); };
+  $("toProfile").onclick = () => { track("profile_start"); pstep = 0; renderProfile(); show("profile"); };
 
   // ---------- Perfil ----------
   function renderProfile() {
@@ -732,12 +763,13 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     $("pnext").disabled = st.type === "multi" ? !sel.length : false;
   }
   $("pnext").onclick = () => {
+    track("p" + (pstep + 1));
     if (pstep < PROFILE.length - 1) { pstep++; renderProfile(); return; }
     show("loading");
     const ul = $("lsteps"); ul.replaceChildren(...t().lsteps.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
     const fast = matchMedia("(prefers-reduced-motion: reduce)").matches;
     [...ul.children].forEach((li, i) => setTimeout(() => li.classList.add("on"), fast ? 0 : 450 * (i + 1)));
-    setTimeout(() => { renderPlan(); show("plan"); }, fast ? 300 : 1900);
+    setTimeout(() => { renderPlan(); show("plan"); track("plan"); }, fast ? 300 : 1900);
   };
 
   // ---------- Pla ----------
@@ -808,9 +840,14 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   function sfx(k) { if (!soundOn || !SFX[k]) return; try { SFX[k].currentTime = 0; SFX[k].play().catch(() => {}); } catch (e) {} }
   $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
   paintSound();
-  $("start").onclick = () => { loadSfx(); reset(); renderQ(); show("q"); music(true); };
+  $("start").onclick = () => { track("start"); loadSfx(); reset(); renderQ(); show("q"); music(true); };
   $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
   applyTexts();
+  // Clics que porten a l'app: el pla (pagament), la prova gratis i «directe a l'app».
+  $("plans").addEventListener("click", e => { if (e.target.closest("a[href]")) track("plan_click"); });
+  $("free").addEventListener("click", () => track("free_click"));
+  $("skip").addEventListener("click", () => track("skip_click"));
+  track("visit");
 })();
 </script>
 </body>
