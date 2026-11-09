@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Descarrega AprènCat</title>
+<style>
+  :root{--navy:#0B2D6B;--yellow:#F6C86B;--muted:#5B6B82}
+  body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--navy);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px;box-sizing:border-box}
+  h1{font-size:26px;margin:0 0 8px}p{margin:0 0 22px;color:#C9D3F2}
+  .stores{display:grid;gap:12px;width:min(320px,100%);margin:0 auto}
+  a.store{display:block;background:#fff;color:var(--navy);text-decoration:none;font-weight:800;font-size:20px;padding:14px;border-radius:16px}
+  a.store small{display:block;font-weight:600;font-size:13px;color:var(--muted)}
+  a.web{display:inline-block;margin-top:18px;color:var(--yellow)}
+</style>
+<script>
+/* Enllaç únic per a Instagram: porta cada mòbil a la seva botiga. */
+(function(){
+  var ios="https://apps.apple.com/app/id6815693481";
+  var android="https://play.google.com/store/apps/details?id=com.aprencat.app";
+  var ua=navigator.userAgent||"";
+  var isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  var isAndroid=/Android/i.test(ua);
+  if(isIOS)location.replace(ios);else if(isAndroid)location.replace(android);
+})();
+</script>
+</head>
+<body>
+<main>
+  <h1>Descarrega AprènCat</h1>
+  <p>Tria el teu mòbil · Elige tu móvil</p>
+  <div class="stores">
+    <a class="store" href="https://apps.apple.com/app/id6815693481"><small>iPhone</small>App Store</a>
+    <a class="store" href="https://play.google.com/store/apps/details?id=com.aprencat.app"><small>Android</small>Google Play</a>
+  </div>
+  <a class="web" href="https://app.aprencat.com/?trial=1">O fes-lo des de l’ordinador · app.aprencat.com</a>
+</main>
+</body>
+</html>
