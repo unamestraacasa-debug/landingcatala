@@ -2,39 +2,137 @@
 <html lang="ca">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B2D6B">
 <title>Descarrega AprènCat</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{--navy:#0B2D6B;--yellow:#F6C86B;--muted:#5B6B82}
-  body{margin:0;min-height:100svh;display:grid;place-items:center;background:var(--navy);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;padding:24px;box-sizing:border-box}
-  h1{font-size:26px;margin:0 0 8px}p{margin:0 0 22px;color:#C9D3F2}
-  .stores{display:grid;gap:12px;width:min(320px,100%);margin:0 auto}
-  a.store{display:block;background:#fff;color:var(--navy);text-decoration:none;font-weight:800;font-size:20px;padding:14px;border-radius:16px}
-  a.store small{display:block;font-weight:600;font-size:13px;color:var(--muted)}
-  a.web{display:inline-block;margin-top:18px;color:var(--yellow)}
+  :root{--navy:#0B2D6B;--deep:#071E4A;--sky:#1F4A9C;--yellow:#F6C86B;--ink:#0E1B33;--muted:#5B6B82;--line:#DCE3F1;
+        --green:#1F8A5B;--blue:#2563D0;--red:#C62D33;--black:#16191F}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{min-height:100svh;font-family:Sora,system-ui,-apple-system,sans-serif;color:#fff;
+       background:linear-gradient(180deg,var(--deep) 0%,var(--navy) 45%,var(--sky) 100%);overflow-x:hidden}
+  .page{position:relative;z-index:1;min-height:100svh;max-width:1040px;margin:0 auto;padding:max(28px,env(safe-area-inset-top)) 22px 230px;
+        display:grid;grid-template-columns:1fr;gap:30px;align-items:center}
+  .intro{text-align:center}
+  .logo{width:132px;height:auto;display:block;margin:0 auto 20px}
+  h1{font-size:clamp(34px,8.6vw,54px);line-height:1.04;letter-spacing:-1.2px;margin:0 0 14px;font-weight:800}
+  .lead{font-size:17px;line-height:1.55;color:#D7E0F5;margin:0 auto 26px;max-width:30ch}
+  .stores{display:grid;gap:14px;width:min(360px,100%);margin:0 auto}
+  .store{position:relative;display:flex;align-items:center;gap:16px;padding:14px 20px;border-radius:20px;background:#fff;color:var(--ink);
+         text-decoration:none;box-shadow:0 14px 34px rgba(4,16,44,.35);transition:transform .15s ease,box-shadow .15s ease}
+  .store:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(4,16,44,.45)}
+  .store:active{transform:translateY(0) scale(.99)}
+  .store:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+  .store svg{width:34px;height:34px;flex:none}
+  .store .t{display:grid;text-align:left;line-height:1.15}
+  .store small{font-size:13px;font-weight:600;color:var(--muted)}
+  .store b{font-size:22px;font-weight:800;letter-spacing:-.3px}
+  .store.mine{outline:3px solid var(--yellow);outline-offset:0}
+  .tag{position:absolute;top:-11px;right:16px;background:var(--yellow);color:var(--navy);font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px}
+  .opening{margin:18px auto 0;display:none;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 12px;font-size:15px;color:#E3E9F8}
+  .opening.on{display:flex}
+  .ring{width:30px;height:30px;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:4}
+  .ring .bg{stroke:rgba(255,255,255,.2)}
+  .ring .fg{stroke:var(--yellow);stroke-linecap:round;stroke-dasharray:82;stroke-dashoffset:0}
+  .opening.on .ring .fg{animation:drain 3s linear forwards}
+  @keyframes drain{to{stroke-dashoffset:82}}
+  #openingText{white-space:nowrap}
+  .stay{background:none;border:0;color:var(--yellow);font:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:6px}
+  .desk{display:none;margin:26px auto 0;align-items:center;gap:16px;width:min(360px,100%);text-align:left}
+  .qr{background:#fff;border-radius:16px;padding:10px;flex:none}
+  .qr svg{display:block;width:92px;height:92px}
+  .desk p{margin:0;font-size:15px;line-height:1.45;color:#D7E0F5}
+  .web{display:inline-block;margin-top:22px;color:#fff;font-size:15px;text-decoration:underline;text-underline-offset:3px;opacity:.85}
+  .phone{justify-self:center;width:min(250px,62vw);aspect-ratio:9/19;border-radius:38px;background:#0E1B33;padding:9px;
+         box-shadow:0 30px 70px rgba(4,16,44,.55),inset 0 0 0 2px rgba(255,255,255,.08);rotate:-4deg}
+  .phone img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:30px;display:block}
+  .hills{position:fixed;left:0;right:0;bottom:0;height:max(260px,24vw);z-index:0;pointer-events:none}
+  .hills svg{width:100%;height:100%;display:block}
+  @media (min-width:860px){
+    .page{grid-template-columns:1.1fr .9fr;padding-top:60px;gap:40px}
+    .intro{text-align:left}.logo{margin:0 0 24px}.lead{margin-left:0}.stores,.desk{margin-left:0}
+    .phone{width:280px}
+  }
+  body.is-desktop .desk{display:flex}
+  @media (prefers-reduced-motion:reduce){.store{transition:none}.opening.on .ring .fg{animation:none}}
 </style>
+</head>
+<body>
+<main class="page">
+  <section class="intro">
+    <img class="logo" src="/assets/acat-bubble.png" alt="ACat" width="360" height="254">
+    <h1 data-t="title">Descarrega AprènCat</h1>
+    <p class="lead" data-t="lead">El curs de català per viure a Andorra, de l’A1 al B2. La primera unitat és gratis.</p>
+    <div class="stores" id="stores">
+      <a class="store" id="ios" href="https://apps.apple.com/app/id6815693481">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0E1B33" d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg>
+        <span class="t"><small data-t="ios">Descarrega-la a</small><b>App Store</b></span>
+      </a>
+      <a class="store" id="android" href="https://play.google.com/store/apps/details?id=com.aprencat.app">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1F8A5B" d="M17.523 15.341a1.001 1.001 0 1 1 0-2.003 1.001 1.001 0 0 1 0 2.003m-11.046 0a1.001 1.001 0 1 1 0-2.003 1.001 1.001 0 0 1 0 2.003m11.405-6.02 1.997-3.46a.416.416 0 0 0-.152-.567.416.416 0 0 0-.568.152L17.137 8.95c-1.547-.706-3.284-1.099-5.137-1.099s-3.59.393-5.137 1.099L4.841 5.446a.416.416 0 0 0-.568-.152.415.415 0 0 0-.152.567l1.997 3.46C2.688 11.186.343 14.658 0 18.761h24c-.344-4.103-2.689-7.575-6.118-9.44"/></svg>
+        <span class="t"><small data-t="android">Disponible a</small><b>Google Play</b></span>
+      </a>
+    </div>
+    <div class="opening" id="opening" role="status" aria-live="polite">
+      <svg class="ring" viewBox="0 0 30 30" aria-hidden="true"><circle class="bg" cx="15" cy="15" r="13"/><circle class="fg" cx="15" cy="15" r="13"/></svg>
+      <span id="openingText"></span>
+      <button class="stay" id="stay" type="button" data-t="stay">Queda’t aquí</button>
+    </div>
+    <div class="desk">
+      <div class="qr" aria-hidden="true"><svg viewBox="0 0 37 37" shape-rendering="crispEdges"><path stroke="#0B2D6B" d="M0 0.5h7m1 0h1m1 0h1m2 0h1m1 0h2m2 0h7m2 0h1m1 0h7m-37 1h1m5 0h1m2 0h4m1 0h6m1 0h2m1 0h2m2 0h1m1 0h1m5 0h1m-37 1h1m1 0h3m1 0h1m5 0h2m1 0h1m1 0h1m3 0h1m2 0h1m2 0h1m2 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h5m1 0h1m3 0h1m1 0h1m1 0h1m2 0h1m4 0h1m1 0h3m1 0h1m-37 1h1m1 0h3m1 0h1m1 0h1m1 0h9m2 0h4m1 0h3m1 0h1m1 0h3m1 0h1m-37 1h1m5 0h1m1 0h1m4 0h1m3 0h1m1 0h1m2 0h1m1 0h1m3 0h1m1 0h1m5 0h1m-37 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-29 1h1m4 0h1m1 0h1m4 0h2m1 0h1m2 0h3m-29 1h1m3 0h1m1 0h5m1 0h1m3 0h1m2 0h4m1 0h1m4 0h5m2 0h1m-37 1h4m1 0h1m2 0h2m1 0h1m1 0h2m3 0h2m1 0h1m1 0h1m2 0h4m1 0h5m-34 1h2m2 0h1m1 0h1m2 0h1m3 0h1m3 0h1m3 0h7m1 0h1m-32 1h2m3 0h1m5 0h1m3 0h7m2 0h1m2 0h1m3 0h2m1 0h2m-35 1h2m1 0h4m3 0h3m2 0h2m3 0h2m6 0h3m2 0h3m-36 1h4m6 0h1m1 0h4m1 0h1m3 0h2m1 0h5m2 0h2m1 0h2m-36 1h1m1 0h7m1 0h3m1 0h3m2 0h4m1 0h1m1 0h1m2 0h5m-33 1h1m1 0h1m5 0h2m5 0h5m1 0h1m2 0h1m1 0h1m2 0h2m1 0h1m-34 1h6m1 0h1m1 0h1m2 0h1m4 0h1m2 0h2m1 0h1m3 0h4m1 0h3m-36 1h2m1 0h2m2 0h1m2 0h2m4 0h1m2 0h2m1 0h2m1 0h5m2 0h4m-35 1h1m1 0h1m1 0h2m1 0h1m3 0h2m2 0h3m1 0h2m1 0h3m1 0h1m1 0h1m1 0h1m2 0h1m-34 1h3m3 0h1m2 0h1m1 0h3m2 0h2m2 0h1m1 0h1m2 0h2m1 0h1m1 0h1m2 0h2m-32 1h3m1 0h3m1 0h1m1 0h2m1 0h7m5 0h3m2 0h1m-35 1h1m1 0h1m2 0h1m7 0h3m1 0h1m4 0h2m1 0h5m1 0h2m-32 1h3m2 0h1m1 0h1m1 0h3m2 0h2m1 0h1m1 0h5m2 0h3m1 0h4m-35 1h1m1 0h1m1 0h2m1 0h1m2 0h1m2 0h2m1 0h1m2 0h1m1 0h3m2 0h1m4 0h2m1 0h2m-36 1h2m1 0h2m1 0h2m1 0h4m3 0h1m2 0h4m1 0h1m2 0h4m2 0h4m-37 1h1m1 0h4m2 0h1m1 0h2m1 0h2m2 0h3m2 0h2m2 0h4m2 0h2m-32 1h6m1 0h1m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h7m1 0h1m2 0h1m-32 1h3m5 0h1m3 0h9m2 0h1m2 0h2m1 0h1m1 0h1m1 0h1m-37 1h2m2 0h3m1 0h2m1 0h1m5 0h1m3 0h2m1 0h1m3 0h5m1 0h3m-29 1h2m5 0h2m6 0h1m2 0h1m1 0h1m3 0h1m2 0h1m-36 1h7m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h5m1 0h1m1 0h1m1 0h1m1 0h1m-33 1h1m5 0h1m2 0h2m2 0h3m1 0h6m1 0h1m1 0h1m1 0h1m3 0h3m-35 1h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m5 0h1m1 0h1m2 0h2m3 0h9m-37 1h1m1 0h3m1 0h1m5 0h2m2 0h1m2 0h3m1 0h1m3 0h1m1 0h3m1 0h1m2 0h1m-37 1h1m1 0h3m1 0h1m3 0h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m1 0h3m2 0h2m-35 1h1m5 0h1m4 0h1m2 0h1m2 0h2m2 0h1m1 0h1m2 0h2m1 0h1m2 0h1m1 0h2m-36 1h7m1 0h1m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m4 0h1m2 0h3"/></svg></div>
+      <p data-t="qr">Escaneja el codi amb el mòbil i t’obrirà la botiga que toca.</p>
+    </div>
+    <a class="web" href="https://app.aprencat.com/?trial=1" data-t="web">O fes el curs al navegador, a app.aprencat.com</a>
+  </section>
+  <div class="phone" aria-hidden="true"><img src="/assets/captures/01-curs.webp" alt="" width="560" height="1218"></div>
+</main>
+<div class="hills" aria-hidden="true">
+  <svg viewBox="0 0 1080 260" preserveAspectRatio="xMidYMax slice">
+    <polygon fill="#fff" opacity=".14" points="0,120 120,40 210,95 330,10 450,90 560,30 690,110 800,25 930,100 1080,40 1080,260 0,260"/>
+    <polygon fill="#fff" opacity=".22" points="0,170 140,100 250,150 380,70 520,150 640,95 770,165 900,100 1080,150 1080,260 0,260"/>
+    <polygon fill="#fff" opacity=".34" points="0,215 160,165 300,200 470,150 620,210 780,170 930,215 1080,180 1080,260 0,260"/>
+    <polygon fill="#fff" opacity=".55" points="0,245 220,225 420,240 640,220 860,240 1080,228 1080,260 0,260"/>
+    <g stroke-width="5" stroke-linecap="round" fill="none">
+      <path d="M400 238 L455 205" stroke="#1F8A5B"/><path d="M455 205 L505 160" stroke="#2563D0"/>
+      <path d="M505 160 L535 105" stroke="#C62D33"/><path d="M535 105 L558 34" stroke="#16191F"/>
+    </g>
+    <line x1="560" y1="32" x2="560" y2="2" stroke="#fff" stroke-width="3"/><polygon points="560,2 584,10 560,18" fill="#F6C86B"/>
+  </svg>
+</div>
 <script>
-/* Enllaç únic per a Instagram: porta cada mòbil a la seva botiga. */
 (function(){
-  var ios="https://apps.apple.com/app/id6815693481";
-  var android="https://play.google.com/store/apps/details?id=com.aprencat.app";
+  var T={
+    ca:{title:"Descarrega AprènCat",lead:"El curs de català per viure a Andorra, de l’A1 al B2. La primera unitat és gratis.",ios:"Descarrega-la a",android:"Disponible a",mine:"El teu mòbil",opening:"Obrint {s} en {n} s",stay:"Queda’t aquí",qr:"Escaneja el codi amb el mòbil i t’obrirà la botiga que toca.",web:"O fes el curs al navegador, a app.aprencat.com"},
+    es:{title:"Descarga AprènCat",lead:"El curso de catalán para vivir en Andorra, del A1 al B2. La primera unidad es gratis.",ios:"Descárgala en",android:"Disponible en",mine:"Tu móvil",opening:"Abriendo {s} en {n} s",stay:"Quedarme aquí",qr:"Escanea el código con el móvil y se abrirá la tienda que toca.",web:"O haz el curso en el navegador, en app.aprencat.com"},
+    en:{title:"Get AprènCat",lead:"The Catalan course for life in Andorra, from A1 to B2. The first unit is free.",ios:"Download on the",android:"Get it on",mine:"Your phone",opening:"Opening {s} in {n}s",stay:"Stay here",qr:"Scan the code with your phone to open the right store.",web:"Or take the course in your browser at app.aprencat.com"},
+    fr:{title:"Télécharge AprènCat",lead:"Le cours de catalan pour vivre en Andorre, de l’A1 au B2. La première unité est gratuite.",ios:"Télécharger sur",android:"Disponible sur",mine:"Ton téléphone",opening:"Ouverture de {s} dans {n} s",stay:"Rester ici",qr:"Scanne le code avec ton téléphone pour ouvrir la bonne boutique.",web:"Ou suis le cours dans ton navigateur, sur app.aprencat.com"}
+  };
+  var q=new URLSearchParams(location.search).get("lang");
+  var nav=(navigator.languages&&navigator.languages[0])||navigator.language||"ca";
+  var lang=[q,nav].map(function(x){return (x||"").slice(0,2).toLowerCase();}).filter(function(x){return T[x];})[0]||"ca";
+  var t=T[lang];document.documentElement.lang=lang;document.title=t.title;
+  document.querySelectorAll("[data-t]").forEach(function(e){e.textContent=t[e.dataset.t];});
   var ua=navigator.userAgent||"";
   var isIOS=/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
   var isAndroid=/Android/i.test(ua);
-  if(isIOS)location.replace(ios);else if(isAndroid)location.replace(android);
+  var utm=location.search.replace(/^\?/,"");
+  if(!isIOS&&!isAndroid){document.body.classList.add("is-desktop");return;}
+  /* Al mòbil: el botó del teu sistema va primer i destacat, i s'obre sol en 3 s si no el toques. */
+  var mine=document.getElementById(isIOS?"ios":"android");var stores=document.getElementById("stores");
+  stores.insertBefore(mine,stores.firstChild);mine.classList.add("mine");
+  var tag=document.createElement("span");tag.className="tag";tag.textContent=t.mine;mine.appendChild(tag);
+  var box=document.getElementById("opening"),txt=document.getElementById("openingText"),n=3,store=isIOS?"App Store":"Google Play";
+  var timer=null;function paint(){txt.textContent=t.opening.replace("{s}",store).replace("{n}",n);}
+  paint();box.classList.add("on");
+  timer=setInterval(function(){n--;if(n<=0){clearInterval(timer);location.href=mine.href;}else paint();},1000);
+  document.getElementById("stay").addEventListener("click",function(){clearInterval(timer);box.classList.remove("on");});
 })();
 </script>
-</head>
-<body>
-<main>
-  <h1>Descarrega AprènCat</h1>
-  <p>Tria el teu mòbil · Elige tu móvil</p>
-  <div class="stores">
-    <a class="store" href="https://apps.apple.com/app/id6815693481"><small>iPhone</small>App Store</a>
-    <a class="store" href="https://play.google.com/store/apps/details?id=com.aprencat.app"><small>Android</small>Google Play</a>
-  </div>
-  <a class="web" href="https://app.aprencat.com/?trial=1">O fes-lo des de l’ordinador · app.aprencat.com</a>
-</main>
 </body>
 </html>
