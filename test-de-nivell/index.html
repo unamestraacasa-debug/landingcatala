@@ -224,6 +224,27 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 .celebrate .badge{animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both .7s}
 .celebrate .stats{animation:popIn .5s ease both .95s}
 @keyframes spinIn{0%{transform:scale(.3) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+/* Portada del joc en pantalles baixes (navegador d'Instagram): el botó «A jugar» s'ha de veure sense desplaçar. */
+@media (max-height:780px){
+ #s-intro .hero{height:200px;margin-top:0}
+ #s-intro .hero .disc{width:176px!important;height:176px!important}
+ #heroWheel .wheel{width:156px;height:156px}
+ #s-intro .hero .char{height:150px;width:86px;bottom:-4px}
+ #s-intro .hero .tag{font-size:11px;padding:5px 9px;top:0!important;z-index:2}
+ #s-intro .kicker{margin-top:8px!important}
+ #s-intro h1{font-size:clamp(25px,7vw,30px)}
+ #s-intro .chips{margin-top:10px}
+ #s-intro .stack{margin-top:14px!important}
+}
+@media (max-height:640px){
+ #s-intro .hero{height:158px}
+ #s-intro .hero .disc{width:140px!important;height:140px!important}
+ #heroWheel .wheel{width:124px;height:124px}
+ #s-intro .hero .char{height:120px;width:69px}
+ #s-intro .hero .tag{display:none}
+ #s-intro h1{font-size:24px}
+ #s-intro .chips span{font-size:12px;padding:4px 10px}
+}
 @media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}.wave,.celebrate .jump{animation:none}}
 </style>
 </head>
