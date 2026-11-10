@@ -138,6 +138,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 .offer .t{font-size:20px;font-weight:800;line-height:1.15}.offer .t span:first-child{color:var(--groc)}.offer .t span:last-child{color:var(--corall)}
 .offer .s{font-size:13px;font-weight:700;color:var(--lavanda);margin-top:6px}
 .offer .p{font-size:30px;font-weight:800;white-space:nowrap}
+.offer .count{margin-top:6px;font-size:14px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}.offer .count b{color:var(--groc);white-space:nowrap}
 .plans{display:grid;gap:12px;margin-top:14px}
 .plan{background:#fff;border:2px solid var(--line);border-radius:20px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
 .plan.on{border-color:var(--navy);box-shadow:0 10px 26px rgba(11,45,107,.14)}
@@ -168,7 +169,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 #s-plan .plan .pr del{font-size:10px}
 #s-plan .plan .btn,#s-plan .plan .btn.big{grid-column:3;grid-row:span 2;margin:0;min-height:44px;width:auto;padding:0 10px;font-size:12px;line-height:1.1;box-shadow:none}
 #s-plan .offer{margin-top:8px;padding:9px 12px;border-radius:14px}
-#s-plan .offer .t{font-size:15px}#s-plan .offer .s{font-size:11px;margin-top:2px}#s-plan .offer .p{font-size:22px}
+#s-plan .offer .t{font-size:15px}#s-plan .offer .s{font-size:11px;margin-top:2px}#s-plan .offer .count{font-size:13px;margin-top:3px}#s-plan .offer .p{font-size:22px}
 #s-plan .preview{margin-top:6px;padding:4px;font-size:10px}
 #s-plan .once{margin:8px 0 0;font-size:11px}
 #s-plan #free{margin-top:6px;font-size:12px}
@@ -223,6 +224,27 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 .celebrate .badge{animation:popIn .5s cubic-bezier(.2,1.4,.4,1) both .7s}
 .celebrate .stats{animation:popIn .5s ease both .95s}
 @keyframes spinIn{0%{transform:scale(.3) rotate(-200deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+/* Portada del joc en pantalles baixes (navegador d'Instagram): el botó «A jugar» s'ha de veure sense desplaçar. */
+@media (max-height:780px){
+ #s-intro .hero{height:200px;margin-top:0}
+ #s-intro .hero .disc{width:176px!important;height:176px!important}
+ #heroWheel .wheel{width:156px;height:156px}
+ #s-intro .hero .char{height:150px;width:86px;bottom:-4px}
+ #s-intro .hero .tag{font-size:11px;padding:5px 9px;top:0!important;z-index:2}
+ #s-intro .kicker{margin-top:8px!important}
+ #s-intro h1{font-size:clamp(25px,7vw,30px)}
+ #s-intro .chips{margin-top:10px}
+ #s-intro .stack{margin-top:14px!important}
+}
+@media (max-height:640px){
+ #s-intro .hero{height:158px}
+ #s-intro .hero .disc{width:140px!important;height:140px!important}
+ #heroWheel .wheel{width:124px;height:124px}
+ #s-intro .hero .char{height:120px;width:69px}
+ #s-intro .hero .tag{display:none}
+ #s-intro h1{font-size:24px}
+ #s-intro .chips span{font-size:12px;padding:4px 10px}
+}
 @media (prefers-reduced-motion:reduce){.wheel path,.bar i,.loading li{transition:none}.spin{animation:none}.popcard,.popcard.out,.floatpts,.pill.bump,.celebrate .congrats,.celebrate .disc,.celebrate .badge,.celebrate .stats{animation:none}.rwrap{transition:none}.qarea-in{animation:none}.wave,.celebrate .jump{animation:none}}
 </style>
 </head>
@@ -336,7 +358,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     <h2 id="planTitle" style="margin-top:6px"></h2>
     <ul class="how" id="how"></ul>
     <div class="rec" id="rec"></div>
-    <div class="offer hide" id="offer"><div><div class="t"><span data-t="offer1"></span> <span data-t="offer2"></span></div><div class="s" id="offerSub"></div></div><div class="p">−20 %</div></div>
+    <div class="offer hide" id="offer"><div><div class="t"><span data-t="offer1"></span> <span data-t="offer2"></span></div><div class="s" id="offerSub"></div><div class="count" id="offerCount" aria-live="off"></div></div><div class="p">−20 %</div></div>
     <div class="preview hide" id="preview" data-t="preview"></div>
     <div class="plans" id="plans"></div>
     <p class="once" data-t="once"></p>
@@ -368,6 +390,35 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   /* ?oferta=preview: només per revisar el disseny; la compra queda desactivada. */
   const preview = !offerLive && params.get("oferta") === "preview";
   const showOffer = offerLive || preview;
+
+  // ---------- Comptador anònim de passos ----------
+  // Només diu a quin pas arriba cada visita (sense galetes, correu ni IP). L'identificador és
+  // aleatori i desapareix en tancar la pàgina. Es veu agregat a admin.aprencat.com.
+  const TRACK = {url: "https://notbhjukenkbafdwuvqn.supabase.co/rest/v1/rpc/log_web_step",
+    key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5vdGJoanVrZW5rYmFmZHd1dnFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4MTY1MzQsImV4cCI6MjA5ODM5MjUzNH0.KK4tVdbXoP86Zuf0GBXfTPE26qp4FgiLs-uu5UoWVCI"};
+  const VISIT = (crypto.randomUUID && crypto.randomUUID()) || "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16));
+  const SOURCE = (() => {
+    const u = (params.get("utm_source") || "").toLowerCase();
+    if (params.has("fbclid") || ["facebook","instagram","ig","fb","meta"].includes(u)) return "meta";
+    if (u) return u;
+    let host = ""; try { host = new URL(document.referrer).hostname; } catch (e) {}
+    if (!host) return "directe";
+    if (/instagram|facebook|fb\.com/.test(host)) return "instagram";
+    if (/aprencat\.com$/.test(host)) return "aprencat.com";
+    if (/google\./.test(host)) return "google";
+    return "altra-web";
+  })();
+  const DEVICE = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ? "ios"
+    : /Android/i.test(navigator.userAgent) ? "android" : "other";
+  const tracked = new Set();
+  function track(step) {
+    if (preview || tracked.has(step) || !/^https?:$/.test(location.protocol) || /^(localhost|127\.)/.test(location.hostname)) return;
+    tracked.add(step);
+    try {
+      fetch(TRACK.url, {method: "POST", keepalive: true, headers: {apikey: TRACK.key, Authorization: "Bearer " + TRACK.key, "Content-Type": "application/json"},
+        body: JSON.stringify({p_visit: VISIT, p_step: step, p_source: SOURCE, p_device: DEVICE, p_lang: typeof lang === "string" ? lang : null})}).catch(() => {});
+    } catch (e) { /* comptar mai no impedeix jugar */ }
+  }
   const LEVELS = ["A1","A2","B1","B2"];
   const CAT_COLORS = ["#F6C86B","#F28B6B","#A7B6E8","#FFF6E7","#D4552C","#5F78C4"];
 
@@ -403,7 +454,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     es:{spin:"¡Gira la ruleta!",spinSub:"Gira y descubre qué quesito te toca",landed:"¡Te toca {c}!",popGot:"¡Quesito {c}!",popPts:"+100 puntos",popStreak:"¡En racha! x{n}",popHot:"¡Imparable! x{n}",popMiss:"¡Casi!",popMissSub:"El siguiente quesito es tuyo",congrats:["¡Buen comienzo!","¡Muy bien!","¡Enhorabuena!","¡Increíble! ¡Pleno!"],h1:"¿Cuánto sabes de <span style='color:#F6C86B'>Andorra</span> y del <span style='color:#F28B6B'>catalán</span>?",chip1:"6 quesitos",chip2:"1 minuto",chip3:"Sin registro",start:"¡A jugar!",skip:"Prefiero probar la app directamente",
       cats:["Andorra","Palabras","Expresiones","Cultura","Gramática","Falsos amigos"],qcount:"Pregunta {n} de {t}",goFor:"A por el quesito {c}",colors:["amarillo","coral","lavanda","crema","teja","azul"],got:"¡Quesito conseguido! Llevas {n} de 6",miss:"Este quesito se te escapa · llevas {n} de 6",
       right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La respuesta era: {a}.",didYouKnow:"¿Sabías que…?",inCa:"En catalán:",next:"Siguiente",finish:"Ver mi resultado",
-      yourScore:"Tu resultado",streak:"Mejor racha: {n}",pts:"{n} puntos",missing:"Tienes {n} de 6 quesitos. Te falta: {c}.",all:"¡Los 6 quesitos! Ahora, a por el catalán de verdad.",toProfile:"Ver mi plan en 3 preguntas",share:"Compartir y retar a un amigo",copied:"Enlace copiado. ¡Pégalo donde quieras!",again:"Jugar otra vez",
+      yourScore:"Tu resultado",streak:"Mejor racha: {n}",pts:"{n} puntos",missing:"Tienes {n} de 6 quesitos. Te falta: {c}.",all:"¡Los 6 quesitos! Ahora, a por el catalán de verdad.",toProfile:"¡Inscríbete ya y sigue aprendiendo!",share:"Compartir y retar a un amigo",copied:"Enlace copiado. ¡Pégalo donde quieras!",again:"Jugar otra vez",
       shareText:"Tengo {n} de 6 quesitos en la Ruleta ACat. ¿Me superas?",
       multi:"Puedes marcar varias",one:"Elige una opción",pcount:"Tu plan · {n} de 3",pnext:"Siguiente",pfinish:"Ver mi plan",
       p:{sit:{q:"¿Cuál es tu situación?",o:["Acabo de llegar a vivir a Andorra","Vivo aquí hace tiempo, pero el catalán se me resiste","Necesito el catalán para el trabajo","Tengo que aprobar un examen oficial"]},
@@ -413,13 +464,13 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       yourPlan:"Tu plan para hablar catalán",titles:["Para que el idioma no te frene en tu nueva vida en Andorra","Para que el catalán deje de resistírsete de una vez","Para que el catalán te abra puertas en el trabajo","Para que llegues al examen con seguridad"],
       how:{listen:["Entenderás cuando te hablen","escuchas y dictados para acostumbrar el oído"],speak:["Hablarás sin vergüenza","el tutor de voz te escucha y te corrige en privado"],write:["Escribirás sin miedo","escritura con corrección al momento"],exam:["Llegarás preparado/a al examen","modelos de examen y simulacros oficiales con nota"],time:["Encaja en tu día","lecciones de unos 10 minutos, con recordatorio"]},
       recExam1:"Quieres aprobar el examen <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recExamN:"Quieres aprobar los exámenes <b>{l}</b>: te recomendamos el plan <b>{p}</b> ({n}).",recDaily:"Para el día a día te recomendamos el plan <b>{p}</b> ({n}): dos niveles para soltarte.",recUnsure:"Para empezar te recomendamos el plan <b>{p}</b> ({n}). Podrás ampliarlo cuando quieras.",join:" y ",
-      offer1:"Por ser de",offer2:"los primeros",offerSub:"En todos los planes · hasta el {d}",preview:"VISTA PREVIA · oferta aún no activa · compra desactivada",recTag:"RECOMENDADO PARA TI",cta:"Regístrate y obtén tu curso",want:"Quiero este plan",
+      offer1:"Precio de",offer2:"lanzamiento",offerSub:"En todos los planes · hasta el {d}",endsIn:"Termina en",preview:"VISTA PREVIA · oferta aún no activa · compra desactivada",recTag:"RECOMENDADO PARA TI",cta:"Regístrate y obtén tu curso",want:"Quiero este plan",
       plan1:"1 nivel",planN:"{n} niveles",planAll:"A1, A2, B1 y B2",months:"{n} meses",once:"Pago único, sin renovaciones. La misma cuenta en la web y en la app.",free:"Probar gratis la primera unidad (sin tarjeta)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["¡Buen comienzo! Con AprènCat lo subes en nada.","Vas por buen camino.","¡Casi en la cima!","¡Perfecto! Eres un/a crack."]},
     ca:{spin:"Gira la ruleta!",spinSub:"Gira i descobreix quin formatget et toca",landed:"Et toca {c}!",popGot:"Formatget {c}!",popPts:"+100 punts",popStreak:"En ratxa! x{n}",popHot:"Imparable! x{n}",popMiss:"Gairebé!",popMissSub:"El pròxim formatget és teu",congrats:["Bon començament!","Molt bé!","Enhorabona!","Increïble! Ple!"],h1:"Quant saps d’<span style='color:#F6C86B'>Andorra</span> i del <span style='color:#F28B6B'>català</span>?",chip1:"6 formatgets",chip2:"1 minut",chip3:"Sense registre",start:"A jugar!",skip:"Prefereixo provar l’app directament",
       cats:["Andorra","Paraules","Expressions","Cultura","Gramàtica","Falsos amics"],qcount:"Pregunta {n} de {t}",goFor:"A pel formatget {c}",colors:["groc","corall","lavanda","crema","teula","blau"],got:"Formatget aconseguit! En portes {n} de 6",miss:"Aquest formatget se t’escapa · en portes {n} de 6",
       right:"Molt bé! +100",wrong:"Gairebé!",correctIs:"La resposta era: {a}.",didYouKnow:"Sabies que…?",inCa:"Per dir-ho:",next:"Següent",finish:"Veure el meu resultat",
-      yourScore:"El teu resultat",streak:"Millor ratxa: {n}",pts:"{n} punts",missing:"Tens {n} de 6 formatgets. Et falta: {c}.",all:"Els 6 formatgets! Ara, a pel català de veritat.",toProfile:"Veure el meu pla en 3 preguntes",share:"Comparteix i repta un amic",copied:"Enllaç copiat. Enganxa’l on vulguis!",again:"Tornar a jugar",
+      yourScore:"El teu resultat",streak:"Millor ratxa: {n}",pts:"{n} punts",missing:"Tens {n} de 6 formatgets. Et falta: {c}.",all:"Els 6 formatgets! Ara, a pel català de veritat.",toProfile:"Inscriu-te ja i continua aprenent!",share:"Comparteix i repta un amic",copied:"Enllaç copiat. Enganxa’l on vulguis!",again:"Tornar a jugar",
       shareText:"Tinc {n} de 6 formatgets a la Ruleta ACat. Em superes?",
       multi:"Pots marcar-ne diverses",one:"Tria una opció",pcount:"El teu pla · {n} de 3",pnext:"Següent",pfinish:"Veure el meu pla",
       p:{sit:{q:"Quina és la teva situació?",o:["Acabo d’arribar a viure a Andorra","Fa temps que hi visc, però el català se’m resisteix","Necessito el català per a la feina","He d’aprovar un examen oficial"]},
@@ -429,13 +480,13 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       yourPlan:"El teu pla per parlar català",titles:["Perquè l’idioma no et freni en la teva nova vida a Andorra","Perquè el català deixi de resistir-se’t d’una vegada","Perquè el català t’obri portes a la feina","Perquè arribis a l’examen amb seguretat"],
       how:{listen:["Entendràs quan et parlin","escoltes i dictats per acostumar l’orella"],speak:["Parlaràs sense vergonya","el tutor de veu t’escolta i et corregeix en privat"],write:["Escriuràs sense por","escriptura amb correcció al moment"],exam:["Arribaràs preparat/da a l’examen","models d’examen i simulacres oficials amb nota"],time:["Encaixa en el teu dia","lliçons d’uns 10 minuts, amb recordatori"]},
       recExam1:"Vols aprovar l’examen <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recExamN:"Vols aprovar els exàmens <b>{l}</b>: et recomanem el pla <b>{p}</b> ({n}).",recDaily:"Per al dia a dia et recomanem el pla <b>{p}</b> ({n}): dos nivells per deixar-te anar.",recUnsure:"Per començar et recomanem el pla <b>{p}</b> ({n}). El podràs ampliar quan vulguis.",join:" i ",
-      offer1:"Per ser dels",offer2:"primers",offerSub:"En tots els plans · fins al {d}",preview:"VISTA PRÈVIA · oferta encara no activa · compra desactivada",recTag:"RECOMANAT PER A TU",cta:"Registra’t i obtén el teu curs",want:"Vull aquest pla",
+      offer1:"Preu de",offer2:"llançament",offerSub:"En tots els plans · fins al {d}",endsIn:"Acaba d’aquí a",preview:"VISTA PRÈVIA · oferta encara no activa · compra desactivada",recTag:"RECOMANAT PER A TU",cta:"Registra’t i obtén el teu curs",want:"Vull aquest pla",
       plan1:"1 nivell",planN:"{n} nivells",planAll:"A1, A2, B1 i B2",months:"{n} mesos",once:"Pagament únic, sense renovacions. El mateix compte a la web i a l’app.",free:"Prova gratis la primera unitat (sense targeta)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon començament! Amb AprènCat ho puges en res.","Vas per bon camí.","Gairebé al cim!","Perfecte! Ets un crac."]},
     fr:{spin:"Fais tourner la roue !",spinSub:"Tourne et découvre ta catégorie",landed:"C’est {c} !",popGot:"Part {c} !",popPts:"+100 points",popStreak:"En série ! x{n}",popHot:"Inarrêtable ! x{n}",popMiss:"Presque !",popMissSub:"La prochaine part est pour toi",congrats:["Bon début !","Très bien !","Félicitations !","Incroyable ! Sans faute !"],h1:"Que sais-tu de l’<span style='color:#F6C86B'>Andorre</span> et du <span style='color:#F28B6B'>catalan</span> ?",chip1:"6 parts de fromage",chip2:"1 minute",chip3:"Sans inscription",start:"On joue !",skip:"Je préfère essayer l’app directement",
       cats:["Andorre","Mots","Expressions","Culture","Grammaire","Faux amis"],qcount:"Question {n} sur {t}",goFor:"Pour la part {c}",colors:["jaune","corail","lavande","crème","brique","bleue"],got:"Part gagnée ! Tu en as {n} sur 6",miss:"Cette part t’échappe · tu en as {n} sur 6",
       right:"Molt bé ! +100",wrong:"Presque !",correctIs:"La réponse était : {a}.",didYouKnow:"Le savais-tu ?",inCa:"En catalan :",next:"Suivant",finish:"Voir mon résultat",
-      yourScore:"Ton résultat",streak:"Meilleure série : {n}",pts:"{n} points",missing:"Tu as {n} parts sur 6. Il te manque : {c}.",all:"Les 6 parts ! Maintenant, au vrai catalan.",toProfile:"Voir mon plan en 3 questions",share:"Partager et défier un ami",copied:"Lien copié. Colle-le où tu veux !",again:"Rejouer",
+      yourScore:"Ton résultat",streak:"Meilleure série : {n}",pts:"{n} points",missing:"Tu as {n} parts sur 6. Il te manque : {c}.",all:"Les 6 parts ! Maintenant, au vrai catalan.",toProfile:"Inscris-toi et continue d’apprendre !",share:"Partager et défier un ami",copied:"Lien copié. Colle-le où tu veux !",again:"Rejouer",
       shareText:"J’ai {n} parts sur 6 à la Roue ACat. Tu fais mieux ?",
       multi:"Tu peux en cocher plusieurs",one:"Choisis une option",pcount:"Ton plan · {n} sur 3",pnext:"Suivant",pfinish:"Voir mon plan",
       p:{sit:{q:"Quelle est ta situation ?",o:["Je viens de m’installer en Andorre","J’habite ici depuis longtemps, mais le catalan me résiste","J’ai besoin du catalan pour le travail","Je dois réussir un examen officiel"]},
@@ -445,13 +496,13 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       yourPlan:"Ton plan pour parler catalan",titles:["Pour que la langue ne te freine pas dans ta nouvelle vie en Andorre","Pour que le catalan arrête enfin de te résister","Pour que le catalan t’ouvre des portes au travail","Pour arriver à l’examen en toute confiance"],
       how:{listen:["Tu comprendras quand on te parle","écoutes et dictées pour habituer ton oreille"],speak:["Tu parleras sans gêne","le tuteur vocal t’écoute et te corrige en privé"],write:["Tu écriras sans crainte","écriture corrigée sur le moment"],exam:["Tu arriveras prêt(e) à l’examen","modèles d’examen et simulations officielles avec note"],time:["Ça rentre dans ta journée","leçons d’environ 10 minutes, avec rappel"]},
       recExam1:"Tu veux réussir l’examen <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recExamN:"Tu veux réussir les examens <b>{l}</b> : on te recommande la formule <b>{p}</b> ({n}).",recDaily:"Pour le quotidien, on te recommande la formule <b>{p}</b> ({n}) : deux niveaux pour te lancer.",recUnsure:"Pour commencer, on te recommande la formule <b>{p}</b> ({n}). Tu pourras l’élargir quand tu veux.",join:" et ",
-      offer1:"Parce que tu es",offer2:"parmi les premiers",offerSub:"Sur toutes les formules · jusqu’au {d}",preview:"APERÇU · offre pas encore active · achat désactivé",recTag:"RECOMMANDÉ POUR TOI",cta:"Inscris-toi et obtiens ton cours",want:"Je veux cette formule",
+      offer1:"Prix de",offer2:"lancement",offerSub:"Sur toutes les formules · jusqu’au {d}",endsIn:"Se termine dans",preview:"APERÇU · offre pas encore active · achat désactivé",recTag:"RECOMMANDÉ POUR TOI",cta:"Inscris-toi et obtiens ton cours",want:"Je veux cette formule",
       plan1:"1 niveau",planN:"{n} niveaux",planAll:"A1, A2, B1 et B2",months:"{n} mois",once:"Paiement unique, sans renouvellement. Le même compte sur le web et dans l’app.",free:"Essayer gratuitement la première unité (sans carte)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Bon début ! Avec AprènCat, tu progresses vite.","Tu es sur la bonne voie.","Presque au sommet !","Parfait ! Bravo."]},
     en:{spin:"Spin the wheel!",spinSub:"Spin to find out your category",landed:"It’s {c}!",popGot:"{c} wedge!",popPts:"+100 points",popStreak:"On a streak! x{n}",popHot:"Unstoppable! x{n}",popMiss:"So close!",popMissSub:"The next wedge is yours",congrats:["Good start!","Well done!","Congratulations!","Amazing! Perfect score!"],h1:"How much do you know about <span style='color:#F6C86B'>Andorra</span> and <span style='color:#F28B6B'>Catalan</span>?",chip1:"6 wedges",chip2:"1 minute",chip3:"No sign-up",start:"Let’s play!",skip:"I’d rather try the app right away",
       cats:["Andorra","Words","Expressions","Culture","Grammar","False friends"],qcount:"Question {n} of {t}",goFor:"Going for the {c} wedge",colors:["yellow","coral","lavender","cream","brick","blue"],got:"Wedge won! You have {n} of 6",miss:"This wedge got away · you have {n} of 6",
       right:"Molt bé! +100",wrong:"Almost!",correctIs:"The answer was: {a}.",didYouKnow:"Did you know?",inCa:"In Catalan:",next:"Next",finish:"See my result",
-      yourScore:"Your result",streak:"Best streak: {n}",pts:"{n} points",missing:"You have {n} of 6 wedges. Missing: {c}.",all:"All 6 wedges! Now for some real Catalan.",toProfile:"See my plan in 3 questions",share:"Share and challenge a friend",copied:"Link copied. Paste it anywhere!",again:"Play again",
+      yourScore:"Your result",streak:"Best streak: {n}",pts:"{n} points",missing:"You have {n} of 6 wedges. Missing: {c}.",all:"All 6 wedges! Now for some real Catalan.",toProfile:"Sign up now and keep learning!",share:"Share and challenge a friend",copied:"Link copied. Paste it anywhere!",again:"Play again",
       shareText:"I got {n} of 6 wedges on the ACat Wheel. Can you beat me?",
       multi:"You can pick several",one:"Pick one option",pcount:"Your plan · {n} of 3",pnext:"Next",pfinish:"See my plan",
       p:{sit:{q:"What’s your situation?",o:["I’ve just moved to Andorra","I’ve lived here for a while, but Catalan still escapes me","I need Catalan for work","I have to pass an official exam"]},
@@ -461,7 +512,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       yourPlan:"Your plan to speak Catalan",titles:["So the language doesn’t hold you back in your new life in Andorra","So Catalan finally stops escaping you","So Catalan opens doors at work","So you walk into the exam with confidence"],
       how:{listen:["You’ll understand people","listening and dictation to tune your ear"],speak:["You’ll speak without shyness","the voice tutor listens and corrects you in private"],write:["You’ll write without fear","writing with instant correction"],exam:["You’ll be ready for the exam","official model exams and mock tests with a score"],time:["It fits your day","lessons of about 10 minutes, with a reminder"]},
       recExam1:"You want to pass the <b>{l}</b> exam: we recommend the <b>{p}</b> plan ({n}).",recExamN:"You want to pass the <b>{l}</b> exams: we recommend the <b>{p}</b> plan ({n}).",recDaily:"For everyday life we recommend the <b>{p}</b> plan ({n}): two levels to get you going.",recUnsure:"To start, we recommend the <b>{p}</b> plan ({n}). You can extend it any time.",join:" and ",
-      offer1:"For being",offer2:"one of the first",offerSub:"On every plan · until {d}",preview:"PREVIEW · offer not active yet · purchase disabled",recTag:"RECOMMENDED FOR YOU",cta:"Sign up and get your course",want:"I want this plan",
+      offer1:"Launch",offer2:"price",offerSub:"On every plan · until {d}",endsIn:"Ends in",preview:"PREVIEW · offer not active yet · purchase disabled",recTag:"RECOMMENDED FOR YOU",cta:"Sign up and get your course",want:"I want this plan",
       plan1:"1 level",planN:"{n} levels",planAll:"A1, A2, B1 and B2",months:"{n} months",once:"One-off payment, no renewals. One account for the web and the app.",free:"Try the first unit for free (no card)",
       badges:["Camí d’inici","Ruta de les valls","Cim a tocar","Cim del Comapedrosa!"],badgeSub:["Good start! AprènCat will get you climbing fast.","You’re on the right track.","Almost at the top!","Perfect! Well done."]}
   };
@@ -597,6 +648,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     if (answered !== null) return;
     answered = j;
     const q = order[qi];
+    if (qi === 0) track("q1"); if (qi === 2) track("q3");
     if (q.opts[j].right) { won.add(q.cat); points += 100; streak++; bestStreak = Math.max(bestStreak, streak); }
     else streak = 0;
     $("streakN").textContent = streak; $("pts").textContent = points;
@@ -629,7 +681,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 
   $("next").onclick = () => {
     if (qi < order.length - 1) { qi++; answered = null; spun = false; renderQ(); window.scrollTo({top: 0}); return; }
-    renderScore(); show("score"); celebrate();
+    renderScore(); show("score"); celebrate(); track("roulette_done");
   };
 
   // ---------- Pop-ups ----------
@@ -690,6 +742,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     $("statPts").innerHTML = svg("star") + fill(tx.pts, {n: points});
   }
   $("share").onclick = async () => {
+    track("share");
     const url = "https://aprencat.com/test-de-nivell/?utm_source=share&utm_campaign=ruleta&lang=" + lang;
     const text = fill(t().shareText, {n: won.size});
     try {
@@ -699,7 +752,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     } catch (e) { /* L'usuari ha cancel·lat o no hi ha porta-retalls. */ }
   };
   $("again").onclick = e => { e.preventDefault(); reset(); renderQ(); show("q"); };
-  $("toProfile").onclick = () => { pstep = 0; renderProfile(); show("profile"); };
+  $("toProfile").onclick = () => { track("profile_start"); pstep = 0; renderProfile(); show("profile"); };
 
   // ---------- Perfil ----------
   function renderProfile() {
@@ -732,12 +785,13 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     $("pnext").disabled = st.type === "multi" ? !sel.length : false;
   }
   $("pnext").onclick = () => {
+    track("p" + (pstep + 1));
     if (pstep < PROFILE.length - 1) { pstep++; renderProfile(); return; }
     show("loading");
     const ul = $("lsteps"); ul.replaceChildren(...t().lsteps.map(s => { const li = document.createElement("li"); li.textContent = s; return li; }));
     const fast = matchMedia("(prefers-reduced-motion: reduce)").matches;
     [...ul.children].forEach((li, i) => setTimeout(() => li.classList.add("on"), fast ? 0 : 450 * (i + 1)));
-    setTimeout(() => { renderPlan(); show("plan"); }, fast ? 300 : 1900);
+    setTimeout(() => { renderPlan(); show("plan"); track("plan"); }, fast ? 300 : 1900);
   };
 
   // ---------- Pla ----------
@@ -769,6 +823,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
     $("preview").classList.toggle("hide", !preview);
     const last = new Date(Date.parse(OFFER.ends) - 1);
     $("offerSub").textContent = fill(tx.offerSub, {d: new Intl.DateTimeFormat(lang, {day: "numeric", month: "numeric", timeZone: "Europe/Andorra"}).format(last)});
+    tickOffer();
     const eur = n => new Intl.NumberFormat(lang, {style: "currency", currency: "EUR"}).format(n);
     $("plans").replaceChildren(...[rec, ...PLANS.filter(p => p !== rec)].map(p => {
       const el = document.createElement("article"); el.className = "plan" + (p === rec ? " on" : "");
@@ -784,6 +839,21 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       el.append(h, pr, d, a); return el;
     }));
     $("free").href = appUrl({level: LEVELS[exams[0] ?? 0]});
+  }
+
+  /* Compte enrere real fins al final de l'oferta (diumenge 15/11 a mitjanit, hora d'Andorra). */
+  let offerTimer = null;
+  function tickOffer() {
+    clearInterval(offerTimer);
+    const el = $("offerCount"); if (!el) return;
+    const paint = () => {
+      const left = Date.parse(OFFER.ends) - Date.now();
+      if (left <= 0 || !showOffer) { el.textContent = ""; if (left <= 0 && offerLive) $("offer").classList.add("hide"); clearInterval(offerTimer); return; }
+      const d = Math.floor(left / 864e5), h = Math.floor(left / 36e5) % 24, m = Math.floor(left / 6e4) % 60, sec = Math.floor(left / 1e3) % 60;
+      const pad = n => String(n).padStart(2, "0");
+      el.innerHTML = "⏳ " + t().endsIn + " <b>" + (d ? d + "d " : "") + pad(h) + "h " + pad(m) + "m " + pad(sec) + "s</b>";
+    };
+    paint(); offerTimer = setInterval(paint, 1000);
   }
 
   // ---------- Idioma ----------
@@ -808,9 +878,14 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   function sfx(k) { if (!soundOn || !SFX[k]) return; try { SFX[k].currentTime = 0; SFX[k].play().catch(() => {}); } catch (e) {} }
   $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
   paintSound();
-  $("start").onclick = () => { loadSfx(); reset(); renderQ(); show("q"); music(true); };
+  $("start").onclick = () => { track("start"); loadSfx(); reset(); renderQ(); show("q"); music(true); };
   $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
   applyTexts();
+  // Clics que porten a l'app: el pla (pagament), la prova gratis i «directe a l'app».
+  $("plans").addEventListener("click", e => { if (e.target.closest("a[href]")) track("plan_click"); });
+  $("free").addEventListener("click", () => track("free_click"));
+  $("skip").addEventListener("click", () => track("skip_click"));
+  track("visit");
 })();
 </script>
 </body>
