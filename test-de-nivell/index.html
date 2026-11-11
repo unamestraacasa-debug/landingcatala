@@ -87,6 +87,10 @@ h2{margin:0;font-size:clamp(21px,5.6vw,25px);line-height:1.25;font-weight:800;co
 .actions{margin-top:18px}
 /* Sense scroll entre preguntes: en respondre s'amaguen les opcions descartades i tot es compacta. */
 #s-q.answered .opt.dim{display:none}
+/* Entrada directa a la ruleta (sense portada): títol curt i ruleta que es pot tocar. */
+.qhook{font-size:clamp(20px,5.6vw,24px);line-height:1.2;text-align:center;margin:0 0 8px;color:var(--navy)}
+.rwrap{cursor:pointer}
+.qskip{margin-top:10px;font-size:13px}
 #s-q.answered .qhead{margin-top:10px}
 #s-q.answered .qbox{margin-top:24px;padding:16px 18px}
 #s-q.answered .opts{margin-top:12px;gap:10px}
@@ -282,6 +286,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
 
   <!-- Pregunta del trivial -->
   <section id="s-q" class="hide">
+    <h1 class="qhook" id="qhook"></h1>
     <div class="top">
       <span class="sub" id="qcount"></span>
       <div class="pills">
@@ -300,6 +305,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       <div class="pointer" aria-hidden="true"></div>
       <div class="rwrap" id="rwrap"><span id="roulette"></span></div>
       <button class="btn corall" id="spinBtn" type="button" data-t="spin"></button>
+      <a class="link qskip" id="skipQ" data-t="skip"></a>
     </div>
     <div id="qarea" class="hide">
       <div class="qbox"><p class="q" id="qtext"></p></div>
@@ -557,7 +563,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   }
 
   // ---------- Estat ----------
-  let order, qi, answered, won, points, streak, bestStreak, A, pstep, screen = "intro", spun = false, spinning = false, rot = 0;
+  let started = false, order, qi, answered, won, points, streak, bestStreak, A, pstep, screen = "intro", spun = false, spinning = false, rot = 0;
   function reset() {
     order = TRIVIA.map(q => ({...q, opts: q.o.map((o, j) => ({o, right: j === 0})).sort(() => Math.random() - .5)})).sort(() => Math.random() - .5); // la ruleta decideix l'ordre
     qi = 0; answered = null; spun = false; won = new Set(); points = 0; streak = 0; bestStreak = 0; A = {}; pstep = 0;
@@ -601,13 +607,17 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
       $("qcat").textContent = "?"; $("qcat").style.background = "#FFF6E7";
       $("qsub").textContent = tx.spinSub;
       // La ruleta s'adapta a l'alçada de la pantalla perquè el botó es vegi sense fer scroll.
-      const ws = Math.round(Math.max(170, Math.min(270, innerHeight - 400)));
+      const first = qi === 0;
+      $("qhook").textContent = first ? tx.h1.replace(/<[^>]+>/g, "") : ""; $("qhook").classList.toggle("hide", !first);
+      $("skipQ").classList.toggle("hide", !first);
+      const ws = Math.round(Math.max(160, Math.min(270, innerHeight - (first ? 470 : 400))));
       $("rwrap").style.width = $("rwrap").style.height = (ws + 20) + "px";
       $("roulette").innerHTML = wheel(ws, won, "#0B2D6B", tx.spin, true);
       $("spinStage").classList.remove("hide"); $("qarea").classList.add("hide"); $("after").classList.add("hide"); $("s-q").classList.remove("answered");
       $("spinBtn").disabled = spinning;
       return;
     }
+    $("qhook").classList.add("hide");
     $("spinStage").classList.add("hide"); $("qarea").classList.remove("hide");
     $("qcat").textContent = tx.cats[q.cat].toUpperCase(); $("qcat").style.background = CAT_COLORS[q.cat];
     $("qtext").textContent = tr(q.q);
@@ -625,6 +635,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   /* Gira la ruleta i para al formatget de la pregunta que toca (el sector i té el centre a 30 + 60·i graus des de dalt). */
   $("spinBtn").onclick = () => {
     if (spinning || spun) return;
+    if (!started) { started = true; track("start"); loadSfx(); music(true); }
     spinning = true; $("spinBtn").disabled = true; sfx("ruleta");
     const cat = order[qi].cat, target = (360 - (30 + 60 * cat)) % 360;
     rot = rot - (rot % 360) + 360 * 5 + target;
@@ -860,7 +871,7 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   function applyTexts() {
     document.documentElement.lang = lang; $("lang").value = lang;
     document.querySelectorAll("[data-t]").forEach(e => { e.textContent = t()[e.dataset.t]; });
-    $("skip").href = appUrl();
+    $("skip").href = appUrl(); $("skipQ").href = appUrl();
     renderIntro();
     if (screen === "q") renderQ();
     if (screen === "score") renderScore();
@@ -879,12 +890,16 @@ body:has(#s-q:not(.hide)){padding-bottom:12px}
   $("sound").onclick = () => { soundOn = !soundOn; try { localStorage.setItem("acat_sound", soundOn ? "on" : "off"); } catch (e) {} paintSound(); music(soundOn && ["q", "score"].includes(screen)); };
   paintSound();
   $("start").onclick = () => { track("start"); loadSfx(); reset(); renderQ(); show("q"); music(true); };
+  $("rwrap").onclick = () => $("spinBtn").click();
   $("lang").addEventListener("change", e => { lang = e.target.value; try { localStorage.setItem("acat_lang", lang); } catch (x) {} applyTexts(); });
   applyTexts();
   // Clics que porten a l'app: el pla (pagament), la prova gratis i «directe a l'app».
   $("plans").addEventListener("click", e => { if (e.target.closest("a[href]")) track("plan_click"); });
   $("free").addEventListener("click", () => track("free_click"));
   $("skip").addEventListener("click", () => track("skip_click"));
+  $("skipQ").addEventListener("click", () => track("skip_click"));
+  // Entrada directa: la gent arriba de l'anunci a girar la ruleta, sense portada ni botó «A jugar».
+  reset(); renderQ(); show("q");
   track("visit");
 })();
 </script>
